@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="UTF-8">
+        <title>lopo</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            #bg {
+                position: absolute;
+                z-index: -1;
+                width: 100vw;
+                height: 100vh;
+                object-fit: fill;
+            }
+            #coverBackground {
+                position: absolute;
+                z-index: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- <video id="liveBackground" data-note="动态背景 - 自动播放/循环播放/静音" autoplay="true" loop="true" muted="true" src="https://cdn.jsdelivr.net/gh/lopo12123/PHOTOS/LiveWallpapers/Live_Wallpaper_1.mp4"></video> -->
+        <img id="bg" src="./background.jpg">
+        <div id="coverBackground" data-note="遮罩层"></div>
+
+    </body>
+</html>
