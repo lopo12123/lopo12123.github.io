@@ -8,11 +8,17 @@ export default defineConfig({
 
     lang: 'zh-CN',
     title: 'lopo',
-    titleTemplate: 'lopo | :title',
+    titleTemplate: ':title',
     description: 'my personal website',
     lastUpdated: true,
+    head: [
+        // set favicon
+        ['link', {rel: 'icon', type: 'image/svg+xml', href: '/lopo.svg'}],
+    ],
     themeConfig: {
-        logo: '/lopo.svg',
+        // this is the logo in the navbar (not favicon)
+        logo: '/lopo_run.svg',
+        siteTitle: false,
 
         // https://vitepress.dev/reference/default-theme-config
         nav: [
