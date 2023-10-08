@@ -2,13 +2,15 @@ import {defineConfig} from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    // base: './',
     srcDir: 'src',
     outDir: 'docs',
-    assetsDir: 'assets',
+
     lang: 'zh-CN',
     title: 'lopo',
     titleTemplate: 'lopo | :title',
     description: 'my personal website',
+    lastUpdated: true,
     themeConfig: {
         logo: '/lopo.svg',
 
