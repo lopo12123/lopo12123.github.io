@@ -27,18 +27,16 @@ export default defineConfig({
         i18nRouting: true,
 
         // config nav in locale config for i18n support
+        // for details, see https://vitepress.dev/reference/default-theme-nav
         // nav: [],
 
-        sidebar: [
-            {
-                text: 'Examples',
-                items: [
-                    {text: 'Markdown Examples', link: '/markdown-examples'},
-                    {text: 'Runtime API Examples', link: '/api-examples'}
-                ]
-            }
-        ],
+        // config sidebar in locale config for i18n support
+        // for details, see
+        // - https://vitepress.dev/reference/default-theme-sidebar
+        // - https://vitepress.dev/reference/default-theme-sidebar#multiple-sidebars
+        // sidebar: [],
 
+        // this is common config for all locales
         socialLinks: [
             {icon: 'github', link: 'https://github.com/lopo12123'}
         ]
