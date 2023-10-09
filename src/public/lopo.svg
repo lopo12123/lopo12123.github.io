@@ -1,22 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      width="565" height="270" viewBox="0 0 565 270"
-     stroke-linecap="round" stroke-width="20" fill="none"
+     stroke-linecap="round" stroke-width="30" fill="none"
      style="isolation: isolate">
-
-    <!--
-        - gap = 25
-        - thickness = 20
-        - radius = 60
-
-        color scheme:
-        - blue =  #49A9DB
-        - green = #5EB96E
-        - orange1 = #FEC330
-        - orange2 = #F38F31
-        - purple = #9D529C
-        - red = #FC5356
-        - yellow = #C5D73F
-    -->
 
     <!--  x = 35, l = 200  -->
     <g transform="translate(35, 135)" fill="#fff">
