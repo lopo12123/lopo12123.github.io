@@ -1,4 +1,6 @@
 import {defineConfig} from 'vitepress'
+import {LocaleConfigZh} from "./locale.zh.mjs";
+import {LocaleConfigEn} from "./locale.en.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -15,16 +17,17 @@ export default defineConfig({
         // set favicon
         ['link', {rel: 'icon', type: 'image/svg+xml', href: '/lopo.svg'}],
     ],
+    locales: {
+        en: LocaleConfigEn,
+        zh: LocaleConfigZh
+    },
     themeConfig: {
-        // this is the logo in the navbar (not favicon)
         logo: '/lopo_run.svg',
         siteTitle: false,
+        i18nRouting: true,
 
-        // https://vitepress.dev/reference/default-theme-config
-        nav: [
-            {text: 'Home', link: '/'},
-            {text: 'Examples', link: '/markdown-examples'}
-        ],
+        // config nav in locale config for i18n support
+        // nav: [],
 
         sidebar: [
             {
