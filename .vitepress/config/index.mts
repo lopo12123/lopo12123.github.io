@@ -25,6 +25,9 @@ export default defineConfig({
         logo: '/lopo_run.svg',
         siteTitle: false,
         i18nRouting: true,
+        search: {
+            provider: 'local',
+        },
         footer: {
             message: 'open source means "you can you fork"',
             copyright: 'Copyright © 2023-present lopo'
