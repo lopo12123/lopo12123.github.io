@@ -3,16 +3,17 @@
 layout: home
 
 hero:
-  name: "english"
-  text: "A VitePress Site"
+  name: "lopo"
+  # text: "A VitePress Site"
   tagline: If you're a plumber, you're better off learning how to use an ax by chopping down trees with it than unclogging gutters.
+  image: /lopo_animate.svg
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: Get Started
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: View on GitHub
+      link: https://github.com/lopo12123/
 
 features:
   - title: Feature A
