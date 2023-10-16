@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /markdown-examples
+      link: /zh/post/
     - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/lopo12123/

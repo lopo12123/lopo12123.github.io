@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /markdown-examples
+      link: /en/post/
     - theme: alt
       text: View on GitHub
       link: https://github.com/lopo12123/
