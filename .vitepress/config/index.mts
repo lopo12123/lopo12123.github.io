@@ -22,7 +22,7 @@ export default defineConfig({
         zh: LocaleConfigZh
     },
     themeConfig: {
-        logo: '/lopo_run.svg',
+        logo: '/lopo_animate.svg',
         siteTitle: false,
         i18nRouting: true,
         search: {
