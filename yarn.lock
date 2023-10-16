@@ -462,7 +462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/markdown-it@npm:^13.0.1":
+"@types/markdown-it@npm:^13.0.2":
   version: 13.0.2
   resolution: "@types/markdown-it@npm:13.0.2"
   dependencies:
@@ -536,10 +536,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.5.0":
-  version: 6.5.0
-  resolution: "@vue/devtools-api@npm:6.5.0"
-  checksum: ec819ef3a426e91d09e9cfefd2827e9ed8ec9d62bb3b3e0674f3da8c7e92a4b879c3b777dc7329172ca6fe2670b62dd5580d23160339208f0f5ae038f2e504ad
+"@vue/devtools-api@npm:^6.5.1":
+  version: 6.5.1
+  resolution: "@vue/devtools-api@npm:6.5.1"
+  checksum: 3de9ff5ec78890c84d22c59910e26bf53140413895ba85b0e2a276609c24d9dde007cf468d9f21ef18389eaef75605fe94e79a761beb30d3bbb7af1ef19bbd4e
   languageName: node
   linkType: hard
 
@@ -605,7 +605,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:10.5.0, @vueuse/core@npm:^10.4.1":
+"@vueuse/core@npm:10.5.0, @vueuse/core@npm:^10.5.0":
   version: 10.5.0
   resolution: "@vueuse/core@npm:10.5.0"
   dependencies:
@@ -617,7 +617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/integrations@npm:^10.4.1":
+"@vueuse/integrations@npm:^10.5.0":
   version: 10.5.0
   resolution: "@vueuse/integrations@npm:10.5.0"
   dependencies:
@@ -1064,12 +1064,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"focus-trap@npm:^7.5.2":
-  version: 7.5.3
-  resolution: "focus-trap@npm:7.5.3"
+"focus-trap@npm:^7.5.4":
+  version: 7.5.4
+  resolution: "focus-trap@npm:7.5.4"
   dependencies:
     tabbable: ^6.2.0
-  checksum: aa81c209fe2c7e0460e97bdceaa716504acdfcd0353e5a5a0a1a826760d82c4ef7035b0613e636e73dbe4c3c20711d9d928566bff23c4b0108f4638af71aea76
+  checksum: 9589ae0c8ad2f0bb0610c23e949571ef956424f1e7f7e1981c0d95ce518ea97b8bdd3d43b68c6113cbbcf35c9d36d521ffc2841610f7d5cc1746e2aa84faf578
   languageName: node
   linkType: hard
 
@@ -1315,7 +1315,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "lopo12123.github.io@workspace:."
   dependencies:
-    vitepress: ^1.0.0-rc.20
+    vitepress: 1.0.0-rc.22
   languageName: unknown
   linkType: soft
 
@@ -1741,15 +1741,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shiki@npm:^0.14.4":
-  version: 0.14.4
-  resolution: "shiki@npm:0.14.4"
+"shiki@npm:^0.14.5":
+  version: 0.14.5
+  resolution: "shiki@npm:0.14.5"
   dependencies:
     ansi-sequence-parser: ^1.1.0
     jsonc-parser: ^3.2.0
     vscode-oniguruma: ^1.7.0
     vscode-textmate: ^8.0.0
-  checksum: 1173f6fa9531690a8cd4bf1d8e28c9eb9295af38a4c150cba6546e95f6e32bc96c7dd98826e39e688f1ca9d36b683a9a02ef77d51ce6495900b3a46ada64f828
+  checksum: 41d847817cfc9bb6d8bf190316896698d250303656546446659cc02caed8dcc171b10cd113bb5da82425b51d0032e87aafcdc36c3dd61dadc123170b438da736
   languageName: node
   linkType: hard
 
@@ -1913,7 +1913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^4.4.9":
+"vite@npm:^4.4.11":
   version: 4.4.11
   resolution: "vite@npm:4.4.11"
   dependencies:
@@ -1953,25 +1953,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitepress@npm:^1.0.0-rc.20":
-  version: 1.0.0-rc.20
-  resolution: "vitepress@npm:1.0.0-rc.20"
+"vitepress@npm:1.0.0-rc.22":
+  version: 1.0.0-rc.22
+  resolution: "vitepress@npm:1.0.0-rc.22"
   dependencies:
     "@docsearch/css": ^3.5.2
     "@docsearch/js": ^3.5.2
-    "@types/markdown-it": ^13.0.1
-    "@vue/devtools-api": ^6.5.0
-    "@vueuse/core": ^10.4.1
-    "@vueuse/integrations": ^10.4.1
-    focus-trap: ^7.5.2
+    "@types/markdown-it": ^13.0.2
+    "@vue/devtools-api": ^6.5.1
+    "@vueuse/core": ^10.5.0
+    "@vueuse/integrations": ^10.5.0
+    focus-trap: ^7.5.4
     mark.js: 8.11.1
     minisearch: ^6.1.0
-    shiki: ^0.14.4
-    vite: ^4.4.9
+    shiki: ^0.14.5
+    vite: ^4.4.11
     vue: ^3.3.4
   peerDependencies:
     markdown-it-mathjax3: ^4.3.2
-    postcss: ^8.4.30
+    postcss: ^8.4.31
   peerDependenciesMeta:
     markdown-it-mathjax3:
       optional: true
@@ -1979,7 +1979,7 @@ __metadata:
       optional: true
   bin:
     vitepress: bin/vitepress.js
-  checksum: 8ae9326554ea0bd1a4037d275f05a3a37a2b5b34f5b40ac40058fdceba10848ff11cad5adb6b91db72e33e28389dfa6931213668f484db4202ad814b2b2d239c
+  checksum: 7ee1e9cc96f54114e13e371a617ea849e658add7ab765f35303c16ea1d918574a143dc4c03b15705d119452c733955a2a36913a522ebdc2ad5391e0f7510dab4
   languageName: node
   linkType: hard
 
