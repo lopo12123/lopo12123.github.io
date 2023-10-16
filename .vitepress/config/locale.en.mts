@@ -45,8 +45,8 @@ const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
         },
         nav: [
             {text: 'Home', link: '/en/'},
-            {text: 'Post', link: '/en/post'},
-            {text: 'Project', link: '/en/project'},
+            {text: 'Post', link: '/en/post/'},
+            {text: 'Project', link: '/en/project/'},
         ],
     }
 }

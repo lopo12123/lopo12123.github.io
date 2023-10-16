@@ -45,8 +45,8 @@ const LocaleConfigZh: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
         },
         nav: [
             {text: '主页', link: '/zh/'},
-            {text: '文章', link: '/zh/post'},
-            {text: '项目', link: '/zh/project'},
+            {text: '文章', link: '/zh/post/'},
+            {text: '项目', link: '/zh/project/'},
         ],
     }
 }
