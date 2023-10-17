@@ -4,12 +4,13 @@ import TreeBranch from "./components/TreeBranch.vue";
 
 const {frontmatter} = useData()
 
-const tree = {
-  js: ['index.md', 'index.md', 'index.md', 'index.md'],
-  misc: ['index.md'],
-  rs: ['index.md']
-}
+// const tree = {
+//   js: ['index.md', 'index.md', 'index.md', 'index.md'],
+//   misc: ['index.md'],
+//   rs: ['index.md']
+// }
 
+console.log(frontmatter.value.tree)
 </script>
 
 <template>
