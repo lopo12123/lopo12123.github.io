@@ -1,15 +1,13 @@
 ---
-layout: page
+layout: outline
+category: post
+tree:
+  js:
+    - index.md
+    - index.md
+    - index.md
+  rs:
+    - index.md
+  misc:
+    - index.md
 ---
-
-TODO: post list
-
-# post
-
-## post1
-
-## post2
-
-### post2.1
-
-### post2.2
