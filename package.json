@@ -4,11 +4,14 @@
     "author": "lopo<lopo@zju.edu.cn>",
     "type": "module",
     "scripts": {
+        "scan:post": "node ./bin/scan_post.cjs",
         "docs:dev": "vitepress dev . --host",
         "docs:build": "vitepress build .",
         "docs:preview": "vitepress preview ."
     },
     "devDependencies": {
-        "vitepress": "1.0.0-rc.22"
+        "@types/node": "18",
+        "vitepress": "1.0.0-rc.22",
+        "vue": "^3.3.4"
     }
 }
