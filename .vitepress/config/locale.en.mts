@@ -47,6 +47,7 @@ const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
             {text: 'Home', link: '/en/'},
             {text: 'Post', link: '/en/post/'},
             {text: 'Project', link: '/en/project/'},
+            {text: 'Demo', link: '/en/demo/'},
         ],
     }
 }
