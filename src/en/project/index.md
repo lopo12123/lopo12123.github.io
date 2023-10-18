@@ -2,14 +2,9 @@
 layout: page
 ---
 
-TODO: project list
+<script setup>
+import Outline from '@layout/Outline.vue';
+import { data } from './config.data.ts';
+</script>
 
-# project
-
-## project1
-
-## project2
-
-### project2.1
-
-### project2.2
+<Outline :base="data.base" :tree="data.tree"/>

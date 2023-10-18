@@ -1,13 +1,10 @@
 ---
-layout: outline
-category: post
-tree:
-  js:
-    - index.md
-    - index.md
-    - index.md
-  rs:
-    - index.md
-  misc:
-    - index.md
+layout: page
 ---
+
+<script setup>
+import Outline from '@layout/Outline.vue';
+import { data } from './config.data.ts';
+</script>
+
+<Outline :base="data.base" :tree="data.tree"/>
