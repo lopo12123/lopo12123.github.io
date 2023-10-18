@@ -1,6 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 // @ts-ignore
-import Outline from './Outline.vue'
+import Outline from './layouts/Outline.vue'
 
 export default {
     extends: DefaultTheme,
