@@ -1,15 +1,18 @@
 <script lang="ts" setup>
 import TreeBranch from "../components/TreeBranch.vue";
 
-const { tree } = defineProps<{
-    tree: Record<string, string[]>
+defineProps<{
+    base: string
+    tree: Record<string, string[]>,
 }>()
 </script>
 
 <template>
     <div class="tree-outline">
         <h2 style="text-align: center; font-size: 20px;">Outline</h2>
-        <TreeBranch v-for="(v, k) in tree" :label="k" :items="v"/>
+        <TreeBranch
+            v-for="(filename, category) in tree"
+            :base="base" :label="category" :items="filename"/>
     </div>
 </template>
 
