@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: doc
 ---
 
 TODO: 列表展示
