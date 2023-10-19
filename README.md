@@ -1,11 +1,8 @@
-## Architecture
+## Generate
 
-- `post` -- blog posts
-    - `js`
-    - `rs`
-    - `misc`
-- `project` -- projects
-  - TODO
+```
+yarn gen <category>/<filename> [<title-en>/<title-zh>]
+```
 
 ## TODO
 

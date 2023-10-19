@@ -4,7 +4,7 @@
     "author": "lopo<lopo@zju.edu.cn>",
     "type": "module",
     "scripts": {
-        "scan:post": "node ./bin/scan_post.cjs",
+        "gen": "node ./bin/gen.cjs",
         "docs:dev": "vitepress dev . --host",
         "docs:build": "vitepress build .",
         "docs:preview": "vitepress preview ."
