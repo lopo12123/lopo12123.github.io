@@ -75,7 +75,7 @@ const args = process.argv.slice(2)
 
 const valid = /^\w+\/\w+$/.test(args[0])
 if (!valid) {
-    console.warn('Please specify category/filename in correct format (\\w+/\\w+).\nUsage: gen <category>/<filename>')
+    console.warn('Please specify category/filename in correct format (\\w+/\\w+).\nUsage: gen <category>/<filename> [<title-en>/<title-zh>]')
     process.exit(1)
 }
 
