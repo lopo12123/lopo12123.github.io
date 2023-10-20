@@ -1,12 +1,14 @@
 import './index.css'
 
-import DefaultTheme from 'vitepress/theme'
-// @ts-ignore
-import Outline from './layouts/Outline.vue'
+import type {Theme} from "vitepress";
 
-export default {
-    extends: DefaultTheme,
-    enhanceApp({ app }) {
-        app.component('outline', Outline)
-    }
+import DefaultTheme from 'vitepress/theme'
+import CustomLayout from "./layouts/CustomLayout.vue";
+
+const theme: Theme = {
+    // extends: DefaultTheme,
+    ...DefaultTheme,
+    Layout: CustomLayout,
 }
+
+export default theme
