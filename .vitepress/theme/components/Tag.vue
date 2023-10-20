@@ -12,7 +12,6 @@ const {type} = defineProps<{
 <style scoped>
 .base {
   height: 24px;
-  margin-right: 4px;
   padding: 0 10px;
   border: 1px solid transparent;
   border-radius: 12px;
