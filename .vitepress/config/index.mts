@@ -31,7 +31,7 @@ export default defineConfig({
         },
         footer: {
             message: 'open source means "you can you fork"',
-            copyright: 'Copyright © 2023-present lopo'
+            copyright: 'copyright © 2023-present lopo'
         },
 
         // config nav in locale config for i18n support
