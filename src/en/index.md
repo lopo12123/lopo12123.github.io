@@ -5,7 +5,7 @@ layout: home
 title: home
 
 hero:
-  name: "lopo"
+  # name: "lopo"
   # text: "A VitePress Site"
   tagline: If you're a plumber, you're better off learning how to use an ax by chopping down trees with it than unclogging gutters.
   image: /lopo_animate.svg
