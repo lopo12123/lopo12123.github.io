@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "resolveJsonModule": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "global.d.ts",
+        "theme/**/*.ts",
+        "theme/**/*.vue"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
