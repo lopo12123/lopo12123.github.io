@@ -1,9 +1,13 @@
 ---
 layout: doc
+
+# custom frontmatter properties
+platform:
+  - <platform>
+language:
+  - <programming language>
 tags:
-  - tag1
-  - tag2
-  - tag3
+  - <tag>
 ---
 
 # Title
