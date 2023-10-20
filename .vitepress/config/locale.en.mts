@@ -1,4 +1,4 @@
-import {DefaultTheme, LocaleSpecificConfig} from "vitepress";
+import { DefaultTheme, LocaleSpecificConfig } from "vitepress";
 
 const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: string; link?: string } = {
     label: 'English',
@@ -8,8 +8,8 @@ const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
         darkModeSwitchLabel: 'Appearance',
         sidebarMenuLabel: 'Menu',
         returnToTopLabel: 'Return to top',
-        lastUpdated: {text: 'Last updated',},
-        docFooter: {prev: 'Previous Page', next: 'Next Page'},
+        lastUpdated: { text: 'Last updated', },
+        docFooter: { prev: 'Previous Page', next: 'Next Page' },
         search: {
             provider: 'local',
             options: {
@@ -44,10 +44,10 @@ const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
             linkLabel: 'go to home',
         },
         nav: [
-            {text: 'Home', link: '/en/'},
-            {text: 'Post', link: '/en/post/'},
-            {text: 'Project', link: '/en/project/'},
-            {text: 'Demo', link: '/en/demo/'},
+            { text: 'Home', link: '/en/' },
+            { text: 'My Posts', link: '/en/post/' },
+            { text: 'My Projects', link: '/en/project/' },
+            { text: 'Archive', link: '/en/archive/' },
         ],
     }
 }
