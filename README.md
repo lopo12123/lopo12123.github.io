@@ -17,9 +17,12 @@ the directory structure of the project is as follows:
 
 ## Generate
 
-```
-yarn gen [post/project] <filename>
-```
+run `yarn gen [post/project] <filename>` in your terminal,
+then a file will be generated in `src/<lang>/<post/project>/<filename>.md`
+
+## Template
+
+you can find a template [here](./template.md)
 
 ## TODO
 
