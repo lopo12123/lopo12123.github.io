@@ -1,11 +1,11 @@
-:root {
+* {
     &::-webkit-scrollbar {
         width: 6px !important;
         height: 6px !important;
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--vp-c-text-2) !important;
+        background-color: var(--vp-c-text-3) !important;
         border-radius: 10px !important;
     }
 
