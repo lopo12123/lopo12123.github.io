@@ -16,11 +16,17 @@ hero:
       link: https://github.com/lopo12123/
 
 features:
-  - title: Feature A
+  - title: 我的博客
+    icon: 📝
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
+    link: /zh/post/
+  - title: 我的项目
+    icon: 📦
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
+    link: /zh/project/
+  - title: 归档
+    icon: 📚
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    link: /zh/archive/
 ---
 

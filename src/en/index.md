@@ -16,11 +16,17 @@ hero:
       link: https://github.com/lopo12123/
 
 features:
-  - title: Feature A
+  - title: My Posts
+    icon: 📝
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
+    link: /en/post/
+  - title: My Projects
+    icon: 📦
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
+    link: /en/project/
+  - title: Archive
+    icon: 📚
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    link: /en/archive/
 ---
 
