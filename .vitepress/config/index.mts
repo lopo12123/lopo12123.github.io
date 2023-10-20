@@ -11,7 +11,7 @@ export default defineConfig({
 
     lang: 'zh-CN',
     title: 'lopo',
-    titleTemplate: ':title',
+    // titleTemplate: ':title',
     description: 'my personal website',
     lastUpdated: true,
     head: [

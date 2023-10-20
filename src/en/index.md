@@ -2,6 +2,8 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: home
+
 hero:
   name: "lopo"
   # text: "A VitePress Site"
