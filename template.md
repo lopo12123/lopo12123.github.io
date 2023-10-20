@@ -3,11 +3,14 @@ layout: doc
 
 # custom frontmatter properties
 platform:
-  - <platform>
+  - <platform 1>
+  - <platform 2>
 language:
-  - <programming language>
-tags:
-  - <tag>
+  - <programming language 1>
+  - <programming language 2>
+tag:
+  - <tag 1>
+  - <tag 2>
 ---
 
 # Title
