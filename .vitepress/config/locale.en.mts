@@ -36,13 +36,6 @@ const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
                 }
             }
         },
-        notFound: {
-            code: '404',
-            title: 'Page not found',
-            quote: "But if you don't change your direction, and if you keep looking, you may end up where you are heading.",
-            linkText: 'Take me home',
-            linkLabel: 'go to home',
-        },
         nav: [
             { text: 'Home', link: '/en/' },
             { text: 'My Posts', link: '/en/post/' },

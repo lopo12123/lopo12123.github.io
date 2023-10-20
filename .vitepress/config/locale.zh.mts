@@ -36,13 +36,6 @@ const LocaleConfigZh: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
             }
         },
         docFooter: {prev: '上一篇', next: '下一篇'},
-        notFound: {
-            code: '404',
-            title: '页面未找到',
-            quote: '但如果你不改变方向，继续寻找，也许最终会到达你要去的地方。',
-            linkText: '返回首页',
-            linkLabel: '返回首页',
-        },
         nav: [
             {text: '首页', link: '/zh/'},
             {text: '我的博客', link: '/zh/post/'},
