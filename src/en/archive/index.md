@@ -5,7 +5,7 @@ layout: page
 # Archive
 
 <script setup>
-import { data } from './architect.data.ts';
+import { data } from './scan.data.ts';
 
 console.log(data)
 </script>
