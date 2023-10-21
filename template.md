@@ -3,7 +3,7 @@ layout: doc
 
 # custom frontmatter properties
 # a brief description of the post, will show up in the post list
-description: <description>
+brief: <description>
 # a list of platforms the post is about, will show up in the 'tag-bar'
 platform:
   - <platform 1>
