@@ -2,12 +2,17 @@
 layout: doc
 
 # custom frontmatter properties
+# a brief description of the post, will show up in the post list
+description: <description>
+# a list of platforms the post is about, will show up in the 'tag-bar'
 platform:
   - <platform 1>
   - <platform 2>
+# a list of programming languages the post is about, will show up in the 'tag-bar'
 language:
   - <programming language 1>
   - <programming language 2>
+# a list of tags the post is about, will show up in the 'tag-bar'
 tag:
   - <tag 1>
   - <tag 2>
