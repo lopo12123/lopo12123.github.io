@@ -5,3 +5,11 @@ declare module '*.vue' {
     const component: DefineComponent<{}, {}, any>
     export default component
 }
+
+declare interface Window {
+    scan_data?: {
+        link: string
+        name?: string
+        brief?: string
+    }[]
+}
