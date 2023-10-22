@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const {type} = defineProps<{
+const {type, text} = defineProps<{
   text: string
   type: 'PLATFORM' | 'LANGUAGE' | 'TAG'
 }>()
+const tagText = type === 'TAG' ? text : `${type}: ${text}`
 </script>
 
 <template>
-  <span :class="['base', type]">{{ type }}: {{ text }}</span>
+  <span :class="['base', type]">{{ tagText }}</span>
 </template>
 
 <style scoped>
