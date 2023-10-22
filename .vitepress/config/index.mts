@@ -12,7 +12,7 @@ export default defineConfig({
     lang: 'zh-CN',
     title: 'lopo',
     // titleTemplate: ':title',
-    description: 'my personal website',
+    description: 'lopo | find an anchor to stop drifting...',
     lastUpdated: true,
     head: [
         // set favicon
