@@ -1,13 +1,16 @@
 ---
-layout: page
+layout: doc
 ---
 
 # Archive
 
-<script setup>
-import { data } from './scan.data.ts';
+> remain to be done
 
-console.log(data)
-</script>
+[//]: # (<script setup>)
 
-<pre>{{JSON.stringify(data, null, 4)}}</pre>
+[//]: # (import { data } from './scan.data.ts';)
+
+[//]: # ()
+[//]: # (console.log&#40;data&#41;)
+
+[//]: # (</script>)
