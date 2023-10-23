@@ -42,16 +42,283 @@ where the operation is performed.
       object.
     - If the target location specifies an object member that does exist, that member's value is replaced.
 
+::: details Example 1. Add an Object Member
+Original document:
+
+```json
+{
+    "foo": "bar"
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "add",
+        "path": "/plain",
+        "value": "plain value"
+    },
+    {
+        "op": "add",
+        "path": "/complex",
+        "value": {
+            "complex key": "complex value"
+        }
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": "bar",
+    "plain": "plain value",  // [!code ++]
+    "complex": {  // [!code ++]
+        "complex key": "complex value"  // [!code ++]
+    }  // [!code ++]
+}
+```
+
+:::
+
+::: details Example 2. Add an Array Element
+Original document:
+
+```json
+{
+    "foo": [
+        "el1",
+        "el2"
+    ]
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "add",
+        "path": "/foo/1",
+        "value": "el-ext"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": [
+        "el1",
+        "el-ext",  // [!code ++]
+        "el2"
+    ]
+}
+```
+
+:::
+
+::: details Example 3. Add an Array Value
+Original document:
+
+```json
+{
+    "foo": [
+        "el1"
+    ]
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "add",
+        "path": "/foo/-",
+        "value": [
+            "el-ext1",
+            "el-ext2"
+        ]
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": [
+        "el1",
+        [  // [!code ++]
+            "el-ext1",  // [!code ++]
+            "el-ext2"  // [!code ++]
+        ]  // [!code ++]
+    ]
+}
+```
+
+:::
+
 - ### remove <Badge type="info" text="operation" title="operation"/>
 
   The `remove` operation removes the value at the target location. The target location **MUST** exist for the operation
   to be successful.
+
+::: details Example 1. Remove an Object Member
+Original document:
+
+```json
+{
+    "foo": "bar",
+    "baz": "qux"
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "remove",
+        "path": "/baz"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": "bar",
+    "baz": "qux"  // [!code --]
+}
+```
+
+:::
+
+::: details Example 2. Remove an Array Element
+Original document:
+
+```json
+{
+    "foo": [
+        "el1",
+        "el2",
+        "el3"
+    ]
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "remove",
+        "path": "/foo/1"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": [
+        "el1",
+        "el2",  // [!code --]
+        "el3"
+    ]
+}
+```
+
+:::
 
 - ### replace <Badge type="info" text="operation" title="operation"/>
 
   > The operation object **MUST** contain a `value` member whose content specifies the replacement value.
 
   The `replace` operation replaces the value at the target location with a new value.
+
+::: details Example 1. Replace an Object Member
+Original document:
+
+```json
+{
+    "foo": "bar",
+    "baz": "qux"
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "replace",
+        "path": "/foo",
+        "value": "boo"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": "bar",  // [!code --]
+    "foo": "boo",  // [!code ++]
+    "baz": "qux"
+}
+```
+
+:::
+
+::: details Example 2. Replace an Array Element
+
+Original document:
+
+```json
+{
+    "foo": [
+        "el1",
+        "el2",
+        "el3"
+    ]
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "replace",
+        "path": "/foo/1",
+        "value": "el-ext"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": [
+        "el1",
+        "el2",  // [!code --]
+        "el-ext",  // [!code ++]
+        "el3"
+    ]
+}
+```
+
+:::
 
 - ### move <Badge type="info" text="operation" title="operation"/>
 
@@ -60,6 +327,94 @@ where the operation is performed.
 
   The `move` operation removes the value at a specified location and adds it to the target location.
 
+::: details Example 1. Move an Object Member
+
+Original document:
+
+```json
+{
+    "foo": {
+        "bar": "baz",
+        "waldo": "fred"
+    },
+    "baz": {
+        "qux": "quux"
+    }
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "move",
+        "from": "/foo/waldo",
+        "path": "/baz/thud"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": {
+        "bar": "baz",
+        "waldo": "fred"  // [!code --]
+    },
+    "baz": {
+        "qux": "quux",
+        "thud": "fred"  // [!code ++]
+    }
+}
+```
+
+:::
+
+::: details Example 2. Move an Array Element
+
+Original document:
+
+```json
+{
+    "foo": [
+        "el1",
+        "el2",
+        "el3",
+        "el4"
+    ]
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "move",
+        "from": "/foo/1",
+        "path": "/foo/3"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": [
+        "el1",
+        "el2"  // [!code --]
+        "el3",
+        "el4",
+        "el2"  // [!code ++]
+    ]
+}
+```
+
+:::
+
 - ### copy <Badge type="info" text="operation" title="operation"/>
 
   > The operation object MUST contain a `from` member, which is a string containing a JSON Pointer value that references
@@ -67,12 +422,95 @@ where the operation is performed.
 
   The `copy` operation copies the value at a specified location to the target location.
 
+::: details Example 1. Copy an Object Member
+
+Original document:
+
+```json
+{
+    "foo": {
+        "bar": "baz",
+        "waldo": "fred"
+    },
+    "baz": {
+        "qux": "quux"
+    }
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "copy",
+        "from": "/foo/waldo",
+        "path": "/baz/thud"
+    }
+]
+```
+
+Result:
+
+```
+{
+    "foo": {
+        "bar": "baz",
+        "waldo": "fred"  // [!code hl]
+    },
+    "baz": {
+        "qux": "quux",
+        "thud": "fred"  // [!code ++]
+    }
+}
+```
+
+:::
+
 - ### test <Badge type="info" text="operation" title="operation"/>
 
   > The operation object **MUST** contain a `value` member that conveys the value to be compared to the target
   location's value.
 
   The `test` operation tests that a value at the target location is equal to a specified value.
+
+::: details Example
+
+Original document:
+
+```
+{
+    "baz": "qux",  // [!code hl]
+    "foo": [
+        "a",
+        2,  // [!code hl]
+        "c"
+    ]
+}
+```
+
+Patch:
+
+```json
+[
+    {
+        "op": "test",
+        "path": "/baz",
+        "value": "qux"
+    },
+    {
+        "op": "test",
+        "path": "/foo/1",
+        "value": 2
+    }
+]
+```
+
+Result:
+
+`successful`
+
+:::
 
 ## JSON Merge Patch
 
@@ -89,41 +527,31 @@ the provided patch against the current content of the target document.
 - If the target does contain the member, the value is replaced.
 - Null values in the merge patch are given special meaning to indicate the removal of existing values in the target.
 
-For example, given the following original JSON document:
+::: details Example
+Original document:
 
-```json
+```
 {
-    "a": "b",
+    "a": "b",  // [!code hl]
     "c": {
         "d": "e",
-        "f": "g"
+        "f": "g"  // [!code hl]
     }
 }
 ```
 
-with the following merge patch document:
+Patch:
 
-```json
+```
 {
-    "a": "z",
+    "a": "z",  // [!code hl]
     "c": {
-        "f": null
+        "f": null  // [!code hl]
     }
 }
 ```
 
-the resulting JSON document would be:
-
-```json
-{
-    "a": "z",
-    "c": {
-        "d": "e"
-    }
-}
-```
-
-that is, the value of `a` in the original document has been replaced, and the `f` member of `c` has been removed.
+Result:
 
 ```
 {
@@ -135,6 +563,13 @@ that is, the value of `a` in the original document has been replaced, and the `f
     }
 }
 ```
+
+That is
+
+- the value of `a` in the original document has been **replaced** by the value of `a` in the patch document
+- and the `f` member of `c` has been **removed** cause its value is `null` in the patch document.
+
+:::
 
 ## Related Projects
 
