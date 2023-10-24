@@ -2,7 +2,7 @@
 layout: doc
 
 # custom frontmatter properties
-name: Lorem Ipsum
+topic: Lorem Ipsum
 brief: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 ---
 

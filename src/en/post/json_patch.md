@@ -2,7 +2,7 @@
 layout: doc
 
 # custom frontmatter properties
-name: JSON Patch
+topic: JSON Patch
 brief: JSON Patch defines a JSON document structure for expressing a sequence of operations to apply to a JavaScript Object Notation(JSON) document
 language:
   - JSON

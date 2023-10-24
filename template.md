@@ -3,7 +3,7 @@ layout: doc
 
 # custom frontmatter properties
 # the title of the post, will show up in the post list
-name: <name>
+topic: <name>
 # a brief description of the post, will show up in the post list
 brief: <description>
 # a list of platforms the post is about, will show up in the 'tag-bar'

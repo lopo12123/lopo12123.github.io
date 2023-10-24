@@ -4,7 +4,7 @@ import PostCard from "../components/PostCard.vue";
 
 const postList = ref<{
   link: string
-  name?: string
+  topic?: string
   brief?: string
 }[]>([])
 
@@ -41,7 +41,7 @@ onUnmounted(() => {
         <div :class="['item', grid]"
              v-for="(post, idx) in postList" :key="idx">
           <PostCard
-              :title="post.name" :link="post.link" :brief="post.brief"/>
+              :title="post.topic" :link="post.link" :brief="post.brief"/>
         </div>
       </div>
     </div>

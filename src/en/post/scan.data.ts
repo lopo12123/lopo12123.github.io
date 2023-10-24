@@ -10,7 +10,7 @@ export default {
             })
             .map((item) => {
                 return {
-                    name: item.frontmatter.name,
+                    name: item.frontmatter.topic,
                     link: item.url,
                     brief: item.frontmatter.brief,
                 }
