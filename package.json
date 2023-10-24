@@ -1,6 +1,7 @@
 {
     "name": "lopo12123.github.io",
-    "description": "My personal website",
+    "version": "0.1.0",
+    "description": "lopo | find an anchor to stop drifting...",
     "author": "lopo<lopo@zju.edu.cn>",
     "type": "module",
     "scripts": {
