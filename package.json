@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "gen": "node ./bin/gen.cjs",
+        "template": "node ./bin/gen.cjs post template",
         "docs:dev": "vitepress dev . --host",
         "docs:build": "vitepress build .",
         "docs:preview": "vitepress preview ."
