@@ -584,5 +584,5 @@ That is
 
 ## References
 
-- JavaScript Object Notation (JSON) Patch -- [rfc6902](https://datatracker.ietf.org/doc/html/rfc6902)
-- JSON Merge Patch -- [rfc7396](https://datatracker.ietf.org/doc/html/rfc7396)
+- [rfc6902: JavaScript Object Notation (JSON) Patch](https://datatracker.ietf.org/doc/html/rfc6902)
+- [rfc7396: JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7396)
