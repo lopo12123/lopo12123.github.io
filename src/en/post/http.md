@@ -37,7 +37,7 @@ improve transmission speed. `HTTP/2.0` greatly improves web performance on the b
 latency. `HTTP/1.0` and `1.1` will coexist for a long time in the future, which is determined by the slow update of
 network infrastructure.
 
-## HTTP/0.9
+## HTTP/0.9 <Badge text="RFC" type="info"/>
 
 The initial version of HTTP had no version number (it was later called `0.9` to differentiate it from later versions)
 
@@ -59,7 +59,7 @@ And the server will close the **TCP connection** once it has sent the response.
 </html>
 ```
 
-## HTTP/1.0
+## HTTP/1.0 <Badge text="RFC" type="info"/>
 
 > `HTTP/1.0` is not a standard. It is just a reference document that records existing practices and patterns. It has no
 > actual binding force.
@@ -121,7 +121,7 @@ Content-Type: text/gif
 
 :::
 
-## HTTP/1.1
+## HTTP/1.1 <Badge text="Standard" type="tip"/>
 
 > The first standardized version of HTTP, `HTTP/1.1`, was published in early **1997**, only a few months
 > after `HTTP/1.0`.
@@ -137,11 +137,34 @@ Content-Type: text/gif
 - Thanks to the `Host` header, the ability to host different domains from the same IP address allowed server
   collocation. (The `Host` header is required in `HTTP/1.1`)
 
+## HTTP/2.0 <Badge text="Standard" type="tip"/>
+
+Google implemented an experimental protocol SPDY in the **early 2010s**. `SPDY` defined an increase in responsiveness and solved the problem of duplicate data transmission, serving as the **foundation** for the `HTTP/2` protocol.
+
+The `HTTP/2` protocol differs from `HTTP/1.1` in a few ways:
+
+- It's a **binary** protocol rather than a text protocol. It transfers binary instead of plain text.
+- It's a **multiplexed protocol**. Parallel requests can be made over the **same tcp connection**, removing the constraints of the `HTTP/1.x` protocol.
+- It compresses headers using the **HPACK compression algorithm**. As these are often similar among a set of requests, this removes the duplication and overhead of data transmitted.
+- It allows a server to populate data in a **client cache** through a mechanism called the **server push**.
+
+> **Server push**
+>
+> Imagine that the guest (Client) asks (sends request) waiter (Server) for a meal, then the waiter gets the meal from the restaurant chef (your application logic), but the waiter also thinks you would need a bottle of water, so he brings that too **with** your meal. The end result of this would be only **one** TCP connection and only **one** request that will significantly lower the server load.
+
+## Diagram
+
 ## References
 
 - [rfc1945: Hypertext Transfer Protocol -- HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [rfc2616: Hypertext Transfer Protocol -- HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
+- [rfc7230: Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing](https://datatracker.ietf.org/doc/html/rfc7230)
+- [rfc7231: Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231)
+- [rfc7232: Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests](https://datatracker.ietf.org/doc/html/rfc7232)
+- [rfc7233: Hypertext Transfer Protocol (HTTP/1.1): Range Requests](https://datatracker.ietf.org/doc/html/rfc7233)
+- [rfc7234: Hypertext Transfer Protocol (HTTP/1.1): Caching](https://datatracker.ietf.org/doc/html/rfc7234)
+- [rfc7235: Hypertext Transfer Protocol (HTTP/1.1): Authentication](https://datatracker.ietf.org/doc/html/rfc7235)
 - [rfc7540: Hypertext Transfer Protocol Version 2 (HTTP/2)](https://datatracker.ietf.org/doc/html/rfc7540)
-- [Evolution of HTTP](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http)
+- [Evolution of HTTP | MDN](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http)
 
 [//]: # (https://factory.dev/blog/http2-difference-from-http1)

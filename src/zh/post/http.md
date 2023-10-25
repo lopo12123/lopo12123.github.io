@@ -32,7 +32,7 @@ tag:
 采用，并能很好地配合代理服务器工作，还支持以管道方式同时发送多个请求，以便降低线路负载，提高传输速度。`HTTP/2.0`在`HTTP/1.x`
 的基础上，大幅度的提高了web性能，减少了网络延迟。`HTTP1.0`和`1.1`在之后很长的一段时间内会一直并存，这是网络基础设施更新缓慢所决定的。
 
-## HTTP/0.9
+## HTTP/0.9 <Badge text="RFC" type="info"/>
 
 HTTP的最初版本没有版本号（后来称为`0.9`以区别于后来的版本）
 
@@ -53,7 +53,7 @@ GET /example.html
 </html>
 ```
 
-## HTTP/1.0
+## HTTP/1.0 <Badge text="RFC" type="info"/>
 
 > `HTTP/1.0` **不是**一个标准，只是记录已有实践和模式的一份参考文档，不具有实际的约束力。
 
@@ -110,7 +110,7 @@ Content-Type: text/gif
 
 :::
 
-## HTTP/1.1
+## HTTP/1.1 <Badge text="Standard" type="tip"/>
 
 > HTTP的第一个标准化版本`HTTP/1.1`于**1997**年初发布，距`HTTP/1.0`仅几个月。
 
@@ -122,9 +122,33 @@ Content-Type: text/gif
   等)
 - 由于`Host`标头，能够从同一IP托管不同的域。 (在`HTTP/1.1`中强制要求`Host`标头)
 
+## HTTP/2.0 <Badge text="Standard" type="tip"/>
+
+Google 在**2010年代初**实施了实验性协议`SPDY`。`SPDY`定义了响应能力的提高并解决了重复数据传输的问题，成为`HTTP/2`协议的**基础**。
+
+`HTTP/2`协议与`HTTP/1.1`在以下几个方面有所不同：
+
+- 它是**二进制**协议而不是文本协议。 它传输二进制而不是纯文本。
+- 这是一个**多路复用协议**。可以通过同一个**TCP连接**发出并行请求，从而消除了`HTTP/1.x`协议的限制。
+- 它使用**HPACK压缩算法**压缩头部。 由于这些请求在一组请求中通常是相似的，因此这消除了传输数据的重复和开销。
+- 它允许服务器通过称为**服务器推送**的机制将数据填充到**客户端缓存**中。
+
+> **服务器推送**
+>
+> 想象一下，客人（客户端）向（发送请求）服务员（服务器）要饭菜，然后服务员从餐厅厨师（您的应用程序逻辑）那里得到饭菜，但服务员认为您也需要一瓶水，所以他随餐**一起**带来。这样做的最终结果将是只有**一个**TCP连接和**一个**请求，这将显着降低服务器负载。
+
+## 图解
+
 ## 参考
 
 - [rfc1945: Hypertext Transfer Protocol -- HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [rfc2616: Hypertext Transfer Protocol -- HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
+- [rfc7230: Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing](https://datatracker.ietf.org/doc/html/rfc7230)
+- [rfc7231: Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content](https://datatracker.ietf.org/doc/html/rfc7231)
+- [rfc7232: Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests](https://datatracker.ietf.org/doc/html/rfc7232)
+- [rfc7233: Hypertext Transfer Protocol (HTTP/1.1): Range Requests](https://datatracker.ietf.org/doc/html/rfc7233)
+- [rfc7234: Hypertext Transfer Protocol (HTTP/1.1): Caching](https://datatracker.ietf.org/doc/html/rfc7234)
+- [rfc7235: Hypertext Transfer Protocol (HTTP/1.1): Authentication](https://datatracker.ietf.org/doc/html/rfc7235)
 - [rfc7540: Hypertext Transfer Protocol Version 2 (HTTP/2)](https://datatracker.ietf.org/doc/html/rfc7540)
-- [Evolution of HTTP](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http)
+- [rfc7541: HPACK: Header Compression for HTTP/2](https://datatracker.ietf.org/doc/html/rfc7541)
+- [Evolution of HTTP | MDN](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http)
