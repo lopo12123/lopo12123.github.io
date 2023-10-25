@@ -152,9 +152,57 @@ The `HTTP/2` protocol differs from `HTTP/1.1` in a few ways:
 >
 > Imagine that the guest (Client) asks (sends request) waiter (Server) for a meal, then the waiter gets the meal from the restaurant chef (your application logic), but the waiter also thinks you would need a bottle of water, so he brings that too **with** your meal. The end result of this would be only **one** TCP connection and only **one** request that will significantly lower the server load.
 
-## Diagram
+## HTTP/3.0 <Badge text="Standard" type="tip"/>
 
-## References
+TO BE DONE
+
+## Diagram(s)
+
+::: info 1. Request multiplexing
+![Request multiplexing](/http/request_multiplexing.png)
+:::
+
+::: info 2. Header compression
+![Header compression](/http/hpack.png)
+:::
+
+::: info 3. Binary protocol
+![Binary protocol](/http/binary_protocol.png)
+:::
+
+::: info 4. HTTP/2 Server Push
+![HTTP/2 Server Push](/http/server_push.png)
+:::
+
+::: info 5. Simple Comparison
+
+| Protocol                | Number of requests | Load time | Initiator                                                                                                                                                 | 
+|-------------------------|--------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Http/1.1                | 102                | 12.97s    | Initiator of the first one is user/client and the rest of the requests are initiated by the response to client who realizes he needs some other resources |
+| Http/2                  | 102                | 11.19s    | Initiator of the first one is user/client and the rest of the requests are initiated by the response to client who realizes he needs some other resources |
+| Http/2 with Server Push | 102                | 3.17s     | Initiator of the first one is user/client and the rest of requests are initiated by the push of the server (virtually one request/response cycle).        |
+
+- Http/1.1
+  > We can see how requests are made through multiple batches (TCP connections).
+
+  ![Http/1.1](/http/waterfall_1.png)
+
+- Http/2
+  > We can see how requests are made through 2 batches (TCP connections). Take note of the load time. In this case, it is a bit lower than the load time of HTTP/1.1 example (but it doesn't have to be always). This example shows the multiplexing of client requests.
+
+  ![Http/1.1](/http/waterfall_2.png)
+
+- Http/2 with Server Push
+  > We can see how requests are made through 1 batch (1 TCP connection)
+
+  ![Http/1.1](/http/waterfall_3.png)
+
+- Animation demonstration
+  ![Animation demonstration](/http/compare.gif)
+
+:::
+
+## Reference(s)
 
 - [rfc1945: Hypertext Transfer Protocol -- HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [rfc2616: Hypertext Transfer Protocol -- HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
@@ -166,5 +214,3 @@ The `HTTP/2` protocol differs from `HTTP/1.1` in a few ways:
 - [rfc7235: Hypertext Transfer Protocol (HTTP/1.1): Authentication](https://datatracker.ietf.org/doc/html/rfc7235)
 - [rfc7540: Hypertext Transfer Protocol Version 2 (HTTP/2)](https://datatracker.ietf.org/doc/html/rfc7540)
 - [Evolution of HTTP | MDN](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http)
-
-[//]: # (https://factory.dev/blog/http2-difference-from-http1)
