@@ -4,7 +4,6 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch with tag named 'release-'
   push:
-    branches: [ "master" ]
     tags:
       - 'release-**'
 
