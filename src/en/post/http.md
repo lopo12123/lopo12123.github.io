@@ -154,7 +154,15 @@ The `HTTP/2` protocol differs from `HTTP/1.1` in a few ways:
 
 ## HTTP/3.0 <Badge text="Standard" type="tip"/>
 
-TO BE DONE
+Google invented the `QUIC`(Quick UDP Internet Connections) protocol based on **UDP**.
+
+`QUIC` is designed to provide much lower latency for HTTP connections. Like `HTTP/2`, it is a multiplexed protocol, but `HTTP/2` runs over a **single** TCP connection, so packet loss detection and retransmission handled at the TCP layer can block **all** streams. `QUIC` runs multiple streams over UDP and implements packet loss detection and retransmission **independently** for each stream, so that if an error occurs, only the stream with data in that packet is blocked.
+
+- UDP is `unordered`, so there is no head-of-line blocking problem
+- `QUIC` has its own protocol for packet loss retransmission and congestion control
+- The HTTPS handshake usually requires **six** network interactions. `QUIC` merges TLS and TCP into a **three-way** handshake.
+
+In **June 2022**, `HTTP/3.0` was finally standardized as **rfc9114**
 
 ## Diagram(s)
 
@@ -190,12 +198,12 @@ TO BE DONE
 - Http/2
   > We can see how requests are made through 2 batches (TCP connections). Take note of the load time. In this case, it is a bit lower than the load time of HTTP/1.1 example (but it doesn't have to be always). This example shows the multiplexing of client requests.
 
-  ![Http/1.1](/http/waterfall_2.png)
+  ![Http/2](/http/waterfall_2.png)
 
 - Http/2 with Server Push
   > We can see how requests are made through 1 batch (1 TCP connection)
 
-  ![Http/1.1](/http/waterfall_3.png)
+  ![Http/2 with Server Push](/http/waterfall_3.png)
 
 - Animation demonstration
   ![Animation demonstration](/http/compare.gif)
@@ -213,4 +221,5 @@ TO BE DONE
 - [rfc7234: Hypertext Transfer Protocol (HTTP/1.1): Caching](https://datatracker.ietf.org/doc/html/rfc7234)
 - [rfc7235: Hypertext Transfer Protocol (HTTP/1.1): Authentication](https://datatracker.ietf.org/doc/html/rfc7235)
 - [rfc7540: Hypertext Transfer Protocol Version 2 (HTTP/2)](https://datatracker.ietf.org/doc/html/rfc7540)
+- [rfc9114: HTTP/3](https://datatracker.ietf.org/doc/html/rfc9114)
 - [Evolution of HTTP | MDN](https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http)
