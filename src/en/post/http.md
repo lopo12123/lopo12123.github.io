@@ -13,9 +13,7 @@ brief: For those that are new to this theme, Hypertext Transfer Protocol (HTTP) 
 # a list of tags the post is about, will show up in the 'tag-bar'
 tag:
   - http
-  - http/1.0
-  - http/1.1
-  - http/2.0
+  - http protocol
 
 ---
 
