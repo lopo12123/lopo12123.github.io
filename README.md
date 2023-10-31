@@ -15,10 +15,20 @@ the directory structure of the project is as follows:
             - `index.md` -- the post page
             - `<name-of-post>` -- specific post page
 
-## Generate
+## Command
 
-run `yarn gen [post/project] <filename>` in your terminal,
-then a file will be generated in `src/<lang>/<post/project>/<filename>.md`
+### Generate
+
+both of the following commands are valid:
+
+- `yarn gen [post/project] <filename>`
+- `yarn gen [post/project]/<filename>`
+
+then a file will be generated in `src/<lang>/<post/project>/<filename>.draft.md`
+
+### Active
+
+- TODO
 
 ## Template
 
