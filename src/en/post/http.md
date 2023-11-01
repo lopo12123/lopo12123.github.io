@@ -14,7 +14,6 @@ brief: For those that are new to this theme, Hypertext Transfer Protocol (HTTP) 
 tag:
   - http
   - http protocol
-
 ---
 
 # HyperText Transfer Protocol (HTTP)
