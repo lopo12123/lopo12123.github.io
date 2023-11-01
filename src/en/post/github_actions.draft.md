@@ -32,6 +32,10 @@ tag:
 
 TODO
 
+## Example
+
+TODO
+
 ## References
 
 - [GitHub Marketplace](https://github.com/marketplace?type=actions)
