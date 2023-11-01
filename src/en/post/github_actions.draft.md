@@ -20,9 +20,19 @@ tag:
 
 # GitHub Actions
 
-> This page is about &lt;something&gt;
+> This page is about `GitHub Actions`.
+
+## Introduction
+
+`GitHub Actions` is a feature provided by the **GitHub** for automating the building, testing, and deployment of software projects. It allows us to execute customized workflows when specific events (such as `push`, `pull request` events, etc.) or conditions (such as execution at a specific time, etc.) occur.
+
+**GitHub** offers **Linux**, **Windows** and **macOS** virtual machines to run workflows, with the option to host your own self-hosted runner in your own data center or cloud infrastructure.
+
+## Architecture
+
+TODO
 
 ## References
 
-[GitHub Marketplace](https://github.com/marketplace?type=actions)
-[GitHub Actions documentation](https://docs.github.com/en/actions)
+- [GitHub Marketplace](https://github.com/marketplace?type=actions)
+- [GitHub Actions documentation](https://docs.github.com/en/actions)
