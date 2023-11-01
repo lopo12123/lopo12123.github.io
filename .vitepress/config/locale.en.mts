@@ -1,4 +1,17 @@
-import { DefaultTheme, LocaleSpecificConfig } from "vitepress";
+import { createContentLoader, DefaultTheme, LocaleSpecificConfig } from "vitepress";
+
+const posts = (await createContentLoader('src/en/post/*.md').load())
+    .filter((item) => {
+        const layout = item.frontmatter.layout
+        return layout === 'doc' || !layout
+    })
+    .map((item) => ({ text: item.frontmatter.topic, link: item.url }))
+const projects = (await createContentLoader('src/en/project/*.md').load())
+    .filter((item) => {
+        const layout = item.frontmatter.layout
+        return layout === 'doc' || !layout
+    })
+    .map((item) => ({ text: item.frontmatter.topic, link: item.url }))
 
 const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: string; link?: string } = {
     label: 'English',
@@ -40,6 +53,11 @@ const LocaleConfigEn: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
             { text: 'Home', link: '/en/' },
             { text: 'My Posts', link: '/en/post/' },
             { text: 'My Projects', link: '/en/project/' },
+            { text: 'Archive', link: '/en/archive/' },
+        ],
+        sidebar: [
+            { text: 'Posts', link: '/en/post/', items: posts },
+            { text: 'Projects', link: '/en/project/', items: projects },
             { text: 'Archive', link: '/en/archive/' },
         ],
     }
