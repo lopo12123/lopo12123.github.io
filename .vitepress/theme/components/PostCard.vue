@@ -17,7 +17,7 @@ const { localeIndex } = useData()
             <h2 class="title" v-html="title"></h2>
             <p v-if="brief" class="brief" v-html="brief"></p>
             <p class="link" @click="router.go(link)">
-                {{ { 'en': 'see detail', 'zh': '查看详情' }[localeIndex]}} →
+                {{ { 'en': 'see detail', 'zh': '查看详情' }[localeIndex] }} →
             </p>
         </article>
     </div>
@@ -46,12 +46,17 @@ const { localeIndex } = useData()
 }
 
 .brief {
+    max-height: 144px;
     flex-grow: 1;
-    padding-top: 8px;
+    margin-top: 8px;
     line-height: 24px;
     font-size: 14px;
     font-weight: 500;
     color: var(--vp-c-text-2);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
 }
 
 .link {
