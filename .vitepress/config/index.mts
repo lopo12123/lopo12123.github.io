@@ -1,7 +1,7 @@
-import {resolve} from "node:path";
-import {defineConfig} from 'vitepress'
-import {LocaleConfigZh} from "./locale.zh.mjs";
-import {LocaleConfigEn} from "./locale.en.mjs";
+import { resolve } from "node:path";
+import { defineConfig } from 'vitepress'
+import { LocaleConfigZh } from "./locale.zh.mjs";
+import { LocaleConfigEn } from "./locale.en.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
     lastUpdated: true,
     head: [
         // set favicon
-        ['link', {rel: 'icon', type: 'image/svg+xml', href: '/lopo.svg'}],
+        [ 'link', { rel: 'icon', type: 'image/svg+xml', href: '/lopo.svg' } ],
     ],
     locales: {
         en: LocaleConfigEn,
@@ -30,7 +30,7 @@ export default defineConfig({
             provider: 'local',
         },
         footer: {
-            message: 'open source means "you can you fork"',
+            message: 'open source means YOU-CAN-YOU-FORK',
             copyright: 'copyright © 2023-present lopo'
         },
 
@@ -46,7 +46,7 @@ export default defineConfig({
 
         // this is common config for all locales
         socialLinks: [
-            {icon: 'github', link: 'https://github.com/lopo12123'}
+            { icon: 'github', link: 'https://github.com/lopo12123' }
         ],
     },
 
