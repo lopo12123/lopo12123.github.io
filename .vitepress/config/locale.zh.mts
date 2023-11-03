@@ -1,17 +1,7 @@
-import { createContentLoader, DefaultTheme, LocaleSpecificConfig } from "vitepress";
+import { DefaultTheme, LocaleSpecificConfig } from "vitepress";
+import { parseZh } from "./utils.mjs";
 
-const posts = (await createContentLoader('src/zh/post/*.md').load())
-    .filter((item) => {
-        const layout = item.frontmatter.layout
-        return layout === 'doc' || !layout
-    })
-    .map((item) => ({ text: item.frontmatter.topic, link: item.url }))
-const projects = (await createContentLoader('src/zh/project/*.md').load())
-    .filter((item) => {
-        const layout = item.frontmatter.layout
-        return layout === 'doc' || !layout
-    })
-    .map((item) => ({ text: item.frontmatter.topic, link: item.url }))
+const { postMeta, projectMeta } = parseZh()
 
 const LocaleConfigZh: LocaleSpecificConfig<DefaultTheme.Config> & { label: string; link?: string } = {
     label: '简体中文',
@@ -56,8 +46,8 @@ const LocaleConfigZh: LocaleSpecificConfig<DefaultTheme.Config> & { label: strin
             { text: '归档', link: '/zh/archive/' },
         ],
         sidebar: [
-            { text: '我的博客', link: '/en/post/', items: posts },
-            { text: '我的项目', link: '/en/project/', items: projects },
+            { text: '我的博客', link: '/en/post/', items: postMeta },
+            { text: '我的项目', link: '/en/project/', items: projectMeta },
             { text: '归档', link: '/en/archive/' },
         ],
     }

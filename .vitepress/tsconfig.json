@@ -4,10 +4,12 @@
         "module": "ESNext",
         "moduleResolution": "bundler",
         "resolveJsonModule": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "allowJs": true
     },
     "include": [
         "global.d.ts",
+        "config/**/*.mts",
         "theme/**/*.ts",
         "theme/**/*.vue"
     ],
