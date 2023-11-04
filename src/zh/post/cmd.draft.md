@@ -91,6 +91,58 @@ tag:
 
 :::
 
+## 命令：goto
+
+> 特殊标签 `:eof` 表示文件结束，可以使用 `goto :eof` 结束批处理文件的执行
+
+- `goto <label>` - 跳转到指定标签处继续执行
+
+## 命令：call
+
+- `call path-to-batch <arguments>` -- 调用另一个批处理文件
+- `call :label <arguments>` -- 调用当前批处理文件中的另一个标签
+- 使用 `%0`、`%1`、`%2` ... 获取参数，或使用 `%*` 获取所有参数
+- 一般 `%0` 为当前批处理文件的路径或标签名，`%1` 开始为传入的参数
+
+::: code-group
+
+``` bat [以下代码会输出什么?] :line-numbers
+@echo off
+echo start
+call :tag2
+call :tag1
+
+:tag1
+echo tag1
+
+:tag2
+echo tag2
+```
+
+```text [答案]
+start   step 2
+tag2    step 5
+tag1    step 8
+tag2    step 10
+tag1    step 12
+tag2    step 14
+```
+
+``` bat [步骤] :line-numbers
+@echo off   1
+echo start   2
+call :tag2    3
+call :tag1       6
+
+:tag1             7    11
+echo tag1          8     12
+
+:tag2          4    9      13
+echo tag2       5    10      14
+```
+
+:::
+
 ## 参考
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)

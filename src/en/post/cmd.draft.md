@@ -91,6 +91,58 @@ tag:
 
 :::
 
+## Command: goto
+
+> The special label `:eof` means the end of the file, and `goto :eof` can be used to end the execution of the batch file
+
+- `goto <label>` - Jump to the specified label to continue execution
+
+## Command: call
+
+- `call path-to-batch <arguments>` -- Call another batch file
+- `call :label <arguments>` -- Call the specified label in the current batch file
+- Use `%0`, `%1`, `%2` ... to get the arguments, or use `%*` to get all parameters
+- Generally, `%0` is the path or label name of the current batch, and starting from `%1` is the incoming parameter.
+
+::: code-group
+
+``` bat [What will the following code output?] :line-numbers
+@echo off
+echo start
+call :tag2
+call :tag1
+
+:tag1
+echo tag1
+
+:tag2
+echo tag2
+```
+
+```text [Answer]
+start   step 2
+tag2    step 5
+tag1    step 8
+tag2    step 10
+tag1    step 12
+tag2    step 14
+```
+
+``` bat [Steps] :line-numbers
+@echo off   1
+echo start   2
+call :tag2    3
+call :tag1       6
+
+:tag1             7    11
+echo tag1          8     12
+
+:tag2          4    9      13
+echo tag2       5    10      14
+```
+
+:::
+
 ## References
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)
