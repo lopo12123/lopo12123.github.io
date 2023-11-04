@@ -27,6 +27,10 @@ tag:
     - Use the command `help <command>` to get help for a specific command
     - Use the command `<command> /?` to get help for a specific command (same as above)
 
+- `\\` and `/`
+    - `\\` is generally used as a **path separator** (e.g. `C:\\Users\\`)
+    - `/` is generally used as a **command parameter** (e.g. `dir /a`)
+
 - File descriptors
     - `0` - Standard input (default to keyboard)
     - `1` - Standard output (default to terminal display)
@@ -52,9 +56,40 @@ tag:
 | `command<&m`                  | Use file descriptor m as the input of the command                                        |
 | `command1\|command2`          | Use the output of command 1 as the input of command 2                                    |
 
-> Note:
-> - There should be no spaces on both sides of the redirection symbol, otherwise it will be treated as a parameter
-> - `0/1/2` cannot be the target of append redirection, that is, `2>>1` is illegal
+::: warning Note
+
+- There should be no spaces on both sides of the redirection symbol, otherwise it will be treated as a parameter
+- `0/1/2` cannot be the target of append redirection, that is, `2>>1` is illegal
+
+:::
+
+## Command: set (environment variable)
+
+- `set` - Display all environment variables
+- `set <variable>` - Display the value of the specified environment variable
+- `set <variable>=<value>` - Set the value of the specified environment variable
+- `set /a <variable>=<expression>` - Set the value of the specified environment variable to the result of the specified expression
+- `set /p <variable>=<prompt>` - Set the value of the specified environment variable to the user input
+- `%<variable>%` - Use the value of the environment variable
+
+::: warning Note
+
+- Environment variable names are case-insensitive, that is, `set PATH=xxx` and `set path=xxx` have the same effect
+- There should be no spaces on both sides of the `=`, otherwise it will be treated as a parameter, for example, `set PATH = xxx` will be treated as the `set PATH` command
+
+:::
+
+## Command: echo
+
+- `echo <message>` - Display the specified message
+- `echo on` / `echo off` - Enable/disable the display of commands **in the batch file**
+
+::: warning Note
+
+- To display a blank line, use `echo.`
+- To display special characters (including `|`, `&`, `<`, `>`, `^`), add a `^`  immediately before the character to escape it
+
+:::
 
 ## References
 
