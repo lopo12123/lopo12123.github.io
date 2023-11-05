@@ -143,6 +143,32 @@ tag2    step 14
 
 :::
 
+## Command: for
+
+- Basic:
+    - `for <variable> in (<set>) do <command> [<commandlineoptions>]`
+- Iterating a range of values
+    - `for /l <variable> in (<start#>,<step#>,<end#>) do <command> [<commandlinepptions>]`
+- Iterating and file parsing
+    - `for /f [<parsingkeywords>] <variable> in (<set>) do <command> [<commandlinepptions>]`
+    - `for /f [<parsingkeywords>] <variable> in (<literalstring>) do <command> [<commandlinepptions>]`
+    - `for /f [<parsingkeywords>] <variable> in ('<command>') do <command> [<commandlinepptions>]`
+
+::: tip Rule of `<variable>`
+
+- In the command prompt, use `%<name>` to access the variable
+- In the batch file, use `%%<name>` to access the variable
+
+:::
+
+| `<parsingkeywords>` | Description                                                                                                                                     |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| eol=`<c>`           | Specifies an end of line character (just one character)                                                                                         |
+| skip=`<n>`          | Specifies the number of lines to skip at the beginning of the file                                                                              |
+| delims=`<xxx>`      | Specifies a delimiter set. This replaces the default delimiter set of space and tab.                                                            |
+| tokens=`<x,y,m-n>`  | Specifies which tokens from each line are to be passed to the for loop for each iteration                                                       |
+| usebackq            | Specifies to run a back-quoted string as a command, use a single-quoted string as a literal string, or, for long file names that contain spaces |
+
 ## References
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)

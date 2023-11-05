@@ -143,6 +143,32 @@ tag2    step 14
 
 :::
 
+## 命令：for
+
+- 基本用法:
+    - `for <variable> in (<set>) do <command> [<commandlineoptions>]`
+- 遍历一定范围的值:
+    - `for /l <variable> in (<start#>,<step#>,<end#>) do <command> [<commandlinepptions>]`
+- 遍历并解析文件:
+    - `for /f [<parsingkeywords>] <variable> in (<set>) do <command> [<commandlinepptions>]`
+    - `for /f [<parsingkeywords>] <variable> in (<literalstring>) do <command> [<commandlinepptions>]`
+    - `for /f [<parsingkeywords>] <variable> in ('<command>') do <command> [<commandlinepptions>]`
+
+::: tip `<variable>` 规则
+
+- 在命令提示符中，使用 `%<name>` 访问变量
+- 在批处理文件中，使用 `%%<name>` 访问变量
+
+:::
+
+| `<parsingkeywords>` | 说明                                       |
+|---------------------|------------------------------------------|
+| eol=`<c>`           | 指定行结束字符（仅一个字符）                           |
+| skip=`<n>`          | 跳过文件的前 `<n>` 行                           |
+| delims=`<xxx>`      | 指定分隔符（默认为 `space` 和 `tab`）               |
+| tokens=`<x,y,m-n>`  | 指定每行中的哪些标记要传递到每次迭代的for循环                 |
+| usebackq            | 指定将反引号字符串作为命令运行，使用单引号字符串作为文字字符串或包含空格的文件名 |
+
 ## 参考
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)
