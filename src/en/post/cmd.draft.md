@@ -119,15 +119,6 @@ echo tag1
 echo tag2
 ```
 
-```text [Answer]
-start   step 2
-tag2    step 5
-tag1    step 8
-tag2    step 10
-tag1    step 12
-tag2    step 14
-```
-
 ``` bat [Steps] :line-numbers
 @echo off   1
 echo start   2
@@ -139,6 +130,15 @@ echo tag1          8     12
 
 :tag2          4    9      13
 echo tag2       5    10      14
+```
+
+```text [Answer]
+start   step 2
+tag2    step 5
+tag1    step 8
+tag2    step 10
+tag1    step 12
+tag2    step 14
 ```
 
 :::
