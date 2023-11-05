@@ -169,6 +169,14 @@ tag2    step 14
 | tokens=`<x,y,m-n>`  | Specifies which tokens from each line are to be passed to the for loop for each iteration                                                       |
 | usebackq            | Specifies to run a back-quoted string as a command, use a single-quoted string as a literal string, or, for long file names that contain spaces |
 
+::: code-group
+
+TODO: example
+
+:::
+
+## Command: if
+
 ## References
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)

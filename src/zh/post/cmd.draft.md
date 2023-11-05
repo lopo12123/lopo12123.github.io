@@ -169,6 +169,14 @@ tag2    step 14
 | tokens=`<x,y,m-n>`  | 指定每行中的哪些标记要传递到每次迭代的for循环                 |
 | usebackq            | 指定将反引号字符串作为命令运行，使用单引号字符串作为文字字符串或包含空格的文件名 |
 
+::: code-group
+
+TODO: example
+
+:::
+
+## 命令：if
+
 ## 参考
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)
