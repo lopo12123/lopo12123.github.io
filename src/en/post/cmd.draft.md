@@ -257,6 +257,18 @@ we have file4.md
 
 ## Command: if
 
+- Determine whether the file exists
+    - `if [not] exist <filename> <command> [else <command>]`
+- Determine whether `errorlevel` is the specified value
+    - `if [not] errorlevel <number> <command> [else <command>]`
+    - `errorlevel` is a number from **0-255**, indicating the return value of the previous command. Usually **0** means success, **non-0** means failure
+- Determine whether two strings meet the conditions
+    - `if [/i] [not] <string1> <cmpop> <string2> <command> [else <command>]`
+    - `/i` means **case-insensitive** comparison, and if both `string1` and `string2` are comprised of numeric digits only, the strings are converted to numbers and a numeric comparison is performed
+    - `<cmpop>` specifies `==` or a **three letter** comparison operator
+- Determine whether the variable has been defined
+    - `if defined <variable> <command> [else <command>]`
+
 ## References
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)

@@ -257,6 +257,28 @@ we have file4.md
 
 ## 命令：if
 
+- 判断文件是否存在
+    - `if [not] exist <filename> <command> [else <command>]`
+- 判断`errorlevel` 是否是指定值
+    - `if [not] errorlevel <number> <command> [else <command>]`
+    - `errorlevel` 为一个**0-255**的数字，表示上一个命令的返回值。通常 **0** 表示成功，**非0**表示失败
+- 判断两字符串是否符合条件
+    - `if [/i] [not] <string1> <cmpop> <string2> <command> [else <command>]`
+    - `/i` 表示**不区分大小写**比较，并且如果 `string1` 和 `string2` 均仅由数字组成，则将字符串转换为数字并执行数字比较。
+    - `<cmpop>` 指定 `==` 或**三个字母**的比较运算符
+- 判断变量是否已定义
+    - `if defined <variable> <command> [else <command>]`
+
+| 比较运算符 | 说明   |
+|-------|------|
+| `==`  | 等于   |
+| `equ` | 等于   |
+| `neq` | 不等于  |
+| `lss` | 小于   |
+| `leq` | 小于等于 |
+| `gtr` | 大于   |
+| `geq` | 大于等于 |
+
 ## 参考
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)
