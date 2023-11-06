@@ -166,9 +166,16 @@ tag2    step 14
 
 - In the command prompt, use `%<name>` to access the variable
 - In the batch file, use `%%<name>` to access the variable
+- `<literalstring>` is treated as a single line of input from a file
 - When `/f <parsingkeywords>` is used and `parsingkeywords` contains `tokens`, subsequent variables will be automatically incremented (see **eg1**)
 
 :::
+
+| `for /f ... <variable>` | with `usebackq`   | without `usebackq` |
+|-------------------------|-------------------|--------------------|
+| file parsing            | no wrap           | no wrap            |
+| literal string          | single quotes `'` | double quotes `"`  |
+| command parsing         | backquotes `\``   | single quotes `'`  |
 
 ::: code-group
 
