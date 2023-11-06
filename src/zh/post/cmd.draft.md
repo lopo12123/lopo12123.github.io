@@ -154,13 +154,6 @@ tag2    step 14
     - `for /f [<parsingkeywords>] <variable> in (<literalstring>) do <command> [<commandlinepptions>]`
     - `for /f [<parsingkeywords>] <variable> in ('<command>') do <command> [<commandlinepptions>]`
 
-::: tip `<variable>` 规则
-
-- 在命令提示符中，使用 `%<name>` 访问变量
-- 在批处理文件中，使用 `%%<name>` 访问变量
-
-:::
-
 | `<parsingkeywords>` | 说明                                       |
 |---------------------|------------------------------------------|
 | eol=`<c>`           | 指定行结束字符（仅一个字符）                           |
@@ -168,6 +161,14 @@ tag2    step 14
 | delims=`<xxx>`      | 指定分隔符（默认为 `space` 和 `tab`）               |
 | tokens=`<x,y,m-n>`  | 指定每行中的哪些标记要传递到每次迭代的for循环                 |
 | usebackq            | 指定将反引号字符串作为命令运行，使用单引号字符串作为文字字符串或包含空格的文件名 |
+
+::: tip `<variable>` 规则
+
+- 在命令提示符中，使用 `%<name>` 访问变量
+- 在批处理文件中，使用 `%%<name>` 访问变量
+- 当使用 `/f <parsingkeywords>` 且 `parsingkeywords` 包含 `tokens` 时，会自动递增创建后续变量 (见 **eg1**)
+
+:::
 
 ::: code-group
 
@@ -251,6 +252,19 @@ we have file1.js
 we have file2.ts
 we have file3.rs
 we have file4.md
+```
+
+```bat [eg1]
+// eg1.bat
+@echo off
+
+for /f "tokens=1,2" %%c in ("alice bob caro") do (
+    echo hello, %%c! hello, %%d! and hello, %%e too!
+                             ↑               ↑
+)
+
+// output
+hello, alice! hello, bob! and hello, %e too!
 ```
 
 :::
