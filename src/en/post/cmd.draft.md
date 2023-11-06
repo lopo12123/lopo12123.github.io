@@ -171,7 +171,87 @@ tag2    step 14
 
 ::: code-group
 
-TODO: example
+```bat [basic]
+// fruit.bat
+@echo off
+
+for %%c in (apple orange banana) do (
+    echo i like %%c
+)
+
+// output
+i like apple
+i like orange
+i like banana
+```
+
+```bat [range of value]
+// countdown.bat
+@echo off
+
+echo let's count down for 10 seconds
+for /l %%c in (10,-1,0) do (
+    echo %%c seconds left
+    timeout /t 1 /nobreak >nul
+)
+
+// output
+let's count down for 10 seconds
+10 seconds left  // the following output one line per second                
+9 seconds left
+8 seconds left
+7 seconds left
+6 seconds left
+5 seconds left
+4 seconds left
+3 seconds left
+2 seconds left
+1 seconds left
+0 seconds left
+```
+
+```bat [file parsing]
+// groups.txt
+alice bob carol
+david edward frank
+
+// group.bat
+@echo off
+
+echo each group has 3 students
+echo.
+
+for /f "delims=" %%g in (students.txt) do (
+    echo next group:
+    for %%s in (%%g) do (
+        echo %%s
+    )
+    echo.
+)
+
+// output
+hello alice!
+hello bob!
+hello carol!
+```
+
+```bat [command parsing]
+// scan.bat
+@echo off
+
+echo let's see what's in the directory
+for /f %%c in ('dir /b') do (
+    echo we have %%c
+)
+
+// output
+let's see what's in the directory
+we have scan.bat
+we have file1.js
+we have file2.ts
+we have file3.rs
+we have file4.md
+```
 
 :::
 
