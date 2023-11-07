@@ -325,6 +325,10 @@ hello, alice! hello, bob! and hello, %e too!
 | `gtr` | 大于   |
 | `geq` | 大于等于 |
 
+::: warning `errorlevel` 的用法
+当在批处理程序中使用 `errorlevel` 值时，必须按**降序**列出它们。
+:::
+
 ## 命令：choice
 
 - `choice [/c [<choice1><choice2><…>]] [/n] [/cs] [/t <timeout> /d <choice>] [/m <text>]`

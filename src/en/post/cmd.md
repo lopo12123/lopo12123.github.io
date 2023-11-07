@@ -302,6 +302,20 @@ we have file4.md
 - Determine whether the variable has been defined
     - `if defined <variable> <command> [else <command>]`
 
+| operator | description    |
+|----------|----------------|
+| `==`     | equal          |
+| `equ`    | equal          |
+| `neq`    | now equal      |
+| `lss`    | less than      |
+| `leq`    | less or equal  |
+| `gtr`    | great than     |
+| `geq`    | great or equal |
+
+::: warning Usage of `errorlevel`
+When using `errorlevel` in a batch program, you must list them in **decreasing** order.
+:::
+
 ## Command: choice
 
 - `choice [/c [<choice1><choice2><…>]] [/n] [/cs] [/t <timeout> /d <choice>] [/m <text>]`
