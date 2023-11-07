@@ -302,6 +302,29 @@ we have file4.md
 - Determine whether the variable has been defined
     - `if defined <variable> <command> [else <command>]`
 
+## Command: choice
+
+- `choice [/c [<choice1><choice2><…>]] [/n] [/cs] [/t <timeout> /d <choice>] [/m <text>]`
+
+| Parameter | Description                                                                                               |
+|-----------|-----------------------------------------------------------------------------------------------------------|
+| `/c`      | Specifies the list of choices to be displayed. (Optional values are `a-z`, `A-Z`, `0-9`; Default to `YN`) |
+| `/n`      | Do not display the choices in the prompt                                                                  |
+| `/cs`     | Specifies that the choices are case-sensitive. By default, the choices are not case-sensitive             |
+| `/m`      | Specifies a message to display before the list of choices                                                 |
+
+::: tip The result of the choice will be stored in the `errorlevel` variable
+
+```bat
+@echo off
+
+choice /m "select your plan" /c 123
+
+echo you selected :%errorlevel%
+```
+
+:::
+
 ## References
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)

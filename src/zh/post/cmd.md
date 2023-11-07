@@ -325,6 +325,29 @@ hello, alice! hello, bob! and hello, %e too!
 | `gtr` | 大于   |
 | `geq` | 大于等于 |
 
+## 命令：choice
+
+- `choice [/c [<choice1><choice2><…>]] [/n] [/cs] [/t <timeout> /d <choice>] [/m <text>]`
+
+| 参数    | 说明                                      |
+|-------|-----------------------------------------|
+| `/c`  | 指定可用的键 （可选值为 `a-z`，`A-Z`,`0-9`；默认为 `YN` |
+| `/n`  | 不显示可用的键                                 |
+| `/cs` | 指定选项区分大小写。 默认情况下，选项不区分大小写。              |
+| `/m`  | 指定在选项列表之前显示的消息                          |
+
+::: tip 选择的结果将存储在 `errorlevel` 变量中
+
+```bat
+@echo off
+
+choice /m "select your plan" /c 123
+
+echo you selected :%errorlevel%
+```
+
+:::
+
 ## 参考
 
 - [Windows Commands | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands)
