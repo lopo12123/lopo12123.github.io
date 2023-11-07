@@ -102,21 +102,21 @@ tag:
 ```bat
 @echo off
 
-set /p choice=select your choice (0 or 1):
+choice /m "select your plan" /c 123
 
 rem 这里使用变量拼接
-goto :plan%choice%
+goto :plan:%errorlevel%
 
-echo invalid choice
-
+:plan:1
+echo this is plan1
 goto :eof
 
-:plan0
-echo you chose plan0
+:plan:2
+echo this is plan2
 goto :eof
 
-:plan1
-echo you chose plan1
+:plan:3
+echo this is plan3
 goto :eof
 ```
 
