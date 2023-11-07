@@ -292,7 +292,7 @@ we have file4.md
 
 - Determine whether the file exists
     - `if [not] exist <filename> <command> [else <command>]`
-- Determine whether `errorlevel` is the specified value
+- Determine whether `errorlevel` is **equal to or greater than** a specified value
     - `if [not] errorlevel <number> <command> [else <command>]`
     - `errorlevel` is a number from **0-255**, indicating the return value of the previous command. Usually **0** means success, **non-0** means failure
 - Determine whether two strings meet the conditions

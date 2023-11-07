@@ -305,7 +305,7 @@ hello, alice! hello, bob! and hello, %e too!
 
 - 判断文件是否存在
     - `if [not] exist <filename> <command> [else <command>]`
-- 判断`errorlevel` 是否是指定值
+- 判断 `errorlevel` 是否**等于或大于**指定值
     - `if [not] errorlevel <number> <command> [else <command>]`
     - `errorlevel` 为一个**0-255**的数字，表示上一个命令的返回值。通常 **0** 表示成功，**非0**表示失败
 - 判断两字符串是否符合条件
