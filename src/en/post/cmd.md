@@ -97,6 +97,31 @@ tag:
 
 - `goto <label>` - Jump to the specified label to continue execution
 
+::: tip `<label>` supports variable splicing
+
+```bat
+@echo off
+
+set /p choice=select your choice (0 or 1):
+
+rem here we use variable splicing
+goto :plan%choice%
+
+echo invalid choice
+
+goto :eof
+
+:plan0
+echo you chose plan0
+goto :eof
+
+:plan1
+echo you chose plan1
+goto :eof
+```
+
+:::
+
 ## Command: call
 
 - `call path-to-batch <arguments>` -- Call another batch file

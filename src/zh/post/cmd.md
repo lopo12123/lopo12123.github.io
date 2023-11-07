@@ -97,6 +97,31 @@ tag:
 
 - `goto <label>` - 跳转到指定标签处继续执行
 
+::: tip `<label>` 支持使用变量拼接
+
+```bat
+@echo off
+
+set /p choice=select your choice (0 or 1):
+
+rem 这里使用变量拼接
+goto :plan%choice%
+
+echo invalid choice
+
+goto :eof
+
+:plan0
+echo you chose plan0
+goto :eof
+
+:plan1
+echo you chose plan1
+goto :eof
+```
+
+:::
+
 ## 命令：call
 
 - `call path-to-batch <arguments>` -- 调用另一个批处理文件
