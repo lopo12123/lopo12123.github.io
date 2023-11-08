@@ -22,19 +22,12 @@ tag:
 
 > This page is about `GitHub Actions`.
 
-## Introduction
+## Setup
 
-`GitHub Actions` is a feature provided by the **GitHub** for automating the building, testing, and deployment of software projects. It allows us to execute customized workflows when specific events (such as `push`, `pull request` events, etc.) or conditions (such as execution at a specific time, etc.) occur.
+- Create a `.github/workflows` directory in your repository if this directory does not already exist.
+- In the `.github/workflows` directory, create a `<name>.yml` file to define your workflow configuration.
+- Then the workflow will be automatically triggered when the event you specified occurs.
 
-**GitHub** offers **Linux**, **Windows** and **macOS** virtual machines to run workflows, with the option to host your own self-hosted runner in your own data center or cloud infrastructure.
-
-## Architecture
-
-TODO
-
-## Example
-
-TODO
 
 ## References
 
