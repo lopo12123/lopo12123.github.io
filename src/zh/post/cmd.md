@@ -63,6 +63,104 @@ tag:
 
 :::
 
+## ERRORLEVEL
+
+在CMD中，`errorlevel` 是一个**内部状态**，用于表示上一个命令的返回值。它是一个**0-255**的数字，通常**0**表示成功，**非0**表示失败。
+
+### 使用 `set errorlevel=<value>`
+
+当命令扩展开启时，执行 `echo %errorlevel%` 会首先查找 **环境变量** `errorlevel`，如果没有找到，会再去查找**内部状态** `errorlevel`。 因此，执行 `set errorlevel=<value>` 只是设置了一个**环境变量**，不会影响**内部状态** `errorlevel`
+
+::: code-group
+
+```bat [环境变量]
+// test.bat
+set errorlevel=1
+echo %errorlevel%
+
+// output
+1  // 这是环境变量的值
+```
+
+```bat [内部状态]
+// test.bat
+echo %errorlevel%
+
+// output
+0  // 这是内部状态的值
+```
+
+:::
+
+### 和 `if` 一起使用
+
+- `if errorlevel <number> <command>` 会**始终**使用内部状态 `errorlevel` 进行判断，设置环境变量 `errorlevel` 对它**没有影响**。
+- `if %errorlevel% == <string> <command>` 使用变量展开进行比较，因此**无法**确定使用的 `%errorlevel%` 是环境变量还是内部状态，不推荐使用这种方式。
+
+::: code-group
+
+```bat [判断 1.2]
+// test.bat
+if errorlevel 2 (
+echo two--%errorlevel%
+) else if errorlevel 1 (
+echo one--%errorlevel%
+) else (
+echo zero--%errorlevel%
+)
+
+// output
+zero--0  // 判断：内部状态，输出：内部状态
+```
+
+```bat [判断 1.2]
+// test.bat
+set errorlevel=2
+
+if errorlevel 2 (
+echo two--%errorlevel%
+) else if errorlevel 1 (
+echo one--%errorlevel%
+) else (
+echo zero--%errorlevel%
+)
+
+// output
+zero--2  // 判断：内部状态，输出：环境变量
+```
+
+```bat [判断 2.1]
+// test.bat
+if %errorlevel% geq 2 (
+echo two--%errorlevel%
+) else if %errorlevel% geq 1 (
+echo one--%errorlevel%
+) else (
+echo zero--%errorlevel%
+)
+
+// output
+zero--0  // 判断：内部状态，输出：内部状态
+```
+
+```bat [判断 2.2]
+// test.bat
+set errorlevel=2
+
+if %errorlevel% geq 2 (
+echo two--%errorlevel%
+) else if %errorlevel% geq 1 (
+echo one--%errorlevel%
+) else (
+echo zero--%errorlevel%
+)
+
+// output
+two--2  // 判断：环境变量，输出：环境变量
+```
+
+:::
+
 ## 命令：setlocal/endlocal
 
 开始在批处理文件中本地化环境变量。本地化将继续，直到遇到匹配的 `endlocal` 命令或到达批处理文件的末尾。
