@@ -63,6 +63,88 @@ tag:
 
 :::
 
+## Command: setlocal/endlocal
+
+Starts localization of environment variables in a batch file. Localization continues until a matching `endlocal` command is encountered or the end of the batch file is reached.
+
+`setlocal [enableextensions | disableextensions] [enabledelayedexpansion | disabledelayedexpansion]`
+
+| Parameter                  | Description                                                                                            |
+|----------------------------|--------------------------------------------------------------------------------------------------------|
+| `enableextensions`*        | Enables the command extensions until the matching endlocal command is encountered                      |
+| `disableextensions`        | Disables the command extensions until the matching endlocal command is encountered                     |
+| `enabledelayedexpansion`   | Enables the delayed environment variable expansion until the matching endlocal command is encountered  |
+| `disabledelayedexpansion`* | Disables the delayed environment variable expansion until the matching endlocal command is encountered |
+
+> `*` means default
+
+### _delayedexpansion_
+
+When CMD interprets a command, it will first read a **complete** command in the command line, and then perform some command format matching operations on it. If a variable (such as `%name%`) is used in the command, CMD will find the value corresponding to the variable when performing format matching on the command, **replace** the variable with the value of the variable, and then execute the **replaced** command. This process of replacing values is called **variable expansion**.
+
+However, when we use `for`(loop) and `if`(block), the variable expansion will be performed **before** the loop/block starts, and the value of the variable will **not be updated** during execution.In this case, we can use `enabledelayedexpansion` to **delay** the variable expansion **until** the command is executed.
+
+::: warning Note
+When the `enabledelayedexpansion` is enabled, use `!` instead of `%` to access the variable. That is, `!name!` rather than `%name%`.
+:::
+
+::: code-group
+
+```bat [no delayed expansion1]
+// loop.bat
+for /l %%i in (1,1,5) do (
+    set ptr=%%i
+    echo %ptr%
+)
+
+// output
+ECHO is off.  // When the variable value is empty, this will be output
+ECHO is off.
+ECHO is off.
+ECHO is off.
+ECHO is off.
+```
+
+```bat [no delayed expansion2]
+// loop.bat
+set ptr=0
+for /l %%i in (1,1,5) do (
+    set ptr=%%i
+    echo %ptr%
+)
+
+// output
+0
+0
+0
+0
+0
+```
+
+```bat [with delayed expansion]
+// loop.bat
+@echo off
+
+setlocal enabledelayedexpansion
+
+rem set ptr=0  // This line has no effect on the result whether it is commented out or not
+for /l %%i in (1,1,5) do (
+    set ptr=%%i
+    echo !ptr!
+)
+
+endlocal
+
+// output
+1
+2
+3
+4
+5
+```
+
+:::
+
 ## Command: set (environment variable)
 
 - `set` - Display all environment variables

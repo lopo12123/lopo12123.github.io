@@ -63,6 +63,88 @@ tag:
 
 :::
 
+## 命令：setlocal/endlocal
+
+开始在批处理文件中本地化环境变量。本地化将继续，直到遇到匹配的 `endlocal` 命令或到达批处理文件的末尾。
+
+`setlocal [enableextensions | disableextensions] [enabledelayedexpansion | disabledelayedexpansion]`
+
+| 参数                         | 说明                           |
+|----------------------------|------------------------------|
+| `enableextensions`*        | 启用命令扩展，直到遇到匹配的endlocal命令     |
+| `disableextensions`        | 禁用命令扩展，直到遇到匹配的endlocal命令     |
+| `enabledelayedexpansion`   | 启用延迟环境变量扩展，直到遇到匹配的endlocal命令 |
+| `disabledelayedexpansion`* | 禁用延迟环境变量扩展，直到遇到匹配的endlocal命令 |
+
+> `*` 为默认值
+
+### _延迟扩展_
+
+CMD在解释命令时，首先会读取命令行中一条**完整的**命令，然后对其进行一些命令格式的匹配操作。 如果命令中使用了变量（如`%name%`），当CMD在对这条命令进行格式匹配时会找到变量对应的值，用变量的值**替换**这个变量，再执行这个**替换后的**命令。 这个替换值的过程,就叫做**变量扩展**。
+
+然而，当我们使用 `for`（循环） 和 `if`（代码块）时，变量扩展会在**循环/代码块**开始**前**就已经完成，循环/代码块中的值在运行时**不会被更新**。在这种情况下，我们可以使用 `enabledelayedexpansion` 来**延迟**变量扩展直到命令被执行。
+
+::: warning 注意
+当启用 `enabledelayedexpansion` 时，使用 `!` 而不是 `%` 来访问变量。即 `!name!` 而不是 `%name%`。
+:::
+
+::: code-group
+
+```bat [no delayed expansion1]
+// loop.bat
+for /l %%i in (1,1,5) do (
+    set ptr=%%i
+    echo %ptr%
+)
+
+// output
+ECHO 处于关闭状态。  // 当变量值为空就会输出这个
+ECHO 处于关闭状态。
+ECHO 处于关闭状态。
+ECHO 处于关闭状态。
+ECHO 处于关闭状态。
+```
+
+```bat [no delayed expansion2]
+// loop.bat
+set ptr=0
+for /l %%i in (1,1,5) do (
+    set ptr=%%i
+    echo %ptr%
+)
+
+// output
+0
+0
+0
+0
+0
+```
+
+```bat [with delayed expansion]
+// loop.bat
+@echo off
+
+setlocal enabledelayedexpansion
+
+rem set ptr=0  // 这行是否注释对结果没有影响
+for /l %%i in (1,1,5) do (
+    set ptr=%%i
+    echo !ptr!
+)
+
+endlocal
+
+// output
+1
+2
+3
+4
+5
+```
+
+:::
+
 ## 命令：set（环境变量）
 
 - `set` - 显示所有环境变量
