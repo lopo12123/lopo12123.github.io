@@ -43,25 +43,28 @@ tag:
 
 > 参阅[触发工作流的事件](https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows)了解更多信息
 
-- TODO
+事件是存储库中触发工作流运行的特定行为。
 
 ### 作业
 
 > 参阅[使用作业](https://docs.github.com/zh/actions/using-jobs)了解更多信息
 
-- TODO
+- 作业是工作流程中在**同一**运行器上执行的一组**步骤**。
+- **步骤**按顺序执行，并且彼此之间有依赖关系。
+- 默认情况下，作业没有依赖关系，并且**并行**运行。您可以配置作业与其他作业的依赖关系。当一个作业依赖于另一个作业时，它将在运行之前等待依赖的作业完成。
 
 ### 操作
 
 > 参阅[创建操作](https://docs.github.com/zh/actions/creating-actions)了解更多信息
 
-- TODO
+操作是GitHub Actions平台的自定义应用程序，用于执行**复杂但频繁重复**的任务。使用操作可帮助减少工作流文件中编写的重复代码量。
 
 ### 运行器
 
 > 参阅[使用 GitHub 托管的运行器](https://docs.github.com/zh/actions/using-github-hosted-runners/about-github-hosted-runners)了解更多信息
 
-- TODO
+- 运行器是在触发工作流时运行工作流的**服务器**。
+- 每个工作流运行都在**新配置**的虚拟机中执行。
 
 ## 参考
 

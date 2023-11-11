@@ -43,25 +43,28 @@ tag:
 
 > Refer to [Events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows) for more information
 
-- TODO
+An event is a specific activity in a repository that triggers a workflow run.
 
 ### Job
 
 > Refer to [Using jobs](https://docs.github.com/en/actions/using-jobs) for more information
 
-- TODO
+- A job is a set of **steps** in a workflow that is executed on the **same** runner.
+- **Steps** are executed **in order** and are dependent on each other.
+- By default, jobs have no dependencies and run in **parallel** with each other. You can configure a job's dependencies with other jobs. When a job takes a dependency on another job, it will wait for the dependent job to complete before it can run.
 
 ### Action
 
 > Refer to [Creating actions](https://docs.github.com/en/actions/creating-actions) for more information
 
-- TODO
+An action is a custom application for the GitHub Actions platform that performs a **complex but frequently repeated** task. Use an action to help reduce the amount of repetitive code that you write in your workflow files.
 
 ### Runner
 
 > Refer to [Using GitHub-hosted runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners) for more information
 
-- TODO
+- A runner is a **server** that runs the workflow when it is triggered.
+- Each workflow runs in a **fresh, newly-provisioned** virtual machine.
 
 ## References
 
