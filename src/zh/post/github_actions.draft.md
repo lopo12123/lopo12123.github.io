@@ -66,7 +66,12 @@ tag:
 - 运行器是在触发工作流时运行工作流的**服务器**。
 - 每个工作流运行都在**新配置**的虚拟机中执行。
 
+## 架构
+
+
+
 ## 参考
 
-- [GitHub Marketplace](https://github.com/marketplace?type=actions)
 - [GitHub Actions documentation](https://docs.github.com/en/actions)
+- [GitHub Marketplace](https://github.com/marketplace?type=actions)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)

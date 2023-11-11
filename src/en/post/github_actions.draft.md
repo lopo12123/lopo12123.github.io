@@ -66,7 +66,47 @@ An action is a custom application for the GitHub Actions platform that performs 
 - A runner is a **server** that runs the workflow when it is triggered.
 - Each workflow runs in a **fresh, newly-provisioned** virtual machine.
 
+## Architecture
+
+```yaml :line-numbers
+name: basic-demo
+env:
+  USERNAME: "lopo"
+on:
+  push:
+    branches: [ master ]
+jobs:
+  greet-to-user-with-nodejs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Create Greeter
+        run: |
+          echo console.log("Hi, ${{ env.USERNAME }}!") > greeter.js
+      - name: Greet to user
+        run: node greeter.js
+```
+
+- **L1**: The **name** of the workflow as it will appear in the `Actions` tab of the GitHub repository. If this field is omitted, the name of the workflow file will be used instead.
+- **L2-3**: The environment variables that are available to all jobs and steps in the workflow. In this case, the environment variable `USERNAME` is set to `lopo`.
+- **L4-6**: Specifies the **trigger** for this workflow. In this case, the workflow will be triggered when a push event occurs on the master branch.
+- **L7**: Groups together all the **jobs** that run in this **workflow**.
+- **L8**: Defines a job named `greet-to-user-with-nodejs`.
+- **L9**: Specifies the type of machine to run the job on. In this case, the job will run on a `ubuntu-latest` machine.
+- **L10**: Groups together all the **steps** that run in this **job**.
+- **L11, 13, 17, 20**: Defines the name of the step. This is optional, but it is recommended to provide a descriptive name for each step.
+- **L12, 14**: Specifies the **action** to run using the `uses` keyword.
+- **L15-16**: Specifies come **arguments** for the action. In this case, the `node-version` argument is set to `18`.
+- **L18-19, 21**: Specifies the **command** to run using the `run` keyword.
+- We can use the <span v-pre>`${{ variable }}`</span> syntax to access the variables defined in the workflow file. In this case, the `USERNAME` environment variable is accessed in the `Create Greeter` step using the <span v-pre>`${{ env.USERNAME }}`</span> syntax.
+
 ## References
 
-- [GitHub Marketplace](https://github.com/marketplace?type=actions)
 - [GitHub Actions documentation](https://docs.github.com/en/actions)
+- [GitHub Marketplace](https://github.com/marketplace?type=actions)
+- [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
