@@ -1,8 +1,17 @@
-node_modules
-
+## Misc ##
+.DS_Store
 .idea
-.yarn
+*.iml
 test
 
-.vitepress/cache
-.vitepress/dist
+## Hexo.js ##
+Thumbs.db
+db.json
+
+## Dependency ##
+node_modules
+.yarn
+!.yarn/releases
+
+## Build ##
+public

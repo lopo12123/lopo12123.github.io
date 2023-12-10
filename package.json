@@ -1,19 +1,31 @@
 {
     "name": "lopo12123.github.io",
     "version": "0.2.2",
+    "private": true,
     "description": "lopo | find an anchor to stop drifting...",
     "author": "lopo<lopo@zju.edu.cn>",
     "type": "module",
     "scripts": {
-        "gen": "node ./bin/gen.cjs",
-        "template": "node ./bin/gen.cjs post template",
-        "docs:dev": "vitepress dev . --host",
-        "docs:build": "vitepress build .",
-        "docs:preview": "vitepress preview ."
+        "dev": "hexo server -p 23251",
+        "build": "hexo generate"
+    },
+    "hexo": {
+        "version": "7.0.0"
+    },
+    "dependencies": {
+        "hexo": "^7.0.0",
+        "hexo-generator-archive": "^2.0.0",
+        "hexo-generator-category": "^2.0.0",
+        "hexo-generator-index": "^3.0.0",
+        "hexo-generator-searchdb": "^1.4.1",
+        "hexo-generator-tag": "^2.0.0",
+        "hexo-renderer-ejs": "^2.0.0",
+        "hexo-renderer-marked": "^6.0.0",
+        "hexo-renderer-stylus": "^3.0.0",
+        "hexo-server": "^3.0.0",
+        "hexo-theme-next": "^8.19.1"
     },
     "devDependencies": {
-        "@types/node": "18",
-        "vitepress": "1.0.0-rc.23",
-        "vue": "^3.3.4"
+        "@types/node": "18"
     }
 }
