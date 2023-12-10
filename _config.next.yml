@@ -96,14 +96,15 @@ open_graph:
 # Value before `||` delimiter is the target link, value after `||` delimiter is the name of Font Awesome icon.
 # External url should start with http:// or https://
 menu:
-home: / || fa fa-home
-#about: /about/ || fa fa-user
-tags: /tags/ || fa fa-tags
-categories: /categories/ || fa fa-th
-archives: /archives/ || fa fa-archive
-#schedule: /schedule/ || fa fa-calendar
-#sitemap: /sitemap.xml || fa fa-sitemap
-#commonweal: /404/ || fa fa-heartbeat
+  home: / || fa fa-home
+#  TODO: add about page
+#  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+#  schedule: /schedule/ || fa fa-calendar
+#  sitemap: /sitemap.xml || fa fa-sitemap
+#  commonweal: /404/ || fa fa-heartbeat
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -141,7 +142,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: /media/0.jpg
+  url: /media/1.png
   # If true, the avatar will be displayed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
@@ -155,19 +156,19 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-GitHub: https://github.com/lopo12123 || fab fa-github
-E-Mail: mailto:lopo@zju.edu.cn || fa fa-envelope
-#Weibo: https://weibo.com/yourname || fab fa-weibo
-#Twitter: https://twitter.com/yourname || fab fa-twitter
-#FB Page: https://www.facebook.com/yourname || fab fa-facebook
-#StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
-#YouTube: https://youtube.com/yourname || fab fa-youtube
-#Instagram: https://instagram.com/yourname || fab fa-instagram
-#Skype: skype:yourname?call|chat || fab fa-skype
+  GitHub: https://github.com/lopo12123 || fab fa-github
+  E-Mail: mailto:lopo@zju.edu.cn || fa fa-envelope
+#  Weibo: https://weibo.com/yourname || fab fa-weibo
+#  Twitter: https://twitter.com/yourname || fab fa-twitter
+#  FB Page: https://www.facebook.com/yourname || fab fa-facebook
+#  StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
+#  YouTube: https://youtube.com/yourname || fab fa-youtube
+#  Instagram: https://instagram.com/yourname || fab fa-instagram
+#  Skype: skype:yourname?call|chat || fab fa-skype
 
 social_icons:
   enable: true
-  icons_only: true
+  icons_only: false
   transition: false
 
 # Blog rolls
@@ -388,7 +389,7 @@ back2top:
 
 # Reading progress bar
 reading_progress:
-  enable: true
+  enable: false
   # Available values: left | right
   start_at: left
   # Available values: top | bottom
@@ -408,9 +409,9 @@ bookmark:
 
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
-  enable: false
+  enable: true
   permalink: https://github.com/lopo12123
-  style: ribbon # ribbon | corner
+  style: corner # ribbon | corner
   title: Follow me on GitHub
 
 
@@ -645,7 +646,7 @@ pace:
   enable: true
   # All available colors:
   # black | blue | green | orange | pink | purple | red | silver | white | yellow
-  color: blue
+  color: silver
   # All available themes:
   # big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple
   # corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal
