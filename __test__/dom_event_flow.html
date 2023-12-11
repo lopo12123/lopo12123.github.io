@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <button id="my-btn">click directly</button>
+
+        <button onclick="trigger()">event trigger</button>
+        <button onclick="dispatch()">event dispatch</button>
+
+        <script>
+            const myBtn = document.getElementById('my-btn');
+            const myIpt = document.getElementById('ipt');
+
+            myBtn.addEventListener('click', (ev) => {
+                console.log('Clicked 1 - sync')
+                window.setTimeout(() => console.log('Clicked 1 - timeout'))
+                Promise.resolve().then(() => console.log('Clicked 1 - promise'))
+            })
+            myBtn.addEventListener('click', (ev) => {
+                console.log('Clicked 2 - sync')
+                window.setTimeout(() => console.log('Clicked 2 - timeout'))
+                Promise.resolve().then(() => console.log('Clicked 2 - promise'))
+            })
+            myBtn.addEventListener('click', (ev) => {
+                console.log('Clicked 3 - sync')
+                window.setTimeout(() => console.log('Clicked 3 - timeout'))
+                Promise.resolve().then(() => console.log('Clicked 3 - promise'))
+            })
+
+            function trigger() {
+                myBtn.click()
+            }
+
+            function dispatch() {
+                const event = new Event('click')
+                const isPrevented = myBtn.dispatchEvent(event)
+                console.log('isPrevented', isPrevented)
+            }
+        </script>
+    </body>
+</html>
