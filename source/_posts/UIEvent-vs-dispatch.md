@@ -149,7 +149,7 @@ But it does have an entry in its glossary called [_candidate event listeners_](h
 
 [//]: # (TODO)
 
-## Reference
+## References
 
 - [Interface UIEvent](https://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-UIEvent)
 - [UI Events (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events)

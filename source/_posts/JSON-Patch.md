@@ -17,3 +17,20 @@ Additionally, operation objects **MUST** have exactly one `path` member. That me
 ## JavaScript Object Notation (JSON) Patch
 
 
+## Related Projects
+
+### npm
+
+- [fast-json-patch](https://www.npmjs.com/package/fast-json-patch)
+- [json8-patch](https://www.npmjs.com/package/json8-patch)
+
+### cargo
+
+- [json_patch](https://crates.io/crates/json_patch)
+
+## References
+
+- [rfc6902: JavaScript Object Notation (JSON) Patch](https://datatracker.ietf.org/doc/html/rfc6902)
+- [rfc7396: JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7396)
+
+
