@@ -368,8 +368,8 @@ codeblock:
     light: default  # atom-one-light
     dark: stackoverflow-dark  # atom-one-dark
   prism:
-    light: prism
-    dark: prism-dark
+    light: prism-tomorrow
+    dark: prism-tomorrow
   # Add copy button on codeblock
   copy_button:
     enable: true
