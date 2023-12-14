@@ -582,17 +582,17 @@ Recipients of a merge patch document determine the exact set of changes being re
 
 That is,
 
-- the value of `a` (`b`) in the original document has been **replaced** by the value of `a` (`z`) in the patch document
-- and a member of `c` (`f`) has been **removed** cause its value is `null` in the patch document.
+- the value of `a` (`"b"`) in the original document has been **replaced** by the value of `a` (`"z"`) in the patch document
+- and a member of `c` (`"f"`) has been **removed** cause its value is `null` in the patch document.
 
 ## Related Projects
 
-### npm
+### nodejs
 
 - [fast-json-patch](https://www.npmjs.com/package/fast-json-patch)
 - [json8-patch](https://www.npmjs.com/package/json8-patch)
 
-### cargo
+### rust
 
 - [json_patch](https://crates.io/crates/json_patch)
 
