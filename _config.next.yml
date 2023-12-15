@@ -464,7 +464,7 @@ font:
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family:  # 'Source Code Pro'
+    family: 'JetBrains Mono' # 'Source Code Pro'
 
 
 # ---------------------------------------------------------------
