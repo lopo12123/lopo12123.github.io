@@ -7,7 +7,7 @@
     "type": "module",
     "scripts": {
         "new": "hexo new my-next-post",
-        "dev": "hexo server -p 23251",
+        "dev": "hexo server -p 2325",
         "build": "hexo generate"
     },
     "hexo": {
