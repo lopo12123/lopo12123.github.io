@@ -67,7 +67,7 @@ tag:
 
 In CMD, `errorlevel` is an **internal state** used to indicate the return value of the previous command. It is a number from **0-255**, usually **0** means success, **non-0** means failure.
 
-## Usage of `set errorlevel=<value>`
+### Usage of `set errorlevel=<value>`
 
 When command extensions are enabled, executing `echo %errorlevel%` will first look for the **environment variable** `errorlevel`, and if not found, will look for the **internal status** `errorlevel`. Therefore, executing `set errorlevel=<value>` only sets an **environment variable** and **does not affect** the **internal status** `errorlevel`.
 
