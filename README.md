@@ -1,2 +1,1 @@
-## lopo's blog
-
+![](./lopo.svg)
