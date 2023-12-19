@@ -98,7 +98,7 @@ open_graph:
 menu:
   home: / || fa fa-home
   #  TODO: add about page
-  #  about: /about/ || fa fa-user
+  about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
@@ -142,7 +142,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: /media/avatar.jpg
+  url: /media/avatar.png
   # If true, the avatar will be displayed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="565" height="270" viewBox="0 0 565 270"
+     stroke-linecap="round" stroke-width="20" fill="none"
+     style="isolation: isolate">
+
+    <!--
+        - gap = 25
+        - thickness = 20
+        - radius = 60
+
+        color scheme:
+        - blue =  #49A9DB
+        - green = #5EB96E
+        - orange1 = #FEC330
+        - orange2 = #F38F31
+        - purple = #9D529C
+        - red = #FC5356
+        - yellow = #C5D73F
+    -->
+
+    <!--  x = 35, l = 200  -->
+    <g transform="translate(35, 135)" fill="#fff">
+        <line x1="0" y1="-120" x2="0" y2="70" stroke="#5EB96E"/>
+        <!--        <line x1="0" y1="0" x2="0" y2="-120" stroke="#49A9DB"/>-->
+        <!--        <line x1="0" y1="0" x2="0" y2="70" stroke="#FC5356"/>-->
+    </g>
+
+    <!--  c = (140, 135), r = 60  -->
+    <g transform="translate(140, 135)">
+        <path d="M0,-60 A60,60 0 0 0 -60,0" stroke="#49A9DB" style="mix-blend-mode: multiply"/>
+        <path d="M60,0 A60,60 0 0 0 0,-60" stroke="#F38F31" style="mix-blend-mode: multiply"/>
+        <path d="M0,60 A60,60 0 0 0 60,0" stroke="#9D529C" style="mix-blend-mode: multiply"/>
+        <path d="M-60,0 A60,60 0 0 0 0,60" stroke="#C5D73F" style="mix-blend-mode: multiply"/>
+    </g>
+
+    <!--  x = 245  -->
+    <g transform="translate(245, 135)">
+        <path d="M60,-60 A60,60 0 0 0 0,0" stroke="#C5D73F" style="mix-blend-mode: multiply"/>
+        <path d="M120,0 A60,60 0 0 0 60,-60" stroke="#9D529C" style="mix-blend-mode: multiply"/>
+        <path d="M60,60 A60,60 0 0 0 120,0" stroke="#5EB96E" style="mix-blend-mode: multiply"/>
+        <path d="M0,0 A60,60 0 0 0 60,60" stroke="#FEC330" style="mix-blend-mode: multiply"/>
+
+        <line x1="0" y1="0" x2="0" y2="-70" stroke="#FC5356" style="mix-blend-mode: multiply"/>
+        <line x1="0" y1="0" x2="0" y2="120" stroke="#49A9DB" style="mix-blend-mode: multiply"/>
+    </g>
+
+    <!--  c = (470, 135), r = 60  -->
+    <g transform="translate(470, 135)">
+        <path d="M0,-60 A60,60 0 0 0 -60,0" stroke="#FEC330" style="mix-blend-mode: multiply"/>
+        <path d="M60,0 A60,60 0 0 0 0,-60" stroke="#5EB96E" style="mix-blend-mode: multiply"/>
+        <path d="M0,60 A60,60 0 0 0 60,0" stroke="#F38F31" style="mix-blend-mode: multiply"/>
+        <path d="M-60,0 A60,60 0 0 0 0,60" stroke="#FC5356" style="mix-blend-mode: multiply"/>
+    </g>
+</svg>
