@@ -29,43 +29,39 @@ fn greet() {
 ```rust
 use core::any::type_name;
 
-/// 用于获取某一变量类型的工具函数
 fn get_typename_of<T>(_: &T) -> &'static str {
     type_name::<T>()
 }
 
-/// 函数1
 fn foo() -> i32 {
     42
 }
 
-/// 函数2
 fn bar() -> i32 {
     35
 }
 
-/// 打印其类型
 #[test]
 fn function_item_typename() {
     // 1. 零大小
     println!("size of foo is: {}", core::mem::size_of_val(&foo));
-    // size of foo is: 0
+    // => size of foo is: 0
 
     println!("size of bar is: {}", core::mem::size_of_val(&bar));
-    // size of bar is: 0
+    // => size of bar is: 0
 
     println!("size of function with generic type 1: {}", core::mem::size_of_val(&get_typename_of::<i32>));
-    // size of function with generic type 1: 0
+    // => size of function with generic type 1: 0
 
     println!("size of function with generic type 2: {}", core::mem::size_of_val(&get_typename_of::<u32>));
-    // size of function with generic type 2: 0
+    // => size of function with generic type 2: 0
 
     // 2. 类型
     println!("type of foo is: \"{}\"", get_typename_of(&foo));
-    // type of foo is: "study_rust::function_like::foo"
+    // => type of foo is: "study_rust::function_like::foo"
 
     println!("type of bar is: \"{}\"", get_typename_of(&bar));
-    // type of bar is: "study_rust::function_like::bar"
+    // => type of bar is: "study_rust::function_like::bar"
 }
 ```
 
@@ -75,6 +71,66 @@ fn function_item_typename() {
   ![](type_foo.png)
 - 函数 bar 的类型提示
   ![](type_bar.png)
+
+## Function pointer type
+
+`Function pointer type` 是一个指向函数的指针，它的类型在编译时**不需要**明确已知。可以通过从**function item**或**非捕获闭包**强制转换而来。
+
+在**显式指定**(function_pointer_test.1)或**模式匹配**(function_pointer_test.4)中，会发生`function item type`到`function pointer type`的转换。
+
+```rust
+type MyFunctionPointer = fn();
+
+fn hi() {
+    println!("hi");
+}
+
+fn hello() {
+    println!("hello");
+}
+
+#[test]
+fn function_pointer_test() {
+    // 1. coercion from function item
+    let mut greet: MyFunctionPointer = hi;
+    greet();
+    // => hi
+    println!("size of greet is: {}", core::mem::size_of_val(&greet));
+    // => size of greet is: 8
+
+    // 2. re-assign is ok
+    greet = hello;
+    greet();
+    // => hello
+    println!("size of greet is: {}", core::mem::size_of_val(&greet));
+    // => size of greet is: 8
+
+    // 3. coercion from non-capturing closure
+    greet = || println!("nice day, isn't it?");
+    greet();
+    // => nice day, isn't it?
+    println!("size of greet is: {}", core::mem::size_of_val(&greet));
+    // => size of greet is: 8
+
+    // 4. coercion in pattern matching
+    let condition = true;
+    let my_size_of = if condition {
+        core::mem::size_of::<i32>
+    } else {
+        core::mem::size_of::<u32>
+    };
+    println!("size of core::mem::size_of::<i32> is: {}", core::mem::size_of_val(&core::mem::size_of::<i32>));
+    println!("size of core::mem::size_of::<u32> is: {}", core::mem::size_of_val(&core::mem::size_of::<u32>));
+    println!("size of my_size_of is: {}", core::mem::size_of_val(&my_size_of));
+    // => size of core::mem::size_of::<i32> is: 0
+    // => size of core::mem::size_of::<u32> is: 0
+    // => size of my_size_of is: 8
+
+    // EXTRA: size of usize
+    println!("size of 'usize' is: {}", core::mem::size_of::<usize>());
+    // => size of 'usize' is: 8
+}
+```
 
 ## References
 
