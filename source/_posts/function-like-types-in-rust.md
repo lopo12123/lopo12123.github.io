@@ -132,6 +132,78 @@ fn function_pointer_test() {
 }
 ```
 
+## Closure type
+
+闭包使用[闭包表达式](https://doc.rust-lang.org/reference/expressions/closure-expr.html)创建，具有唯一的、匿名的类型。
+
+一个闭包大致相对于包含所有捕获项的一个结构体，且其大小与该结构体的大小相同。
+
+```rust
+struct Alternative1 {}
+
+/// alternative to capturing closure -- 1 argument
+#[allow(unused)]
+struct Alternative2 {
+    arg1: String,
+}
+
+/// alternative to capturing closure -- 2 argument (1)
+#[allow(unused)]
+struct Alternative3 {
+    arg1: String,
+    arg2: u32,
+}
+
+/// alternative to capturing closure -- 2 argument (2)
+#[allow(unused)]
+struct Alternative4<'a> {
+    arg1: &'a String,
+    arg2: u32,
+}
+
+#[test]
+fn closure_test() {
+    // 1. non-capturing closure
+    let closure1 = || println!("no args");
+    let alt1 = Alternative1 {};
+    println!("closure: {}; struct: {}; (): {}", size_of_val(&closure1), size_of_val(&alt1), size_of::<()>());
+    // => closure: 0; struct: 0; (): 0
+
+    // 2. capturing closure (1)
+    let arg1 = "abc".to_string();
+    let closure2 = || {
+        // consume arg1 to ensure it's captured
+        let _args = arg1;
+        println!("args: {:?}", _args);
+    };
+    let alt2 = Alternative2 { arg1: "abc".to_string() };
+    println!("closure: {}; struct: {}; String: {}", size_of_val(&closure2), size_of_val(&alt2), size_of::<String>());
+    // => closure: 24; struct: 24; String: 24
+
+    // 3. capturing closure (2)
+    let arg1 = "abc".to_string();
+    let arg2 = 123_u32;
+    let closure3 = || {
+        let _args = (arg1, arg2);
+        println!("args: {:?}", _args);
+    };
+    let alt3 = Alternative3 { arg1: "abc".to_string(), arg2: 123_u32 };
+    println!("closure: {}; struct: {}; String: {}; u32: {}", size_of_val(&closure3), size_of_val(&alt3), size_of::<String>(), size_of::<u32>());
+    // => closure: 32; struct: 32; String: 24; u32: 4
+
+    // 4. capturing closure (3)
+    let arg1 = "abc".to_string();
+    let arg2 = 123_u32;
+    let closure4 = || {
+        let _args = (&arg1, arg2);
+        println!("args: {:?}", _args);
+    };
+    let alt4 = Alternative4 { arg1: &arg1, arg2: 123_u32 };
+    println!("closure: {}; struct: {}; &String: {}; u32: {}", size_of_val(&closure4), size_of_val(&alt4), size_of::<&String>(), size_of::<u32>());
+    // closure: 16; struct: 16; &String: 8; u32: 4
+}
+```
+
 ## References
 
 - [Function item types](https://doc.rust-lang.org/reference/types/function-item.html)
