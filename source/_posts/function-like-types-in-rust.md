@@ -204,9 +204,217 @@ fn closure_test() {
 }
 ```
 
+## Fn & FnMut & FnOnce
+
+在 Rust 中, `()` 是一个**操作符**，它和 `+`、`-`、`*`、`/` 等操作符一样可以被**重载**。 Rust 中的操作符重载是通过实现其对应的 `trait` 来实现的，`()` 对应的 `trait` 是 `Fn`、`FnMut` 和 `FnOnce`。 实现了 `Fn`、`FnMut`、`FnOnce` 任一 `trait` 的类型，都是可调用的，可以像使用函数一样通过 `variable_name()` 的形式进行调用。
+
+### Fn (std::ops::Fn)
+
+- 使用**不可变**接收者的**调用**的表示
+- 可被多次调用
+- 如果 `T: Fn`，那么 `&T` 会自动实现 `Fn`
+
+```rust
+pub trait Fn<Args>: FnMut<Args>
+where
+    Args: Tuple,
+{
+    // Required method
+    extern "rust-call" fn call(&self, args: Args) -> Self::Output;
+}
+```
+
+### FnMut (std::ops::FnMut)
+
+- 使用**可变**接收者的**调用**的表示
+- 可被多次调用，并且可以修改 `self` 的状态
+- 如果 `T: FnMut`，那么 `&mut T` 会自动实现 `FnMut`
+
+```rust
+pub trait FnMut<Args>: FnOnce<Args>
+where
+    Args: Tuple,
+{
+    // Required method
+    extern "rust-call" fn call_mut(
+        &mut self,
+        args: Args
+    ) -> Self::Output;
+}
+```
+
+### FnOnce (std::ops::FnOnce)
+
+- 使用**所有权**接收者的**调用**的表示
+- 只能被调用一次
+
+```rust
+pub trait FnOnce<Args>
+where
+    Args: Tuple,
+{
+    type Output;
+
+    // Required method
+    extern "rust-call" fn call_once(self, args: Args) -> Self::Output;
+}
+```
+
+### 关系
+
+- `Fn: FnMut: FnOnce`
+- 如果一个变量需要 `FnOnce`，那么它可以接受 `FnMut` 或 `Fn`。(因为 `FnMut` 和 `Fn` 都是 `FnOnce` 的子集)
+- 如果一个变量需要 `FnMut`，那么它可以接受 `Fn`。(因为 `Fn` 是 `FnMut` 的子集)
+
+### 示例
+
+#### 使用
+
+```rust
+#[test]
+fn fn_test() {
+    fn caller<F>(f: F) where F: Fn(u32) {
+        // first call
+        f(1);
+
+        // second call
+        f(2);
+    }
+
+    let var = 1;
+    let my_fn = |num| println!("{}: captured var is: {}", num, var);
+
+    caller(my_fn);
+    // => 1: captured var is: 1
+    // => 2: captured var is: 1
+}
+
+#[test]
+fn fn_mut_test() {
+    fn caller<F>(mut f: F) where F: FnMut(u32) {
+        // first call
+        f(1);
+
+        // second call
+        f(2);
+    }
+
+    let mut var = 1;
+    let my_mut_fn = |num| {
+        var += 1;
+        println!("{}: captured var is: {}", num, var)
+    };
+
+    caller(my_mut_fn);
+    // => 1: captured var is: 2
+    // => 2: captured var is: 3
+}
+
+#[test]
+fn fn_once_test() {
+    fn caller<F>(f: F) where F: FnOnce(u32) {
+        // first call
+        f(1);
+        // => 1: captured var is: 1
+
+        // second call -- won't compile cause f can only be called once
+        // f(2);
+    }
+
+    let var = 1;
+    let my_once_fn = |num| println!("{}: captured var is: {}", num, var);
+
+    caller(my_once_fn);
+}
+```
+
+#### 类型兼容
+
+```rust
+#[test]
+fn type_test() {
+    fn need_fn(f: impl Fn()) {
+        f();
+    }
+    fn need_fn_mut(mut f: impl FnMut()) {
+        f();
+    }
+    fn need_fn_once(f: impl FnOnce()) {
+        f();
+    }
+
+    let my_fn = || println!("hello");
+
+    let mut var = 1;
+    let mut my_mut_fn = || {
+        var += 1;
+        println!("captured var is: {}", var)
+    };
+
+    // 1. MATCH: expect Fn, got Fn
+    need_fn(my_fn);
+    // => hello
+
+    // 2. MATCH: expect FnMut, got FnMut
+    need_fn_mut(&mut my_mut_fn);
+    // => captured var is: 2
+
+    // 3. MISMATCH: expect FnOnce, got Fn
+    need_fn_once(my_fn);
+    // => hello
+
+    // 4. MISMATCH: expect FnOnce, got FnMut
+    need_fn_once(&mut my_mut_fn);
+    // => captured var is: 3
+
+    // 5. MISMATCH: expect FnMut, got Fn
+    need_fn_mut(my_fn);
+    // => hello
+}
+```
+
+#### 自定义实现
+
+[在 Playground 中查看](https://play.rust-lang.org/?version=nightly&mode=debug&edition=2021&gist=43dd609f7f3a4492d077c2707d82aec8)
+
+```rust
+#![feature(unboxed_closures)]
+#![feature(fn_traits)]
+
+struct MyCallableStruct {}
+
+impl FnOnce<()> for MyCallableStruct {
+    type Output = String;
+
+    extern "rust-call" fn call_once(self, _args: ()) -> String {
+        // 在这里定义调用结构体时的行为
+        format!("call with no args")
+    }
+}
+
+fn main() {
+    let callable = MyCallableStruct {};
+    let result = callable();
+    println!("result is: {}", result);
+    // => result is: call with no args
+}
+```
+
+{% note warning %}
+
+注意:
+
+- 当前仅 `nightly` 版本支持自定义实现 `Fn`、`FnMut` 和 `FnOnce`
+- 需要添加 [`#![feature(unboxed_closures)]`](https://doc.rust-lang.org/beta/unstable-book/language-features/unboxed-closures.html) 和 [`#![feature(fn_traits)]`](https://doc.rust-lang.org/beta/unstable-book/library-features/fn-traits.html) 标志
+
+{% endnote %}
+
 ## References
 
 - [Function item types](https://doc.rust-lang.org/reference/types/function-item.html)
 - [Function pointer types](https://doc.rust-lang.org/reference/types/function-pointer.html)
 - [Closure types](https://doc.rust-lang.org/reference/types/closure.html)
+- [Fn](https://doc.rust-lang.org/std/ops/trait.Fn.html)
+- [FnMut](https://doc.rust-lang.org/std/ops/trait.FnMut.html)
+- [FnOnce](https://doc.rust-lang.org/std/ops/trait.FnOnce.html)
 - [Implement unique types per fn item, rather than having all fn items have fn pointer type](https://github.com/rust-lang/rust/pull/19891)
