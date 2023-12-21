@@ -136,7 +136,7 @@ fn function_pointer_test() {
 
 闭包使用[闭包表达式](https://doc.rust-lang.org/reference/expressions/closure-expr.html)创建，具有唯一的、匿名的类型。
 
-一个闭包大致相对于包含所有捕获项的一个结构体，且其大小与该结构体的大小相同。
+一个闭包大致相对于包含所有捕获项的一个结构体(其中各字段类型与捕获形式匹配)，其大小与该结构体的大小相同。
 
 ```rust
 struct Alternative1 {}
