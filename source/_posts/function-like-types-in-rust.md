@@ -204,6 +204,10 @@ fn closure_test() {
 }
 ```
 
+### move 语义
+
+闭包默认会推断如何捕获变量，但可以使用 `move` 关键字来强制闭包获取其捕获项的所有权。
+
 ## Fn & FnMut & FnOnce
 
 在 Rust 中, `()` 是一个**操作符**，它和 `+`、`-`、`*`、`/` 等操作符一样可以被**重载**。 Rust 中的操作符重载是通过实现其对应的 `trait` 来实现的，`()` 对应的 `trait` 是 `Fn`、`FnMut` 和 `FnOnce`。 实现了 `Fn`、`FnMut`、`FnOnce` 任一 `trait` 的类型，都是可调用的，可以像使用函数一样通过 `variable_name()` 的形式进行调用。
@@ -258,6 +262,22 @@ where
     // Required method
     extern "rust-call" fn call_once(self, args: Args) -> Self::Output;
 }
+```
+
+### feature: fn_traits 和 unboxed_closures
+
+- `fn_traits` 允许为自定义类型实现 `Fn*` trait, 从而使其可调用
+- `unboxed_closures` 允许使用 'rust-call' ABI 来编写函数 (实现 `Fn*` 时必需)
+
+```rust
+#![feature(unboxed_closures)]
+
+// 标记 `add_args` 函数使用 'rust-call' ABI
+extern "rust-call" fn add_args(args: (u32, u32)) -> u32 {
+    args.0 + args.1
+}
+
+fn main() {}
 ```
 
 ### 关系
@@ -405,7 +425,7 @@ fn main() {
 注意:
 
 - 当前仅 `nightly` 版本支持自定义实现 `Fn`、`FnMut` 和 `FnOnce`
-- 需要添加 [`#![feature(unboxed_closures)]`](https://doc.rust-lang.org/beta/unstable-book/language-features/unboxed-closures.html) 和 [`#![feature(fn_traits)]`](https://doc.rust-lang.org/beta/unstable-book/library-features/fn-traits.html) 标志
+- 需要添加 `#![feature(fn_traits)]` 和 `#![feature(unboxed_closures)]` 标志
 
 {% endnote %}
 
@@ -417,4 +437,8 @@ fn main() {
 - [Fn](https://doc.rust-lang.org/std/ops/trait.Fn.html)
 - [FnMut](https://doc.rust-lang.org/std/ops/trait.FnMut.html)
 - [FnOnce](https://doc.rust-lang.org/std/ops/trait.FnOnce.html)
+- [Closure expr](https://doc.rust-lang.org/reference/expressions/closure-expr.html)
+- [Closure -- Capture modes](https://doc.rust-lang.org/reference/types/closure.html#capture-modes)
+- [fn_traits](https://doc.rust-lang.org/beta/unstable-book/library-features/fn-traits.html)
+- [unboxed_closures](https://doc.rust-lang.org/beta/unstable-book/language-features/unboxed-closures.html)
 - [Implement unique types per fn item, rather than having all fn items have fn pointer type](https://github.com/rust-lang/rust/pull/19891)
