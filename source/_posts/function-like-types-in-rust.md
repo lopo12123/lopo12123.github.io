@@ -4,8 +4,7 @@ date: 2023-12-18 22:14:33
 tags:
   - Rust
 categories:
-  - Study Notes
-  - Study Rust
+  - Rust
 ---
 
 在 Rust 中有三种类函数类型: `Function item type`, `Function pointer type`, `Closure type`.
