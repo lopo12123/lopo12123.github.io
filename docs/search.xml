@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Github Actions</title>
+    <url>/2023/12/16/Github-Actions/</url>
+    <content><![CDATA[<p>GitHub Actions 是一种持续集成和持续交付 (CI&#x2F;CD) 平台，可用于自动执行生成、测试和部署管道。可以创建工作流程来构建和测试存储库的每个拉取请求，或将合并的拉取请求部署到生产环境。</p>
+<span id="more"></span>
+
+<p>GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行工作流，也可以在自己的数据中心或云基础架构中托管自己的自托管运行器。</p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/quickstart#introduction">快速入门</a></p>
+</div>
+
+<ol>
+<li>在存储库中创建一个<code>.github/workflows</code>目录。</li>
+<li>在<code>.github/workflows</code>目录中，创建一个<code>&lt;workflow-name&gt;.yml</code>文件来定义工作流的配置。</li>
+<li>当指定的事件发生时，工作流程将自动触发。</li>
+</ol>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="工作流-Workflow"><a href="#工作流-Workflow" class="headerlink" title="工作流 (Workflow)"></a>工作流 (Workflow)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-workflows">使用工作流</a></p>
+</div>
+
+<ul>
+<li>工作流由<code>.github/workflows</code> 下的<code>&lt;workflow-name&gt;.yml</code>文件定义，将在存储库中的<strong>事件触发</strong>时运行，也可以<strong>手动触发</strong>或按<strong>定义的计划</strong>触发。</li>
+<li>一个存储库可以有多个工作流，每个工作流可以执行一组不同的任务</li>
+</ul>
+<h3 id="事件-Event"><a href="#事件-Event" class="headerlink" title="事件 (Event)"></a>事件 (Event)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a></p>
+</div>
+
+<p>事件是存储库中触发工作流的特定行为。</p>
+<h3 id="作业-Job"><a href="#作业-Job" class="headerlink" title="作业 (Job)"></a>作业 (Job)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-jobs">使用作业</a></p>
+</div>
+
+<ul>
+<li>作业是工作流程中在<strong>同一</strong>运行器上执行的一组<strong>步骤</strong>。</li>
+<li><strong>步骤</strong>按顺序执行，并且彼此之间有依赖关系。</li>
+<li>默认情况下，作业没有依赖关系，并且<strong>并行</strong>运行。可以配置作业与其他作业的依赖关系。当一个作业依赖于另一个作业时，它将在运行之前等待依赖的作业完成。</li>
+</ul>
+<h3 id="操作-Action"><a href="#操作-Action" class="headerlink" title="操作 (Action)"></a>操作 (Action)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/creating-actions">创建操作</a></p>
+</div>
+
+<p>操作是GitHub Actions平台的自定义应用程序，用于执行<strong>复杂但频繁重复</strong>的任务。使用操作可帮助减少工作流文件中编写的重复代码量。</p>
+<h3 id="运行器-Runner"><a href="#运行器-Runner" class="headerlink" title="运行器 (Runner)"></a>运行器 (Runner)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-github-hosted-runners/about-github-hosted-runners">使用 GitHub 托管的运行器</a></p>
+</div>
+
+<ul>
+<li>运行器是在触发工作流时运行工作流的<strong>服务器</strong>。</li>
+<li>每个工作流运行都在<strong>新配置</strong>的虚拟机中执行。</li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> basic<span class="token punctuation">-</span>demo
+<span class="token key atrule">env</span><span class="token punctuation">:</span>
+  <span class="token key atrule">USERNAME</span><span class="token punctuation">:</span> <span class="token string">"lopo"</span>
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> master <span class="token punctuation">]</span>
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">greet-to-user-with-nodejs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Setup node
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token number">18</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Create Greeter
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+          echo console.log("Hi, $&#123;&#123; env.USERNAME &#125;&#125;!") > greeter.js</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Greet to user
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> node greeter.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>L1</strong>: The <strong>name</strong> of the workflow as it will appear in the <code>Actions</code> tab of the GitHub repository. If this field is omitted, the name of the workflow file will be used instead.</li>
+<li><strong>L2-3</strong>: The environment variables that are available to all jobs and steps in the workflow. In this case, the environment variable <code>USERNAME</code> is set to <code>lopo</code>.</li>
+<li><strong>L4-6</strong>: Specifies the <strong>trigger</strong> for this workflow. In this case, the workflow will be triggered when a push event occurs on the master branch.</li>
+<li><strong>L7</strong>: Groups together all the <strong>jobs</strong> that run in this <strong>workflow</strong>.</li>
+<li><strong>L8</strong>: Defines a job named <code>greet-to-user-with-nodejs</code>.</li>
+<li><strong>L9</strong>: Specifies the type of machine to run the job on. In this case, the job will run on a <code>ubuntu-latest</code> machine.</li>
+<li><strong>L10</strong>: Groups together all the <strong>steps</strong> that run in this <strong>job</strong>.</li>
+<li><strong>L11, 13, 17, 20</strong>: Defines the name of the step. This is optional, but it is recommended to provide a descriptive name for each step.</li>
+<li><strong>L12, 14</strong>: Specifies the <strong>action</strong> to run using the <code>uses</code> keyword.</li>
+<li><strong>L15-16</strong>: Specifies come <strong>arguments</strong> for the action. In this case, the <code>node-version</code> argument is set to <code>18</code>.</li>
+<li><strong>L18-19, 21</strong>: Specifies the <strong>command</strong> to run using the <code>run</code> keyword.</li>
+<li>We can use the <span v-pre><code>$&#123;&#123; variable &#125;&#125;</code></span> syntax to access the variables defined in the workflow file. In this case, the <code>USERNAME</code> environment variable is accessed in the <code>Create Greeter</code> step using the <span v-pre><code>$&#123;&#123; env.USERNAME &#125;&#125;</code></span> syntax.</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://docs.github.com/en/actions">GitHub Actions documentation</a></li>
+<li><a href="https://github.com/marketplace?type=actions">GitHub Marketplace</a></li>
+<li><a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions">Workflow Syntax</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Essay</category>
+      </categories>
+      <tags>
+        <tag>CI/CD</tag>
+        <tag>Github Actions</tag>
+        <tag>Workflow</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JSON Patch</title>
+    <url>/2023/12/12/JSON-Patch/</url>
+    <content><![CDATA[<p>JSON Patch defines a JSON document structure for expressing a sequence of operations to apply to a JavaScript Object Notation(JSON) document. It is suitable for use with the HTTP PATCH method. The <code>application/json-patch+json</code> media type is used to identify such patch documents.</p>
+<span id="more"></span>
+
+<h2 id="JavaScript-Object-Notation-JSON-Patch"><a href="#JavaScript-Object-Notation-JSON-Patch" class="headerlink" title="JavaScript Object Notation (JSON) Patch"></a>JavaScript Object Notation (JSON) Patch</h2><p>Operation objects <strong>MUST</strong> have exactly one <code>op</code> member, whose value indicates the operation to perform. Its value <strong>MUST</strong> be one of <code>add</code>, <code>remove</code>, <code>replace</code>, <code>move</code>, <code>copy</code>, or <code>test</code>; other values are errors.</p>
+<p>Additionally, operation objects <strong>MUST</strong> have exactly one <code>path</code> member. That member’s value is a string containing a <a href="https://datatracker.ietf.org/doc/html/rfc6901">JSON-Pointer</a> that references a location within the target document where the operation is performed.</p>
+<h3 id="add"><a href="#add" class="headerlink" title="add"></a>add</h3><blockquote>
+<p>The operation object <strong>MUST</strong> contain a <code>value</code> member whose content specifies the value to be added.</p>
+</blockquote>
+<p>The <code>add</code> operation performs one of the following functions, depending upon what the target location references:</p>
+<ul>
+<li>If the target location specifies an array index, a new value is inserted into the array at the specified index.</li>
+<li>If the target location specifies an object member that does not already exist, a new member is added to the object.</li>
+<li>If the target location specifies an object member that does exist, that member’s value is replaced.</li>
+</ul>
+<p><strong>Example 1</strong>. Add to an Object</p>
+<div class="tabs" id="json-patch-add-1"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-add-1-1">Original</a></li><li class="tab"><a href="#json-patch-add-1-2">Patch</a></li><li class="tab"><a href="#json-patch-add-1-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-add-1-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-add-1-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/plain"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"plain value"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/complex"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+            <span class="token property">"complex key"</span><span class="token operator">:</span> <span class="token string">"complex value"</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-add-1-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span><span class="token punctuation">,</span>
+    <span class="token property">"plain"</span><span class="token operator">:</span> <span class="token string">"plain value"</span><span class="token punctuation">,</span>
+    <span class="token property">"complex"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"complex key"</span><span class="token operator">:</span> <span class="token string">"complex value"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<p><strong>Example 2</strong>. Add to an Array (1)</p>
+<div class="tabs" id="json-patch-add-2"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-add-2-1">Original</a></li><li class="tab"><a href="#json-patch-add-2-2">Patch</a></li><li class="tab"><a href="#json-patch-add-2-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-add-2-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el2"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-add-2-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"el-ext"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-add-2-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el-ext"</span><span class="token punctuation">,</span>
+        <span class="token string">"el2"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<p><strong>Example 3</strong>. Add to an Array (2)</p>
+<div class="tabs" id="json-patch-add-3"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-add-3-1">Original</a></li><li class="tab"><a href="#json-patch-add-3-2">Patch</a></li><li class="tab"><a href="#json-patch-add-3-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-add-3-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-add-3-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo/-"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"el-ext1"</span><span class="token punctuation">,</span>
+            <span class="token string">"el-ext2"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-add-3-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>
+            <span class="token string">"el-ext1"</span><span class="token punctuation">,</span>
+            <span class="token string">"el-ext2"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><blockquote>
+<p>The <code>remove</code> operation removes the value at the target location. The target location <strong>MUST</strong> exist for the operation to be successful.</p>
+</blockquote>
+<p><strong>Example 1</strong>. Remove from an Object</p>
+<div class="tabs" id="json-patch-remove-1"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-remove-1-1">Original</a></li><li class="tab"><a href="#json-patch-remove-1-2">Patch</a></li><li class="tab"><a href="#json-patch-remove-1-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-remove-1-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token string">"qux"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-remove-1-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"remove"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/baz"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-remove-1-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<p><strong>Example 2</strong>. Remove from an Array</p>
+<div class="tabs" id="json-patch-remove-2"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-remove-2-1">Original</a></li><li class="tab"><a href="#json-patch-remove-2-2">Patch</a></li><li class="tab"><a href="#json-patch-remove-2-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-remove-2-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el2"</span><span class="token punctuation">,</span>
+        <span class="token string">"el3"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-remove-2-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"remove"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo/1"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-remove-2-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el3"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><blockquote>
+<p>The operation object <strong>MUST</strong> contain a <code>value</code> member whose content specifies the replacement value.</p>
+</blockquote>
+<p>The <code>replace</code> operation replaces the value at the target location with a new value.</p>
+<p><strong>Example 1</strong>. Replace in an Object</p>
+<div class="tabs" id="json-patch-replace-1"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-replace-1-1">Original</a></li><li class="tab"><a href="#json-patch-replace-1-2">Patch</a></li><li class="tab"><a href="#json-patch-replace-1-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-replace-1-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"bar"</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token string">"qux"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-replace-1-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"replace"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"boo"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-replace-1-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token string">"boo"</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token string">"qux"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<p><strong>Example 2</strong>. Replace in an Array</p>
+<div class="tabs" id="json-patch-replace-2"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-replace-2-1">Original</a></li><li class="tab"><a href="#json-patch-replace-2-2">Patch</a></li><li class="tab"><a href="#json-patch-replace-2-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-replace-2-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el2"</span><span class="token punctuation">,</span>
+        <span class="token string">"el3"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-replace-2-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"replace"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"el-ext"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-replace-2-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el-ext"</span><span class="token punctuation">,</span>
+        <span class="token string">"el3"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h3 id="move"><a href="#move" class="headerlink" title="move"></a>move</h3><blockquote>
+<p>The operation object MUST contain a <code>from</code> member, which is a string containing a JSON Pointer value that references the location in the target document to move the value from.</p>
+</blockquote>
+<p>The <code>move</code> operation removes the value at a specified location and adds it to the target location.</p>
+<p><strong>Example 1</strong>. Move in an Object</p>
+<div class="tabs" id="json-patch-move-1"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-move-1-1">Original</a></li><li class="tab"><a href="#json-patch-move-1-2">Patch</a></li><li class="tab"><a href="#json-patch-move-1-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-move-1-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"bar"</span><span class="token operator">:</span> <span class="token string">"baz"</span><span class="token punctuation">,</span>
+        <span class="token property">"waldo"</span><span class="token operator">:</span> <span class="token string">"fred"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"qux"</span><span class="token operator">:</span> <span class="token string">"quux"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-move-1-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"move"</span><span class="token punctuation">,</span>
+        <span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"/foo/waldo"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/baz/thud"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-move-1-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"bar"</span><span class="token operator">:</span> <span class="token string">"baz"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"qux"</span><span class="token operator">:</span> <span class="token string">"quux"</span><span class="token punctuation">,</span>
+        <span class="token property">"thud"</span><span class="token operator">:</span> <span class="token string">"fred"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<p><strong>Example 2</strong>. Move in an Array</p>
+<div class="tabs" id="json-patch-move-2"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-move-2-1">Original</a></li><li class="tab"><a href="#json-patch-move-2-2">Patch</a></li><li class="tab"><a href="#json-patch-move-2-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-move-2-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el2"</span><span class="token punctuation">,</span>
+        <span class="token string">"el3"</span><span class="token punctuation">,</span>
+        <span class="token string">"el4"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-move-2-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"move"</span><span class="token punctuation">,</span>
+        <span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"/foo/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo/3"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-move-2-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"el1"</span><span class="token punctuation">,</span>
+        <span class="token string">"el3"</span><span class="token punctuation">,</span>
+        <span class="token string">"el4"</span><span class="token punctuation">,</span>
+        <span class="token string">"el2"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><blockquote>
+<p>The operation object MUST contain a <code>from</code> member, which is a string containing a JSON Pointer value that references the location in the target document to move the value from.</p>
+</blockquote>
+<p>The <code>copy</code> operation copies the value at a specified location to the target location.</p>
+<p><strong>Example 1</strong>. Copy an Object Member</p>
+<div class="tabs" id="json-patch-copy-1"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-copy-1-1">Original</a></li><li class="tab"><a href="#json-patch-copy-1-2">Patch</a></li><li class="tab"><a href="#json-patch-copy-1-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-copy-1-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"bar"</span><span class="token operator">:</span> <span class="token string">"baz"</span><span class="token punctuation">,</span>
+        <span class="token property">"waldo"</span><span class="token operator">:</span> <span class="token string">"fred"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"qux"</span><span class="token operator">:</span> <span class="token string">"quux"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-copy-1-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"copy"</span><span class="token punctuation">,</span>
+        <span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"/foo/waldo"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/baz/thud"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-copy-1-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"bar"</span><span class="token operator">:</span> <span class="token string">"baz"</span><span class="token punctuation">,</span>
+        <span class="token property">"waldo"</span><span class="token operator">:</span> <span class="token string">"fred"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"qux"</span><span class="token operator">:</span> <span class="token string">"quux"</span><span class="token punctuation">,</span>
+        <span class="token property">"thud"</span><span class="token operator">:</span> <span class="token string">"fred"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><blockquote>
+<p>The operation object <strong>MUST</strong> contain a <code>value</code> member that conveys the value to be compared to the target location’s value.</p>
+</blockquote>
+<p>The <code>test</code> operation tests that a value at the target location is equal to a specified value.</p>
+<p><strong>Example 1</strong>. Test Example</p>
+<div class="tabs" id="json-patch-test"><ul class="nav-tabs"><li class="tab active"><a href="#json-patch-test-1">Original</a></li><li class="tab"><a href="#json-patch-test-2">Patch</a></li><li class="tab"><a href="#json-patch-test-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-patch-test-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"baz"</span><span class="token operator">:</span> <span class="token string">"qux"</span><span class="token punctuation">,</span>
+    <span class="token property">"foo"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"a"</span><span class="token punctuation">,</span>
+        <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token string">"c"</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-test-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"test"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/baz"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"qux"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token property">"op"</span><span class="token operator">:</span> <span class="token string">"test"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"/foo/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token number">2</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-patch-test-3"><p><code>successful</code></p></div></div></div>
+
+<h2 id="JSON-Merge-Patch"><a href="#JSON-Merge-Patch" class="headerlink" title="JSON Merge Patch"></a>JSON Merge Patch</h2><p>The merge patch format is primarily intended for use with the HTTP PATCH method as a means of describing a set of modifications to a target resource’s content.</p>
+<p>A JSON merge patch document describes changes to be made to a target JSON document using a syntax that closely mimics the document being modified.</p>
+<p>Recipients of a merge patch document determine the exact set of changes being requested by <strong>comparing</strong> the content of the provided patch against the current content of the target document.</p>
+<ul>
+<li>If the provided merge patch contains members that do not appear within the target, those members are added.</li>
+<li>If the target does contain the member, the value is replaced.</li>
+<li>Null values in the merge patch are given special meaning to indicate the removal of existing values in the target.</li>
+</ul>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><div class="tabs" id="json-merge-patch-1"><ul class="nav-tabs"><li class="tab active"><a href="#json-merge-patch-1-1">Original</a></li><li class="tab"><a href="#json-merge-patch-1-2">Patch</a></li><li class="tab"><a href="#json-merge-patch-1-3">Result</a></li></ul><div class="tab-content"><div class="tab-pane active" id="json-merge-patch-1-1"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"a"</span><span class="token operator">:</span> <span class="token string">"b"</span><span class="token punctuation">,</span>
+    <span class="token property">"c"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"d"</span><span class="token operator">:</span> <span class="token string">"e"</span><span class="token punctuation">,</span>
+        <span class="token property">"f"</span><span class="token operator">:</span> <span class="token string">"g"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-merge-patch-1-2"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"a"</span><span class="token operator">:</span> <span class="token string">"z"</span><span class="token punctuation">,</span>
+    <span class="token property">"c"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"f"</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane" id="json-merge-patch-1-3"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"a"</span><span class="token operator">:</span> <span class="token string">"z"</span><span class="token punctuation">,</span>
+    <span class="token property">"c"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"d"</span><span class="token operator">:</span> <span class="token string">"e"</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<p>That is,</p>
+<ul>
+<li>the value of <code>a</code> (<code>&quot;b&quot;</code>) in the original document has been <strong>replaced</strong> by the value of <code>a</code> (<code>&quot;z&quot;</code>) in the patch document</li>
+<li>and a member of <code>c</code> (<code>&quot;f&quot;</code>) has been <strong>removed</strong> cause its value is <code>null</code> in the patch document.</li>
+</ul>
+<h2 id="Related-Projects"><a href="#Related-Projects" class="headerlink" title="Related Projects"></a>Related Projects</h2><h3 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h3><ul>
+<li><a href="https://www.npmjs.com/package/fast-json-patch">fast-json-patch</a></li>
+<li><a href="https://www.npmjs.com/package/json8-patch">json8-patch</a></li>
+</ul>
+<h3 id="rust"><a href="#rust" class="headerlink" title="rust"></a>rust</h3><ul>
+<li><a href="https://crates.io/crates/json_patch">json_patch</a></li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc6902">rfc6902: JavaScript Object Notation (JSON) Patch</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7396">rfc7396: JSON Merge Patch</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>RFC Read</category>
+      </categories>
+      <tags>
+        <tag>RFC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HyperText Transfer Protocol (HTTP)</title>
+    <url>/2023/12/14/HTTP/</url>
+    <content><![CDATA[<p><code>HTTP</code> is an <strong>application-level</strong> protocol for distributed, collaborative, hypermedia information systems, while <code>TCP</code> solves the logic of the <strong>transport layer</strong>. The reason why <code>HTTP</code> uses <code>TCP</code> instead of <code>UDP</code> is that (open) a web page must transfer a lot of data, and the <code>TCP</code> protocol provides transmission control, organizes data in order, and error correction.</p>
+<span id="more"></span>
+
+<p>The <code>HTTP</code>connection uses the “<strong>request-response</strong>“ method, which not only needs to establish a connection when requesting, but also the server can only reply to the data after the client sends a request to the server.</p>
+<p><code>HTTP/1.0</code> is the first HTTP protocol version to specify the version number in the communication, and it is still widely used, especially in proxy servers.</p>
+<p>Persistent connections are used <strong>by default</strong> in <code>HTTP/1.1</code>, and it can work well with proxy servers. It also supports sending multiple requests at the same time in pipeline mode to reduce line load and improve transmission speed.</p>
+<p><code>HTTP/2.0</code> greatly improves web performance on the basis of <code>HTTP/1.x</code> and reduces network latency. <code>HTTP/1.0</code> and <code>1.1</code> will coexist for a long time in the future, which is determined by the slow update of network infrastructure.</p>
+<h2 id="HTTP-0-9"><a href="#HTTP-0-9" class="headerlink" title="HTTP&#x2F;0.9"></a>HTTP&#x2F;0.9</h2><p>The initial version of HTTP had no version number (it was later called <code>0.9</code> to differentiate it from later versions)</p>
+<p><code>HTTP/0.9</code> was extremely simple:</p>
+<ul>
+<li>Requests consisted of a single line and started with the <strong>only</strong> possible method <code>GET</code> followed by the path to the<br>resource.</li>
+<li>The full URL wasn’t included as the protocol, server, and port weren’t necessary once connected to the server.</li>
+</ul>
+<pre class="line-numbers language-request" data-language="request"><code class="language-request">GET &#x2F;example.html<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>And the server will close the <strong>TCP connection</strong> once it has sent the response.</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  example page content
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP&#x2F;1.0"></a>HTTP&#x2F;1.0</h2><blockquote>
+<p><code>HTTP/1.0</code> is not a standard. It is just a reference document that records existing practices and patterns. It has no actual binding force.</p>
+</blockquote>
+<p>With the development of the Internet, the original HTTP (<code>HTTP/0.9</code>) can no longer meet user needs.</p>
+<p><code>HTTP/1.0</code> was launched in <strong>1996</strong> (Between 1991-1995, these were introduced with a try-and-see approach. an informational document that described the common practices was published in <strong>1996</strong>. This was known as <strong>RFC 1945</strong> and defined <code>HTTP/1.0</code>)</p>
+<ul>
+<li><strong>Versioning information</strong> was sent within each request (<code>HTTP/1.0</code> was appended to the <code>GET</code> line).</li>
+<li>A <strong>status code line</strong> was also sent at the beginning of a <strong>response</strong>. This allowed the browser itself to recognize the success or failure of a request and adapt its behavior accordingly. For example, updating or using its local cache in a specific way.</li>
+<li>The concept of HTTP <code>headers</code> was introduced for both requests and responses. Metadata could be transmitted and the protocol became extremely flexible and extensible.</li>
+<li>Documents <strong>other than plain HTML files</strong> could be transmitted thanks to the <code>Content-Type</code> header.</li>
+</ul>
+<h3 id="Example-1-Plain-Text"><a href="#Example-1-Plain-Text" class="headerlink" title="Example 1. Plain Text"></a>Example 1. Plain Text</h3><div class="tabs" id="http-1_0-plain"><ul class="nav-tabs"><li class="tab active"><a href="#http-1_0-plain-1">Request</a></li><li class="tab"><a href="#http-1_0-plain-2">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="http-1_0-plain-1"><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">GET</span> <span class="token request-target url">/mypage.html</span> <span class="token http-version property">HTTP/1.0</span></span>
+<span class="token header"><span class="token header-name keyword">User-Agent</span><span class="token punctuation">:</span> <span class="token header-value">NCSA_Mosaic/2.0 (Windows 3.1)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div><div class="tab-pane" id="http-1_0-plain-2"><pre class="line-numbers language-http" data-language="http"><code class="language-http">200 OK
+<span class="token header"><span class="token header-name keyword">Date</span><span class="token punctuation">:</span> <span class="token header-value">Tue, 15 Nov 1994 08:12:31 GMT</span></span>
+<span class="token header"><span class="token header-name keyword">Server</span><span class="token punctuation">:</span> <span class="token header-value">CERN/3.0 libwww/2.17</span></span>
+<span class="token header"><span class="token header-name keyword">Content-Type</span><span class="token punctuation">:</span> <span class="token header-value">text/html</span></span>
+<span class="token text-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>HTML</span><span class="token punctuation">></span></span>
+  A page with an image
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>IMG</span> <span class="token attr-name">SRC</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/myimage.gif<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>HTML</span><span class="token punctuation">></span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h3 id="Example-2-Image"><a href="#Example-2-Image" class="headerlink" title="Example 2. Image"></a>Example 2. Image</h3><div class="tabs" id="http-1_0-image"><ul class="nav-tabs"><li class="tab active"><a href="#http-1_0-image-1">Request</a></li><li class="tab"><a href="#http-1_0-image-2">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="http-1_0-image-1"><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">GET</span> <span class="token request-target url">/myimage.gif</span> <span class="token http-version property">HTTP/1.0</span></span>
+<span class="token header"><span class="token header-name keyword">User-Agent</span><span class="token punctuation">:</span> <span class="token header-value">NCSA_Mosaic/2.0 (Windows 3.1)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div><div class="tab-pane" id="http-1_0-image-2"><pre class="line-numbers language-http" data-language="http"><code class="language-http">200 OK
+<span class="token header"><span class="token header-name keyword">Date</span><span class="token punctuation">:</span> <span class="token header-value">Tue, 15 Nov 1994 08:12:32 GMT</span></span>
+<span class="token header"><span class="token header-name keyword">Server</span><span class="token punctuation">:</span> <span class="token header-value">CERN/3.0 libwww/2.17</span></span>
+<span class="token header"><span class="token header-name keyword">Content-Type</span><span class="token punctuation">:</span> <span class="token header-value">text/gif</span></span>
+(image content)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></div></div>
+
+<h2 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP&#x2F;1.1"></a>HTTP&#x2F;1.1</h2><blockquote>
+<p>The first standardized version of HTTP, <code>HTTP/1.1</code>, was published in early <strong>1997</strong>, only a few months after <code>HTTP/1.0</code>.</p>
+</blockquote>
+<ul>
+<li>New methods were added (<code>PUT</code>, <code>DELETE</code>, <code>TRACE</code>, <code>OPTIONS</code>, <code>CONNECT</code>, etc.)</li>
+<li>A <strong>TCP connection</strong> could be reused, which saved time. It no longer needed to be opened multiple times to display the resources embedded in the single original document. (By specifying the <code>Connection: keep-alive</code> header)</li>
+<li><strong>Pipelining</strong> was added. This allowed a second request to be sent <strong>before</strong> the answer to the first one was fully transmitted. This lowered the latency of the communication.</li>
+<li>Chunked responses were also supported, largely improving the way large files were sent.</li>
+<li>Additional cache control mechanisms were introduced (such as <code>Cache-Control</code>, <code>ETag</code>, <code>If-Modified-Since</code>, <code>If-Unmodified-Since</code>, <code>If-Match</code>, <code>If-None-Match</code>, etc.)</li>
+<li>Thanks to the <code>Host</code> header, the ability to host different domains from the same IP address allowed server collocation. (The <code>Host</code> header is required in <code>HTTP/1.1</code>)</li>
+</ul>
+<h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP&#x2F;2.0"></a>HTTP&#x2F;2.0</h2><p>Google implemented an experimental protocol SPDY in the <strong>early 2010s</strong>. <code>SPDY</code> defined an increase in responsiveness and solved the problem of duplicate data transmission, serving as the <strong>foundation</strong> for the <code>HTTP/2</code> protocol.</p>
+<p>The <code>HTTP/2</code> protocol differs from <code>HTTP/1.1</code> in a few ways:</p>
+<ul>
+<li>It’s a <strong>binary</strong> protocol rather than a text protocol. It transfers binary instead of plain text.</li>
+<li>It’s a <strong>multiplexed protocol</strong>. Parallel requests can be made over the <strong>same tcp connection</strong>, removing the constraints of the <code>HTTP/1.x</code> protocol.</li>
+<li>It compresses headers using the <strong>HPACK compression algorithm</strong>. As these are often similar among a set of requests, this removes the duplication and overhead of data transmitted.</li>
+<li>It allows a server to populate data in a <strong>client cache</strong> through a mechanism called the <strong>server push</strong>.</li>
+</ul>
+<h3 id="Server-Push"><a href="#Server-Push" class="headerlink" title="Server Push"></a>Server Push</h3><p>Imagine that the guest (Client) asks (sends request) waiter (Server) for a meal, then the waiter gets the meal from the restaurant chef (your application logic), but the waiter also thinks you would need a bottle of water, so he brings that too <strong>with</strong> your meal. The end result of this would be only <strong>one</strong> TCP connection and only <strong>one</strong> request that will significantly lower the server load.</p>
+<h2 id="HTTP-3-0"><a href="#HTTP-3-0" class="headerlink" title="HTTP&#x2F;3.0"></a>HTTP&#x2F;3.0</h2><p>Google invented the <code>QUIC</code>(Quick UDP Internet Connections) protocol based on <strong>UDP</strong>.</p>
+<p><code>QUIC</code> is designed to provide much lower latency for HTTP connections. Like <code>HTTP/2</code>, it is a multiplexed protocol, but <code>HTTP/2</code> runs over a <strong>single</strong> TCP connection, so packet loss detection and retransmission handled at the TCP layer can block <strong>all</strong> streams. <code>QUIC</code> runs multiple streams over UDP and implements packet loss detection and retransmission <strong>independently</strong> for each stream, so that if an error occurs, only the stream with data in that packet is blocked.</p>
+<ul>
+<li>UDP is <code>unordered</code>, so there is no head-of-line blocking problem</li>
+<li><code>QUIC</code> has its own protocol for packet loss retransmission and congestion control</li>
+<li>The HTTPS handshake usually requires <strong>six</strong> network interactions. <code>QUIC</code> merges TLS and TCP into a <strong>three-way</strong> handshake.</li>
+</ul>
+<p>In <strong>June 2022</strong>, <code>HTTP/3.0</code> was finally standardized as <strong>rfc9114</strong></p>
+<h2 id="Diagram"><a href="#Diagram" class="headerlink" title="Diagram"></a>Diagram</h2><h3 id="Request-Multiplexing"><a href="#Request-Multiplexing" class="headerlink" title="Request Multiplexing"></a>Request Multiplexing</h3><p><img src="/2023/12/14/HTTP/request_multiplexing.png" alt="Request multiplexing"></p>
+<h3 id="Header-Compression"><a href="#Header-Compression" class="headerlink" title="Header Compression"></a>Header Compression</h3><p><img src="/2023/12/14/HTTP/hpack.png" alt="Header compression"></p>
+<h3 id="Binary-Protocol"><a href="#Binary-Protocol" class="headerlink" title="Binary Protocol"></a>Binary Protocol</h3><p><img src="/2023/12/14/HTTP/binary_protocol.png" alt="Binary protocol"></p>
+<h3 id="Simple-Comparison"><a href="#Simple-Comparison" class="headerlink" title="Simple Comparison"></a>Simple Comparison</h3><table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Number of requests</th>
+<th>Load time</th>
+<th>Initiator</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Http&#x2F;1.1</td>
+<td>102</td>
+<td>12.97s</td>
+<td>Initiator of the first one is user&#x2F;client and the rest of the requests are initiated by the response to client who realizes he needs some other resources</td>
+</tr>
+<tr>
+<td>Http&#x2F;2</td>
+<td>102</td>
+<td>11.19s</td>
+<td>Initiator of the first one is user&#x2F;client and the rest of the requests are initiated by the response to client who realizes he needs some other resources</td>
+</tr>
+<tr>
+<td>Http&#x2F;2 with Server Push</td>
+<td>102</td>
+<td>3.17s</td>
+<td>Initiator of the first one is user&#x2F;client and the rest of requests are initiated by the push of the server (virtually one request&#x2F;response cycle).</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Http&#x2F;1.1: 102 requests, 12.97s load time</li>
+</ul>
+<p>We can see how requests are made through multiple batches (TCP connections).</p>
+<p><img src="/2023/12/14/HTTP/waterfall_1.png" alt="Http/1.1"></p>
+<ul>
+<li>Http&#x2F;2: 102 requests, 11.19s load time</li>
+</ul>
+<p>We can see how requests are made through 2 batches (TCP connections). Take note of the load time. In this case, it is a bit lower than the load time of HTTP&#x2F;1.1 example (but it doesn’t have to be always). This example shows the multiplexing of client requests.</p>
+<p><img src="/2023/12/14/HTTP/waterfall_2.png" alt="Http/2"></p>
+<ul>
+<li>Http&#x2F;2 with Server Push: 102 requests, 3.17s load time</li>
+</ul>
+<p>We can see how requests are made through 1 batch (1 TCP connection).</p>
+<p><img src="/2023/12/14/HTTP/waterfall_3.png" alt="Http/2 with Server Push"></p>
+<ul>
+<li>Animation demonstration</li>
+</ul>
+<p><img src="/2023/12/14/HTTP/compare.gif" alt="Animation demonstration"></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc1945">rfc1945: Hypertext Transfer Protocol – HTTP&#x2F;1.0</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc2616">rfc2616: Hypertext Transfer Protocol – HTTP&#x2F;1.1</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7230">rfc7230: Hypertext Transfer Protocol (HTTP&#x2F;1.1): Message Syntax and Routing</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7231">rfc7231: Hypertext Transfer Protocol (HTTP&#x2F;1.1): Semantics and Content</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7232">rfc7232: Hypertext Transfer Protocol (HTTP&#x2F;1.1): Conditional Requests</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7233">rfc7233: Hypertext Transfer Protocol (HTTP&#x2F;1.1): Range Requests</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7234">rfc7234: Hypertext Transfer Protocol (HTTP&#x2F;1.1): Caching</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7235">rfc7235: Hypertext Transfer Protocol (HTTP&#x2F;1.1): Authentication</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc7540">rfc7540: Hypertext Transfer Protocol Version 2 (HTTP&#x2F;2)</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/rfc9114">rfc9114: HTTP&#x2F;3</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/web/http/basics_of_http/evolution_of_http">Evolution of HTTP | MDN</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>RFC Read</category>
+      </categories>
+      <tags>
+        <tag>RFC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Function-Like Types in Rust</title>
+    <url>/2023/12/18/function-like-types-in-rust/</url>
+    <content><![CDATA[<p>在 Rust 中有三种类函数类型: <code>Function item type</code>, <code>Function pointer type</code>, <code>Closure type</code>.</p>
+<span id="more"></span>
+
+<h2 id="Function-item-type"><a href="#Function-item-type" class="headerlink" title="Function item type"></a>Function item type</h2><p>Function item 是 Rust 中最基本的函数类型, 也是最常用的函数类型. 一个 function item 是一个函数定义, 例如:</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"hi there!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>当声明一个<code>function item</code>时，会生成唯一标识其 <code>function item type</code>的<strong>零大小</strong>的值。</p>
+<p>此 <code>function item type</code> 已经明确标识了该函数的名字、类型参数和声明时绑定的生命周期(区别于调用时传入的生命周期)。所以不再需要一个<strong>函数指针</strong>指向此函数，在调用时也不需要<strong>动态派发</strong>。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">core<span class="token punctuation">::</span>any<span class="token punctuation">::</span></span>type_name<span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">get_typename_of</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">></span><span class="token punctuation">(</span>_<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">T</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">'static</span> <span class="token keyword">str</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">type_name</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">T</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">i32</span> <span class="token punctuation">&#123;</span>
+    <span class="token number">42</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">i32</span> <span class="token punctuation">&#123;</span>
+    <span class="token number">35</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">function_item_typename</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1. 零大小</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of foo is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>foo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of foo is: 0</span>
+
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of bar is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>bar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of bar is: 0</span>
+
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of function with generic type 1: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token function">get_typename_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">i32</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of function with generic type 1: 0</span>
+
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of function with generic type 2: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token function">get_typename_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">u32</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of function with generic type 2: 0</span>
+
+    <span class="token comment">// 2. 类型</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"type of foo is: \"&#123;&#125;\""</span><span class="token punctuation">,</span> <span class="token function">get_typename_of</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>foo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => type of foo is: "study_rust::function_like::foo"</span>
+
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"type of bar is: \"&#123;&#125;\""</span><span class="token punctuation">,</span> <span class="token function">get_typename_of</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>bar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => type of bar is: "study_rust::function_like::bar"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>没有直接引用 <code>function item type</code> 的语法，但编译器会在错误消息中将类型显示为类似 <code>fn() -&gt; i32 &#123;fn_name&#125;</code> 形式的内容。某些编辑器也会显示此类型。</p>
+<ul>
+<li>函数 foo 的类型提示<br><img src="/2023/12/18/function-like-types-in-rust/type_foo.png"></li>
+<li>函数 bar 的类型提示<br><img src="/2023/12/18/function-like-types-in-rust/type_bar.png"></li>
+</ul>
+<h2 id="Function-pointer-type"><a href="#Function-pointer-type" class="headerlink" title="Function pointer type"></a>Function pointer type</h2><p><code>Function pointer type</code> 是一个指向函数的指针，它的类型在编译时<strong>不需要</strong>明确已知。可以通过从<strong>function item</strong>或<strong>非捕获闭包</strong>强制转换而来。</p>
+<p>在<strong>显式指定</strong>(function_pointer_test.1)或<strong>模式匹配</strong>(function_pointer_test.4)中，会发生<code>function item type</code>到<code>function pointer type</code>的转换。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">type</span> <span class="token type-definition class-name">MyFunctionPointer</span> <span class="token operator">=</span> <span class="token keyword">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">hi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"hi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">function_pointer_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1. coercion from function item</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> greet<span class="token punctuation">:</span> <span class="token class-name">MyFunctionPointer</span> <span class="token operator">=</span> hi<span class="token punctuation">;</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => hi</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of greet is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>greet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of greet is: 8</span>
+
+    <span class="token comment">// 2. re-assign is ok</span>
+    greet <span class="token operator">=</span> hello<span class="token punctuation">;</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => hello</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of greet is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>greet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of greet is: 8</span>
+
+    <span class="token comment">// 3. coercion from non-capturing closure</span>
+    greet <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"nice day, isn't it?"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => nice day, isn't it?</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of greet is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>greet<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of greet is: 8</span>
+
+    <span class="token comment">// 4. coercion in pattern matching</span>
+    <span class="token keyword">let</span> condition <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> my_size_of <span class="token operator">=</span> <span class="token keyword">if</span> condition <span class="token punctuation">&#123;</span>
+        <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">i32</span><span class="token operator">></span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">u32</span><span class="token operator">></span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of core::mem::size_of::&lt;i32> is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">i32</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of core::mem::size_of::&lt;u32> is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">u32</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of my_size_of is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>my_size_of<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of core::mem::size_of::&lt;i32> is: 0</span>
+    <span class="token comment">// => size of core::mem::size_of::&lt;u32> is: 0</span>
+    <span class="token comment">// => size of my_size_of is: 8</span>
+
+    <span class="token comment">// EXTRA: size of usize</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"size of 'usize' is: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">core<span class="token punctuation">::</span>mem<span class="token punctuation">::</span></span><span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">usize</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => size of 'usize' is: 8</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Closure-type"><a href="#Closure-type" class="headerlink" title="Closure type"></a>Closure type</h2><p>闭包使用<a href="https://doc.rust-lang.org/reference/expressions/closure-expr.html">闭包表达式</a>创建，具有唯一的、匿名的类型。</p>
+<p>一个闭包大致相对于包含所有捕获项的一个结构体(其中各字段类型与捕获形式匹配)，其大小与该结构体的大小相同。</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">struct</span> <span class="token type-definition class-name">Alternative1</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token comment">/// alternative to capturing closure -- 1 argument</span>
+<span class="token attribute attr-name">#[allow(unused)]</span>
+<span class="token keyword">struct</span> <span class="token type-definition class-name">Alternative2</span> <span class="token punctuation">&#123;</span>
+    arg1<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/// alternative to capturing closure -- 2 argument (1)</span>
+<span class="token attribute attr-name">#[allow(unused)]</span>
+<span class="token keyword">struct</span> <span class="token type-definition class-name">Alternative3</span> <span class="token punctuation">&#123;</span>
+    arg1<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span>
+    arg2<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/// alternative to capturing closure -- 2 argument (2)</span>
+<span class="token attribute attr-name">#[allow(unused)]</span>
+<span class="token keyword">struct</span> <span class="token type-definition class-name">Alternative4</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">'a</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>
+    arg1<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">'a</span> <span class="token class-name">String</span><span class="token punctuation">,</span>
+    arg2<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">closure_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 1. non-capturing closure</span>
+    <span class="token keyword">let</span> closure1 <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"no args"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> alt1 <span class="token operator">=</span> <span class="token class-name">Alternative1</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"closure: &#123;&#125;; struct: &#123;&#125;; (): &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>closure1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>alt1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => closure: 0; struct: 0; (): 0</span>
+
+    <span class="token comment">// 2. capturing closure (1)</span>
+    <span class="token keyword">let</span> arg1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> closure2 <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// consume arg1 to ensure it's captured</span>
+        <span class="token keyword">let</span> _args <span class="token operator">=</span> arg1<span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"args: &#123;:?&#125;"</span><span class="token punctuation">,</span> _args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> alt2 <span class="token operator">=</span> <span class="token class-name">Alternative2</span> <span class="token punctuation">&#123;</span> arg1<span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"closure: &#123;&#125;; struct: &#123;&#125;; String: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>closure2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>alt2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => closure: 24; struct: 24; String: 24</span>
+
+    <span class="token comment">// 3. capturing closure (2)</span>
+    <span class="token keyword">let</span> arg1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> arg2 <span class="token operator">=</span> <span class="token number">123_u32</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> closure3 <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> _args <span class="token operator">=</span> <span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"args: &#123;:?&#125;"</span><span class="token punctuation">,</span> _args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> alt3 <span class="token operator">=</span> <span class="token class-name">Alternative3</span> <span class="token punctuation">&#123;</span> arg1<span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> arg2<span class="token punctuation">:</span> <span class="token number">123_u32</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"closure: &#123;&#125;; struct: &#123;&#125;; String: &#123;&#125;; u32: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>closure3<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>alt3<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">u32</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => closure: 32; struct: 32; String: 24; u32: 4</span>
+
+    <span class="token comment">// 4. capturing closure (3)</span>
+    <span class="token keyword">let</span> arg1 <span class="token operator">=</span> <span class="token string">"abc"</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> arg2 <span class="token operator">=</span> <span class="token number">123_u32</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> closure4 <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> _args <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"args: &#123;:?&#125;"</span><span class="token punctuation">,</span> _args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> alt4 <span class="token operator">=</span> <span class="token class-name">Alternative4</span> <span class="token punctuation">&#123;</span> arg1<span class="token punctuation">:</span> <span class="token operator">&amp;</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">:</span> <span class="token number">123_u32</span> <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"closure: &#123;&#125;; struct: &#123;&#125;; &amp;String: &#123;&#125;; u32: &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>closure4<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of_val</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>alt4<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">size_of</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token keyword">u32</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// closure: 16; struct: 16; &amp;String: 8; u32: 4</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="捕获模式-move"><a href="#捕获模式-move" class="headerlink" title="捕获模式 &amp; move"></a>捕获模式 &amp; move</h3><p>默认情况下闭包会自动推断如何捕获变量(按如下优先级):</p>
+<ul>
+<li>不可变借用</li>
+<li>唯一不可变借用</li>
+<li>可变借用</li>
+<li>移动</li>
+</ul>
+<p>关键字<code>move</code>的作用是将所引用的变量的<strong>所有权转移</strong>至闭包内(根据变量的语义使用 <code>Copy</code> 或 <code>Move</code>)，通常用于使闭包的生命周期大于所捕获的变量的原生命周期(例如将闭包返回或移至其他线程)。</p>
+<p>如果闭包捕获的所有变量都使用 <code>Copy</code> 语义，则闭包自身也实现 <code>Copy</code> (类似 <code>struct</code> 的 <code>Copy</code> 自动实现)。</p>
+<div class="note warning"><p>注意:</p>
+<ul>
+<li>捕获模式指闭包如何将捕获的变量保存在匿名结构体中，与后续如何使用无关</li>
+<li>关键字 <code>move</code> 仅影响闭包如何捕获变量，对闭包实现 <code>Fn*</code> 中的哪一个 trait 没有影响</li>
+</ul>
+</div>
+
+<h2 id="Fn-FnMut-FnOnce"><a href="#Fn-FnMut-FnOnce" class="headerlink" title="Fn &amp; FnMut &amp; FnOnce"></a>Fn &amp; FnMut &amp; FnOnce</h2><p>在 Rust 中, <code>()</code> 是一个<strong>操作符</strong>，它和 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code> 等操作符一样可以被<strong>重载</strong>。 Rust 中的操作符重载是通过实现其对应的 <code>trait</code> 来实现的，<code>()</code> 对应的 <code>trait</code> 是 <code>Fn</code>、<code>FnMut</code> 和 <code>FnOnce</code>。 实现了 <code>Fn</code>、<code>FnMut</code>、<code>FnOnce</code> 任一 <code>trait</code> 的类型，都是可调用的，可以像使用函数一样通过 <code>variable_name()</code> 的形式进行调用。</p>
+<h3 id="Fn-std-ops-Fn"><a href="#Fn-std-ops-Fn" class="headerlink" title="Fn (std::ops::Fn)"></a>Fn (std::ops::Fn)</h3><ul>
+<li>使用<strong>不可变</strong>接收者的<strong>调用</strong>的表示</li>
+<li>可被多次调用</li>
+<li>如果 <code>T: Fn</code>，那么 <code>&amp;T</code> 会自动实现 <code>Fn</code></li>
+</ul>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> <span class="token type-definition class-name">Fn</span><span class="token operator">&lt;</span><span class="token class-name">Args</span><span class="token operator">></span><span class="token punctuation">:</span> <span class="token class-name">FnMut</span><span class="token operator">&lt;</span><span class="token class-name">Args</span><span class="token operator">></span>
+<span class="token keyword">where</span>
+    <span class="token class-name">Args</span><span class="token punctuation">:</span> <span class="token class-name">Tuple</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// Required method</span>
+    <span class="token keyword">extern</span> <span class="token string">"rust-call"</span> <span class="token keyword">fn</span> <span class="token function-definition function">call</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> args<span class="token punctuation">:</span> <span class="token class-name">Args</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">Self</span><span class="token punctuation">::</span><span class="token class-name">Output</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="FnMut-std-ops-FnMut"><a href="#FnMut-std-ops-FnMut" class="headerlink" title="FnMut (std::ops::FnMut)"></a>FnMut (std::ops::FnMut)</h3><ul>
+<li>使用<strong>可变</strong>接收者的<strong>调用</strong>的表示</li>
+<li>可被多次调用，并且可以修改 <code>self</code> 的状态</li>
+<li>如果 <code>T: FnMut</code>，那么 <code>&amp;mut T</code> 会自动实现 <code>FnMut</code></li>
+</ul>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> <span class="token type-definition class-name">FnMut</span><span class="token operator">&lt;</span><span class="token class-name">Args</span><span class="token operator">></span><span class="token punctuation">:</span> <span class="token class-name">FnOnce</span><span class="token operator">&lt;</span><span class="token class-name">Args</span><span class="token operator">></span>
+<span class="token keyword">where</span>
+    <span class="token class-name">Args</span><span class="token punctuation">:</span> <span class="token class-name">Tuple</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">// Required method</span>
+    <span class="token keyword">extern</span> <span class="token string">"rust-call"</span> <span class="token keyword">fn</span> <span class="token function-definition function">call_mut</span><span class="token punctuation">(</span>
+        <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span>
+        args<span class="token punctuation">:</span> <span class="token class-name">Args</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">Self</span><span class="token punctuation">::</span><span class="token class-name">Output</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="FnOnce-std-ops-FnOnce"><a href="#FnOnce-std-ops-FnOnce" class="headerlink" title="FnOnce (std::ops::FnOnce)"></a>FnOnce (std::ops::FnOnce)</h3><ul>
+<li>使用<strong>所有权</strong>接收者的<strong>调用</strong>的表示</li>
+<li>只能被调用一次</li>
+</ul>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> <span class="token type-definition class-name">FnOnce</span><span class="token operator">&lt;</span><span class="token class-name">Args</span><span class="token operator">></span>
+<span class="token keyword">where</span>
+    <span class="token class-name">Args</span><span class="token punctuation">:</span> <span class="token class-name">Tuple</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Output</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// Required method</span>
+    <span class="token keyword">extern</span> <span class="token string">"rust-call"</span> <span class="token keyword">fn</span> <span class="token function-definition function">call_once</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">,</span> args<span class="token punctuation">:</span> <span class="token class-name">Args</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">Self</span><span class="token punctuation">::</span><span class="token class-name">Output</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="feature-fn-traits-和-unboxed-closures"><a href="#feature-fn-traits-和-unboxed-closures" class="headerlink" title="feature: fn_traits 和 unboxed_closures"></a>feature: fn_traits 和 unboxed_closures</h3><ul>
+<li><code>fn_traits</code> 允许为自定义类型实现 <code>Fn*</code> trait, 从而使其可调用</li>
+<li><code>unboxed_closures</code> 允许使用 ‘rust-call’ ABI 来编写函数 (实现 <code>Fn*</code> 时必需)</li>
+</ul>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token attribute attr-name">#![feature(unboxed_closures)]</span>
+
+<span class="token comment">// 标记 `add_args` 函数使用 'rust-call' ABI</span>
+<span class="token keyword">extern</span> <span class="token string">"rust-call"</span> <span class="token keyword">fn</span> <span class="token function-definition function">add_args</span><span class="token punctuation">(</span>args<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token keyword">u32</span><span class="token punctuation">,</span> <span class="token keyword">u32</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">u32</span> <span class="token punctuation">&#123;</span>
+    args<span class="token number">.0</span> <span class="token operator">+</span> args<span class="token number">.1</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h3><ul>
+<li><code>Fn: FnMut: FnOnce</code></li>
+<li>如果一个变量需要 <code>FnOnce</code>，那么它可以接受 <code>FnMut</code> 或 <code>Fn</code>。(因为 <code>FnMut</code> 和 <code>Fn</code> 都是 <code>FnOnce</code> 的子集)</li>
+<li>如果一个变量需要 <code>FnMut</code>，那么它可以接受 <code>Fn</code>。(因为 <code>Fn</code> 是 <code>FnMut</code> 的子集)</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">fn_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">caller</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token operator">></span><span class="token punctuation">(</span>f<span class="token punctuation">:</span> <span class="token class-name">F</span><span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token class-name">F</span><span class="token punctuation">:</span> <span class="token class-name">Fn</span><span class="token punctuation">(</span><span class="token keyword">u32</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// first call</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// second call</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> my_fn <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>num<span class="token closure-punctuation punctuation">|</span></span> <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;: captured var is: &#123;&#125;"</span><span class="token punctuation">,</span> num<span class="token punctuation">,</span> var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">caller</span><span class="token punctuation">(</span>my_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => 1: captured var is: 1</span>
+    <span class="token comment">// => 2: captured var is: 1</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">fn_mut_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">caller</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">mut</span> f<span class="token punctuation">:</span> <span class="token class-name">F</span><span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token class-name">F</span><span class="token punctuation">:</span> <span class="token class-name">FnMut</span><span class="token punctuation">(</span><span class="token keyword">u32</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// first call</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// second call</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> var <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> my_mut_fn <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>num<span class="token closure-punctuation punctuation">|</span></span> <span class="token punctuation">&#123;</span>
+        var <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;: captured var is: &#123;&#125;"</span><span class="token punctuation">,</span> num<span class="token punctuation">,</span> var<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token function">caller</span><span class="token punctuation">(</span>my_mut_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => 1: captured var is: 2</span>
+    <span class="token comment">// => 2: captured var is: 3</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">fn_once_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">caller</span><span class="token operator">&lt;</span><span class="token class-name">F</span><span class="token operator">></span><span class="token punctuation">(</span>f<span class="token punctuation">:</span> <span class="token class-name">F</span><span class="token punctuation">)</span> <span class="token keyword">where</span> <span class="token class-name">F</span><span class="token punctuation">:</span> <span class="token class-name">FnOnce</span><span class="token punctuation">(</span><span class="token keyword">u32</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// first call</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// => 1: captured var is: 1</span>
+
+        <span class="token comment">// second call -- won't compile cause f can only be called once</span>
+        <span class="token comment">// f(2);</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> my_once_fn <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>num<span class="token closure-punctuation punctuation">|</span></span> <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;: captured var is: &#123;&#125;"</span><span class="token punctuation">,</span> num<span class="token punctuation">,</span> var<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">caller</span><span class="token punctuation">(</span>my_once_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="类型兼容"><a href="#类型兼容" class="headerlink" title="类型兼容"></a>类型兼容</h4><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">type_test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">need_fn</span><span class="token punctuation">(</span>f<span class="token punctuation">:</span> <span class="token keyword">impl</span> <span class="token class-name">Fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">need_fn_mut</span><span class="token punctuation">(</span><span class="token keyword">mut</span> f<span class="token punctuation">:</span> <span class="token keyword">impl</span> <span class="token class-name">FnMut</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">need_fn_once</span><span class="token punctuation">(</span>f<span class="token punctuation">:</span> <span class="token keyword">impl</span> <span class="token class-name">FnOnce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">let</span> my_fn <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> var <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> my_mut_fn <span class="token operator">=</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token punctuation">&#123;</span>
+        var <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"captured var is: &#123;&#125;"</span><span class="token punctuation">,</span> var<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 1. MATCH: expect Fn, got Fn</span>
+    <span class="token function">need_fn</span><span class="token punctuation">(</span>my_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => hello</span>
+
+    <span class="token comment">// 2. MATCH: expect FnMut, got FnMut</span>
+    <span class="token function">need_fn_mut</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> my_mut_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => captured var is: 2</span>
+
+    <span class="token comment">// 3. MISMATCH: expect FnOnce, got Fn</span>
+    <span class="token function">need_fn_once</span><span class="token punctuation">(</span>my_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => hello</span>
+
+    <span class="token comment">// 4. MISMATCH: expect FnOnce, got FnMut</span>
+    <span class="token function">need_fn_once</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> my_mut_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => captured var is: 3</span>
+
+    <span class="token comment">// 5. MISMATCH: expect FnMut, got Fn</span>
+    <span class="token function">need_fn_mut</span><span class="token punctuation">(</span>my_fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => hello</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="自定义实现"><a href="#自定义实现" class="headerlink" title="自定义实现"></a>自定义实现</h4><p><a href="https://play.rust-lang.org/?version=nightly&mode=debug&edition=2021&gist=43dd609f7f3a4492d077c2707d82aec8">在 Playground 中查看</a></p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token attribute attr-name">#![feature(unboxed_closures)]</span>
+<span class="token attribute attr-name">#![feature(fn_traits)]</span>
+
+<span class="token keyword">struct</span> <span class="token type-definition class-name">MyCallableStruct</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">FnOnce</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span> <span class="token keyword">for</span> <span class="token class-name">MyCallableStruct</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Output</span> <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">extern</span> <span class="token string">"rust-call"</span> <span class="token keyword">fn</span> <span class="token function-definition function">call_once</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">,</span> _args<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">String</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 在这里定义调用结构体时的行为</span>
+        <span class="token macro property">format!</span><span class="token punctuation">(</span><span class="token string">"call with no args"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> callable <span class="token operator">=</span> <span class="token class-name">MyCallableStruct</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token function">callable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"result is: &#123;&#125;"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// => result is: call with no args</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="note warning"><p>注意:</p>
+<ul>
+<li>当前仅 <code>nightly</code> 版本支持自定义实现 <code>Fn</code>、<code>FnMut</code> 和 <code>FnOnce</code></li>
+<li>需要添加 <code>#![feature(fn_traits)]</code> 和 <code>#![feature(unboxed_closures)]</code> 标志</li>
+</ul>
+</div>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://doc.rust-lang.org/reference/types/function-item.html">Function item types</a></li>
+<li><a href="https://doc.rust-lang.org/reference/types/function-pointer.html">Function pointer types</a></li>
+<li><a href="https://doc.rust-lang.org/reference/types/closure.html">Closure types</a></li>
+<li><a href="https://doc.rust-lang.org/std/ops/trait.Fn.html">Fn</a></li>
+<li><a href="https://doc.rust-lang.org/std/ops/trait.FnMut.html">FnMut</a></li>
+<li><a href="https://doc.rust-lang.org/std/ops/trait.FnOnce.html">FnOnce</a></li>
+<li><a href="https://doc.rust-lang.org/reference/expressions/closure-expr.html">Closure expr</a></li>
+<li><a href="https://doc.rust-lang.org/reference/types/closure.html#capture-modes">Closure – Capture modes</a></li>
+<li><a href="https://doc.rust-lang.org/beta/unstable-book/library-features/fn-traits.html">fn_traits</a></li>
+<li><a href="https://doc.rust-lang.org/beta/unstable-book/language-features/unboxed-closures.html">unboxed_closures</a></li>
+<li><a href="https://github.com/rust-lang/rust/pull/19891">Implement unique types per fn item, rather than having all fn items have fn pointer type</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Rust</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+      </tags>
+  </entry>
+</search>
