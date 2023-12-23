@@ -116,6 +116,12 @@ categories:
 
 例如开发一个压缩工具时，可以将多个压缩库作为可选依赖，在应用内按照优先级依次尝试调用，如果某个库不存在，则调用下一个库。
 
+### overrides & resolutions
+
+`overrides`和`resolutions`字段用于指定依赖包的版本，通常用于解决依赖包版本冲突的问题。
+
+TODO
+
 ## 参考
 
 - [npm Docs -- package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
