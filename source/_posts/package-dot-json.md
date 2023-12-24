@@ -135,6 +135,46 @@ categories:
 }
 ```
 
+## 命令相关字段
+
+### scripts
+
+`scripts`字段用于指定一些命令，可以通过`npm run`命令来执行这些命令。
+
+```json
+{
+    "scripts": {
+        "start": "node index.js"
+    }
+}
+```
+
+#### `Pre*` & `Post*` Hooks
+
+默认情况下，`scripts`字段中的命令可以通过`pre`和`post`前缀来指定钩子，这些钩子会在命令执行前后自动执行。可以通过设置 `ignore-scripts` 参数来修改默认行为。
+
+```json
+{
+    "scripts": {
+        "pregreet": "echo 'pregreet'",
+        "greet": "echo 'hello'",
+        "postgreet": "echo 'postgreet'"
+    }
+}
+```
+
+执行`npm run greet`命令时，会依次执行`pregreet`、`greet`和`postgreet`命令。
+
+{% note warning %}
+
+注意:
+
+- 某些包管理工具默认不执行`pre`和`post`钩子 (如`yarn`)。
+
+{% endnote %}
+
+### config
+
 ## 参考
 
 - [npm Docs -- package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
