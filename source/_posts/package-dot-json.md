@@ -262,6 +262,100 @@ bin字段用于指定项目的可执行文件，通常用于命令行工具。
 
 {% endnote %}
 
+## 文件相关字段
+
+### type
+
+用于指定项目为`module`或`commonjs`。
+
+#### module
+
+指定type为`module`时，项目会被视为ES模块，即可以使用`import`和`export`语法。此时需要使用`.cjs`后缀来标识`commonjs`模块。
+
+#### commonjs (默认)
+
+指定type为`commonjs`时，项目会被视为`commonjs`模块，即可以使用`require`和`module.exports`语法。此时需要使用`.mjs`后缀来标识ES模块。
+
+### main & module & browser
+
+`main`、`module`和`browser`字段用于指定项目的入口文件。
+
+当一个项目同时设置了其中的多个字段时，一些包管理工具和构建工具会根据当前环境自动选择合适的入口文件。
+
+```json
+{
+    "main": "./index.js",
+    "browser": "./browser/index.js",
+    "module": "./index.mjs"
+}
+```
+
+#### main
+
+`main`字段用于指定项目的入口文件。（默认为`index.js`）
+
+当用户使用 `require(MODULE_ID)` 导入项目时，会导入`main`字段指定的文件。
+
+#### module
+
+`module`字段用于指定项目的ES模块入口文件。
+
+当用户使用 `import MODULE_ID` 导入项目时，会导入`module`字段指定的文件。
+
+#### browser
+
+如果包只支持在浏览器中运行，则应该使用`browser`字段代替`main`字段指定入口文件。这有助于提示用户它可能依赖于Node中不可用的内容。
+
+### exports
+
+`Node 12.7.0`新增了`main`的替代方案`exports`，它支持**子路径导出**和**条件导出**。
+
+#### 子路径导出
+
+`exports`字段可以指定子路径，当用户导入这个子路径时，会导入`exports`字段中匹配的文件。
+
+```json
+{
+    "exports": {
+        ".": "./index.js",
+        "./sub1": "./path/to/sub1.js",
+        "./sub2": "./path/to/sub2.js"
+    }
+}
+```
+
+#### 条件导出
+
+条件导出提供了一种根据使用情况映射到不同路径的方法。
+
+```json
+{
+    "exports": {
+        "import": "./index-module.js",
+        "require": "./index-require.cjs"
+    }
+}
+```
+
+Node 提供了以下条件（按范围从小到大排序）：
+
+- `node-addons`: 提供了使用了本机模块的入口点（区别于使用了纯 JavaScript 的入口点）。（可被`--no-addons`标志禁用）
+- `node`: `CJS`或`ESM`文件。
+- `import`: 使用`import`或`import()`导入的文件入口。
+- `require`: 使用`require()`导入的文件入口。可以是`CJS`、`JSON`或`native addons`。
+- `default`: 作为默认和后备导出。
+
+{% note warning %}
+
+注意:
+
+- 当使用子路径导出时，只有已被定义的子路径才会被导出，尝试从其他路径导入会导致错误。（即使这些路径确实存在于文件系统中）
+- 两种导出方式可以混合使用。
+- 条件导出不检查目标的格式是否与条件兼容，需要开发者自行保证。
+
+{% endnote %}
+
 ## 参考
 
 - [npm Docs -- package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
+- [Node.js documentation -- exports](https://nodejs.org/api/packages.html#exports)
