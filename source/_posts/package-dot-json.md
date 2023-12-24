@@ -175,6 +175,44 @@ categories:
 
 ### config
 
+`config`字段中的数据会被转换为环境变量，其命名规则为`npm_package_config_<key>`。
+
+```json
+{
+    "scripts": {
+        "greet1": "node -e \"console.log(process.env.npm_package_config_greet)\"",
+        "greet2": "echo %npm_package_config_greet%"
+    },
+    "config": {
+        "greet": "Hi there!"
+    }
+}
+```
+
+```
+// js 中访问
+> npm run greet1
+> Hi there!
+
+// 命令中访问
+> npm run greet2
+> Hi there!
+```
+
+{% note warning %}
+
+注意:
+
+- 由于环境变量为字符串，因此`config`字段中的数据也会被转换为字符串。
+    - 字符串 => 保持
+    - 数字 => 转换为字符串
+    - 布尔值 => 转换为字符串
+    - 数组 => 各元素以空行分隔
+    - 对象 => 丢失
+- 某些包管理工具不支持`config`字段 (如`yarn`/`pnpm`)。
+
+{% endnote %}
+
 ## 参考
 
 - [npm Docs -- package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
