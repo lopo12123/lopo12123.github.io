@@ -213,6 +213,55 @@ categories:
 
 {% endnote %}
 
+### bin
+
+bin字段用于指定项目的可执行文件，通常用于命令行工具。
+
+当包被安装时，会将`bin`字段中的可执行文件链接到`node_modules/.bin`目录下，从而可以在命令行中直接执行。
+
+#### 单个命令
+
+```json
+{
+    "name": "foo",
+    "bin": "./bin/foo.js"
+}
+```
+
+#### 多个命令
+
+使用`<name>: <path>`的形式指定多个可执行文件:
+
+```json
+{
+    "name": "foo",
+    "bin": {
+        "bar": "./bin/bar.js",
+        "boz": "./bin/boz.js"
+    }
+}
+```
+
+或者使用`directories.bin`字段指定可执行文件所在的目录:
+
+```json
+{
+    "name": "foo",
+    "directories": {
+        "bin": "./bin"
+    }
+}
+```
+
+{% note warning %}
+
+注意:
+
+- 使用`directories.bin`字段时，指定目录下的所有文件都会被添加为可执行文件。
+- `bin`和`directories.bin`字段不能同时使用。
+
+{% endnote %}
+
 ## 参考
 
 - [npm Docs -- package.json](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
