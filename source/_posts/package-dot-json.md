@@ -307,6 +307,7 @@ bin字段用于指定项目的可执行文件，通常用于命令行工具。
 如果包只支持在浏览器中运行，则应该使用`browser`字段代替`main`字段指定入口文件。这有助于提示用户它可能依赖于Node中不可用的内容。
 
 [//]: # (FIXME: hack for https://github.com/next-theme/hexo-theme-next/issues/743)
+
 ### exports&nbsp;
 
 `Node 12.7.0`新增了`main`的替代方案`exports`，它支持**子路径导出**和**条件导出**。
@@ -355,6 +356,73 @@ Node 提供了以下条件（按范围从小到大排序）：
 - 条件导出不检查目标的格式是否与条件兼容，需要开发者自行保证。
 
 {% endnote %}
+
+## 环境相关字段
+
+### engines
+
+用于指定项目运行所需的`node`和`npm`版本。
+
+```json
+{
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    }
+}
+```
+
+{% note warning %}
+
+注意:
+
+默认情况下，作为库提供时，此字段仅供参考（即不兼容时为 warning 而非 error）。可以使用 [`engine-strict`](https://docs.npmjs.com/cli/v10/using-npm/config#engine-strict) 标志要求严格匹配。
+
+{% endnote %}
+
+### os
+
+用于指定项目运行的操作系统。
+
+```json
+{
+    "os": [
+        "darwin",
+        "linux"
+    ]
+}
+```
+
+可以使用 `!` 前缀来排除某些操作系统。
+
+```json
+{
+    "os": [
+        "!win32"
+    ]
+}
+```
+
+{% note warning %}
+
+注意:
+
+npm使用 `process.platform` 检查当前操作系统。
+
+{% endnote %}
+
+### cpu
+
+用于指定项目运行的CPU架构。
+
+```json
+{
+    "cpu": [
+        "x64",
+        "arm64"
+    ]
+}
+```
 
 ## 参考
 
