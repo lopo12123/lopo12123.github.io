@@ -14,6 +14,28 @@ categories:
 
 <!-- more -->
 
+## 基本信息
+
+- `name <string>`: 包名，作为npm包的唯一标识符且需要URl安全。（可以使用 `@<scope>/<name>` 的形式指定作用域）
+- `version <string>` 版本号，遵循 [semver](https://semver.org/lang/zh-CN/) 规范。
+- `description <string>`: 包的描述信息，用于`npm search`。
+- `keywords <string[]>`: 关键词，用于`npm search`。
+- `homepage <string>`: 包的主页。
+- `bugs <string>`: 提交bug的地址。
+- `license <string>`: 许可证信息，使用 [SPDX](https://spdx.org/licenses/) 标准。
+- `author <string | Object>` & `contributors <(string | Object)[]>` & `maintainers <(string | Object)[]>`: 作者、贡献者和维护者信息。
+    - `Object` 包含如下字段:
+        - `name <string>`: 名称。
+        - `email <string>`: 邮箱。
+        - `url <string>`: 网址。
+    - 使用 `name<email>(url)` 形式简化
+- `repository <string | Object>`: 指定项目所在位置。需要是**公开**（可以是只读）且能被 VCS 工具直接处理的。
+    - `Object` 包含如下字段:
+        - `type <string>`: 类型（如 `git`）
+        - `url`: 地址
+        - `directory`: 目录（可选，mono-repo 时使用）
+    - 使用 `<type>:<url>` 形式简化
+
 ## 依赖相关字段
 
 一个项目可能会依赖许多其他的包，这些包可能是开发时需要的，也可能是项目运行时需要的。将它们放置在不同的字段下有助于包管理工具更好地管理这些依赖。
