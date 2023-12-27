@@ -357,6 +357,36 @@ Node 提供了以下条件（按范围从小到大排序）：
 
 {% endnote %}
 
+## 发布相关字段
+
+### private
+
+用于指定项目是否为私有项目，如果设置为`true`，则包管理工具会拒绝发布。
+
+```json
+{
+    "private": true
+}
+```
+
+### publishConfig
+
+用于指定发布时的配置（覆盖`.npmrc`中的配置）。
+
+常用:
+
+- `access`: 指定包的访问级别，可选值为`public`和`restricted`。（第一次发布 scoped package 时，必须指定为`public`）
+- `registry`: 指定包的发布地址。
+
+```json
+{
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org"
+    }
+}
+```
+
 ## 环境相关字段
 
 ### engines
