@@ -2,8 +2,8 @@
 title: 关于 package.json
 date: 2023-12-23 23:02:44
 tags:
-  - node
-  - js
+  - Node
+  - Javascript
 categories:
   - Javascript
 ---
