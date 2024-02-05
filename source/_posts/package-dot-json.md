@@ -5,7 +5,7 @@ tags:
   - node
   - js
 categories:
-  - Essay
+  - Javascript
 ---
 
 一般而言，node项目主要分为两种类型：**应用程序**和**模块**。每个node项目都会有一个 `package.json` 文件，这个文件中包含了项目的一些描述和配置信息。

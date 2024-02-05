@@ -4,7 +4,7 @@ date: 2023-12-12 17:55:38
 tags:
   - RFC
 categories:
-  - RFC Read
+  - RFC
 ---
 
 JSON Patch defines a JSON document structure for expressing a sequence of operations to apply to a JavaScript Object Notation(JSON) document. It is suitable for use with the HTTP PATCH method. The `application/json-patch+json` media type is used to identify such patch documents.
