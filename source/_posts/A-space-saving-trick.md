@@ -51,7 +51,7 @@ impl Solution {
 // 1. 保存价值之和和单独的两人价值, 得到 `Vec<(i32, i32, i32)>`
 println!("{}", size_of::<(i32, i32, i32)>());  // 12 -- 4 * 3
 println!("{}", size_of::<[i32; 3]>());  // 12 -- 4 * 3
-println!("{}", size_of::<Vec<i32>>());  // 24 -- Vec 指针的大小
+println!("{}", size_of::<Vec<i32>>());  // 24 -- Vec 指针的大小 (再加上其内容的大小, 即 4 * 3。则总占用大小为 36)
 
 // 2. 保存价值之和和原始索引, 得到 `Vec<(i32, usize)>`
 println!("{}", size_of::<(i32, usize)>());  // 16 -- Max(4, 8) * 2
