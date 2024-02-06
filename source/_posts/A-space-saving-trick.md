@@ -8,13 +8,9 @@ categories:
   - LeetCode
 ---
 
-从 LeetCode 的某道题中学到的一个小技巧。
+> 问题: [Q1686](https://leetcode.cn/problems/stone-game-vi/description/)
 
 <!-- more -->
-
-## 问题
-
-[Q1686](https://leetcode.cn/problems/stone-game-vi/description/)
 
 ## 分析
 
@@ -51,5 +47,26 @@ impl Solution {
 
 由于最终需要计算得分以确定结果, 所以需要使用某种方式将排序后的价值与排序前的两人价值联系起来。可以选择:
 
-1. 保存价值之和和单独的两人价值, 得到 `Vec<(i32, i32, i32)>`
-2. 保存价值之和和原始索引, 得到 `Vec<(i32, usize)>`
+```rust
+// 1. 保存价值之和和单独的两人价值, 得到 `Vec<(i32, i32, i32)>`
+println!("{}", size_of::<(i32, i32, i32)>());  // 12 -- 4 * 3
+println!("{}", size_of::<[i32; 3]>());  // 12 -- 4 * 3
+println!("{}", size_of::<Vec<i32>>());  // 24 -- Vec 指针的大小
+
+// 2. 保存价值之和和原始索引, 得到 `Vec<(i32, usize)>`
+println!("{}", size_of::<(i32, usize)>());  // 16 -- Max(4, 8) * 2
+```
+
+在此场景下, 单个值的大小为 1-100, 在 `2^7` 范围内。可以将两个值压缩到一个变量中:
+
+```rust
+let a = 12;
+let b = 34;
+let mix = (a << 7) + b;
+println!("{:?}", mix);
+
+println!("{} tobe 34", mix & 0x7F);
+println!("{} tobe 12", mix >> 7);
+```
+
+而此时占用的空间为 `i32` 的大小, 即 `4`。
