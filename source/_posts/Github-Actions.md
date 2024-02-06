@@ -6,7 +6,7 @@ tags:
   - Github Actions
   - Workflow
 categories:
-  - Essay
+  - Misc
 ---
 
 GitHub Actions 是一种持续集成和持续交付 (CI/CD) 平台，可用于自动执行生成、测试和部署管道。可以创建工作流程来构建和测试存储库的每个拉取请求，或将合并的拉取请求部署到生产环境。

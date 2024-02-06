@@ -4,7 +4,7 @@ date: 2023-12-14 22:25:38
 tags:
   - RFC
 categories:
-  - RFC Read
+  - RFC
 ---
 
 `HTTP` is an **application-level** protocol for distributed, collaborative, hypermedia information systems, while `TCP` solves the logic of the **transport layer**. The reason why `HTTP` uses `TCP` instead of `UDP` is that (open) a web page must transfer a lot of data, and the `TCP` protocol provides transmission control, organizes data in order, and error correction.

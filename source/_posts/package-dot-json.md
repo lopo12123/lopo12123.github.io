@@ -2,17 +2,39 @@
 title: 关于 package.json
 date: 2023-12-23 23:02:44
 tags:
-  - node
-  - js
+  - Node
+  - Javascript
 categories:
-  - Essay
+  - Javascript
 ---
 
 一般而言，node项目主要分为两种类型：**应用程序**和**模块**。每个node项目都会有一个 `package.json` 文件，这个文件中包含了项目的一些描述和配置信息。
 
+<!-- more -->
+
 作为应用程序而言，`package.json` 中并没有明确要求必需的字段，即使其内容只是一个空对象`{}`也能正常运行；但是当我们将其作为模块发布到npm上时，就必须要求其包含一些必需的字段，否则npm会拒绝发布。
 
-<!-- more -->
+## 基本信息
+
+- `name <string>`: 包名，作为npm包的唯一标识符且需要URl安全。（可以使用 `@<scope>/<name>` 的形式指定作用域）
+- `version <string>` 版本号，遵循 [semver](https://semver.org/lang/zh-CN/) 规范。
+- `description <string>`: 包的描述信息，用于`npm search`。
+- `keywords <string[]>`: 关键词，用于`npm search`。
+- `homepage <string>`: 包的主页。
+- `bugs <string>`: 提交bug的地址。
+- `license <string>`: 许可证信息，使用 [SPDX](https://spdx.org/licenses/) 标准。
+- `author <string | Object>` & `contributors <(string | Object)[]>` & `maintainers <(string | Object)[]>`: 作者、贡献者和维护者信息。
+    - `Object` 包含如下字段:
+        - `name <string>`: 名称。
+        - `email <string>`: 邮箱。
+        - `url <string>`: 网址。
+    - 使用 `name<email>(url)` 形式简化
+- `repository <string | Object>`: 指定项目所在位置。需要是**公开**（可以是只读）且能被 VCS 工具直接处理的。
+    - `Object` 包含如下字段:
+        - `type <string>`: 类型（如 `git`）
+        - `url`: 地址
+        - `directory`: 目录（可选，mono-repo 时使用）
+    - 使用 `<type>:<url>` 形式简化
 
 ## 依赖相关字段
 
@@ -307,6 +329,7 @@ bin字段用于指定项目的可执行文件，通常用于命令行工具。
 如果包只支持在浏览器中运行，则应该使用`browser`字段代替`main`字段指定入口文件。这有助于提示用户它可能依赖于Node中不可用的内容。
 
 [//]: # (FIXME: hack for https://github.com/next-theme/hexo-theme-next/issues/743)
+
 ### exports&nbsp;
 
 `Node 12.7.0`新增了`main`的替代方案`exports`，它支持**子路径导出**和**条件导出**。
@@ -355,6 +378,103 @@ Node 提供了以下条件（按范围从小到大排序）：
 - 条件导出不检查目标的格式是否与条件兼容，需要开发者自行保证。
 
 {% endnote %}
+
+## 发布相关字段
+
+### private
+
+用于指定项目是否为私有项目，如果设置为`true`，则包管理工具会拒绝发布。
+
+```json
+{
+    "private": true
+}
+```
+
+### publishConfig
+
+用于指定发布时的配置（覆盖`.npmrc`中的配置）。
+
+常用:
+
+- `access`: 指定包的访问级别，可选值为`public`和`restricted`。（第一次发布 scoped package 时，必须指定为`public`）
+- `registry`: 指定包的发布地址。
+
+```json
+{
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org"
+    }
+}
+```
+
+## 环境相关字段
+
+### engines
+
+用于指定项目运行所需的`node`和`npm`版本。
+
+```json
+{
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    }
+}
+```
+
+{% note warning %}
+
+注意:
+
+默认情况下，作为库提供时，此字段仅供参考（即不兼容时为 warning 而非 error）。可以使用 [`engine-strict`](https://docs.npmjs.com/cli/v10/using-npm/config#engine-strict) 标志要求严格匹配。
+
+{% endnote %}
+
+### os
+
+用于指定项目运行的操作系统。
+
+```json
+{
+    "os": [
+        "darwin",
+        "linux"
+    ]
+}
+```
+
+可以使用 `!` 前缀来排除某些操作系统。
+
+```json
+{
+    "os": [
+        "!win32"
+    ]
+}
+```
+
+{% note warning %}
+
+注意:
+
+npm使用 `process.platform` 检查当前操作系统。
+
+{% endnote %}
+
+### cpu
+
+用于指定项目运行的CPU架构。
+
+```json
+{
+    "cpu": [
+        "x64",
+        "arm64"
+    ]
+}
+```
 
 ## 参考
 
