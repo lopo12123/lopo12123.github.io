@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/media/lopo@180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/media/lopo@32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/media/lopo@16x16.png">
+  <link rel="mask-icon" href="/media/lopo.png" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -24,11 +24,11 @@
 
 
 
-<link rel="canonical" href="https://lopo12123.github.io/2023/12/18/function-like-types-in-rust/">
+<link rel="canonical" href="https://lopo12123.github.io/2023/12/18/Function-Like-Types-in-Rust/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lopo12123.github.io/2023/12/18/function-like-types-in-rust/","path":"2023/12/18/function-like-types-in-rust/","title":"Function-Like Types in Rust"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lopo12123.github.io/2023/12/18/Function-Like-Types-in-Rust/","path":"2023/12/18/Function-Like-Types-in-Rust/","title":"Function-Like Types in Rust"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Function-Like Types in Rust | lopo</title>
@@ -138,7 +138,7 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="lopo"
-      src="/media/avatar.png">
+      src="/media/wolf.png">
   <p class="site-author-name" itemprop="name">lopo</p>
   <div class="site-description" itemprop="description">find an anchor to stop drifting...</div>
 </div>
@@ -146,18 +146,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -192,10 +192,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lopo12123.github.io/2023/12/18/function-like-types-in-rust/">
+    <link itemprop="mainEntityOfPage" href="https://lopo12123.github.io/2023/12/18/Function-Like-Types-in-Rust/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/media/avatar.png">
+      <meta itemprop="image" content="/media/wolf.png">
       <meta itemprop="name" content="lopo">
     </span>
 
@@ -228,7 +228,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-22 21:56:50" itemprop="dateModified" datetime="2023-12-22T21:56:50+08:00">2023-12-22</time>
+      <time title="修改时间：2024-02-06 15:17:27" itemprop="dateModified" datetime="2024-02-06T15:17:27+08:00">2024-02-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,8 +298,8 @@
 
 <p>没有直接引用 <code>function item type</code> 的语法，但编译器会在错误消息中将类型显示为类似 <code>fn() -&gt; i32 &#123;fn_name&#125;</code> 形式的内容。某些编辑器也会显示此类型。</p>
 <ul>
-<li>函数 foo 的类型提示<br><img src="/2023/12/18/function-like-types-in-rust/type_foo.png"></li>
-<li>函数 bar 的类型提示<br><img src="/2023/12/18/function-like-types-in-rust/type_bar.png"></li>
+<li>函数 foo 的类型提示<br><img src="/2023/12/18/Function-Like-Types-in-Rust/type_foo.png"></li>
+<li>函数 bar 的类型提示<br><img src="/2023/12/18/Function-Like-Types-in-Rust/type_bar.png"></li>
 </ul>
 <h2 id="Function-pointer-type"><a href="#Function-pointer-type" class="headerlink" title="Function pointer type"></a>Function pointer type</h2><p><code>Function pointer type</code> 是一个指向函数的指针，它的类型在编译时<strong>不需要</strong>明确已知。可以通过从<strong>function item</strong>或<strong>非捕获闭包</strong>强制转换而来。</p>
 <p>在<strong>显式指定</strong>(function_pointer_test.1)或<strong>模式匹配</strong>(function_pointer_test.4)中，会发生<code>function item type</code>到<code>function pointer type</code>的转换。</p>
@@ -655,7 +655,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://lopo12123.github.io/2023/12/18/function-like-types-in-rust/" title="Function-Like Types in Rust">https://lopo12123.github.io/2023/12/18/function-like-types-in-rust/</a>
+      <a href="https://lopo12123.github.io/2023/12/18/Function-Like-Types-in-Rust/" title="Function-Like Types in Rust">https://lopo12123.github.io/2023/12/18/Function-Like-Types-in-Rust/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -676,6 +676,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/12/23/package-dot-json/" rel="next" title="关于 package.json">
+                  关于 package.json <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
