@@ -226,6 +226,8 @@ bench(math_floor)
 
 ## 判断符号是否相同
 
+> 即判断 `x` 和 `y` 的符号位异或结果是否为 0
+
 ### 功能实现
 
 ```js
@@ -296,6 +298,81 @@ fn bench4() {
 
 // 35.6272ms
 // 37.2833ms
+```
+
+## 判断是否是 2 的整数次幂
+
+> 若 `n` 为 2 的整数次幂, 则 `n` 的二进制表示为 `1000...`, `n - 1` 的二进制表示为 `0111...`, 则 `n & (n - 1)` 为 0
+
+## 功能实现
+
+```js
+const judge_check = (n) => {
+    return Math.log2(n) % 1 === 0
+}
+
+const judge_bitwise = (n) => {
+    return n & (n - 1) === 0
+}
+```
+
+### 基准测试 js
+
+```js
+const CASES = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2 ** 7 + 1, 2 ** 8 + 1, 2 ** 9 + 1 ]
+const bench = (fn) => {
+    performance.mark('start')
+    for (let i = 0; i < 1_000_000; i++) {
+        for (let j = 0; j < CASES.length; j++) {
+            fn(CASES[j])
+        }
+    }
+    performance.mark('end')
+    performance.measure(fn.name, 'start', 'end')
+    console.log(`${fn.name}: ${performance.getEntriesByName(fn.name)[0].duration}ms`)
+    performance.clearMarks()
+}
+
+bench(judge_check)
+bench(judge_bitwise)
+// judge_check: 6.1921000480651855ms
+// judge_bitwise: 43.538100242614746ms
+```
+
+### 基准测试 rs
+
+```rust
+fn judge_check(n: i32) -> bool {
+    (n as f32).log2() % 1.0 == 0.0
+}
+
+fn judge_bitwise_check(n: i32) -> bool {
+    n & (n - 1) == 0
+}
+
+#[test]
+fn bench5() {
+    const CASES: [i32; 13] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2_i32.pow(7) + 1, 2_i32.pow(8) + 1, 2_i32.pow(9) + 1];
+    let start = time::Instant::now();
+    for _ in 0..1_000_000 {
+        for n in &CASES {
+            judge_check(*n);
+        }
+    }
+    let elapsed = start.elapsed();
+    println!("{:?}", elapsed);
+
+    let start = time::Instant::now();
+    for _ in 0..1_000_000 {
+        for n in &CASES {
+            judge_bitwise_check(*n);
+        }
+    }
+    let elapsed = start.elapsed();
+    println!("{:?}", elapsed);
+}
+// 505.3317ms
+// 82.6169ms
 ```
 
 ## 测试环境
