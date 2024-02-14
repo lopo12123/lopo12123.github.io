@@ -80,7 +80,7 @@ fn bench1() {
         }
     }
     let elapsed = start.elapsed();
-    println!("{:?} seconds", elapsed);
+    println!("{:?}", elapsed);
 
     let start = time::Instant::now();
     for _ in 0..1_000_000 {
@@ -89,11 +89,11 @@ fn bench1() {
         }
     }
     let elapsed = start.elapsed();
-    println!("{:?} seconds", elapsed);
+    println!("{:?}", elapsed);
 }
 
-// 94.354ms seconds
-// 68.8278ms seconds
+// 94.354ms
+// 68.8278ms
 ```
 
 ## 切换0/1
@@ -150,7 +150,7 @@ fn bench2() {
         num = toggle(num);
     }
     let elapsed = start.elapsed();
-    println!("{:?} seconds", elapsed);
+    println!("{:?}", elapsed);
 
     let start = time::Instant::now();
     let mut num = 0;
@@ -158,11 +158,11 @@ fn bench2() {
         num = bitwise_toggle(num);
     }
     let elapsed = start.elapsed();
-    println!("{:?} seconds", elapsed);
+    println!("{:?}", elapsed);
 }
 
-// 6.901ms seconds
-// 6.6314ms seconds
+// 6.901ms
+// 6.6314ms
 ```
 
 ## 取整
@@ -222,6 +222,80 @@ bench(math_floor)
 // shift2: 31.15059995651245ms
 // bit_or: 31.71410036087036ms
 // math_floor: 35.86259984970093ms
+```
+
+## 判断符号是否相同
+
+### 功能实现
+
+```js
+const judge_if = (x, y) => {
+    return x > 0 && y > 0 || x < 0 && y < 0;
+}
+
+const judge_bitwise = (x, y) => {
+    return (x ^ y) >= 0;
+}
+```
+
+### 基准测试 js
+
+```js
+const CASES = [ [ 1, 1 ], [ 1, -1 ], [ -1, 1 ], [ -1, -1 ] ]
+const bench = (fn) => {
+    performance.mark('start')
+    for (let i = 0; i < 1_000_000; i++) {
+        for (let j = 0; j < CASES.length; j++) {
+            fn(...CASES[j])
+        }
+    }
+    performance.mark('end')
+    performance.measure(fn.name, 'start', 'end')
+    console.log(`${fn.name}: ${performance.getEntriesByName(fn.name)[0].duration}ms`)
+    performance.clearMarks()
+}
+
+bench(judge_if)
+bench(judge_bitwise)
+// judge_if: 36.61649990081787ms
+// judge_bitwise: 36.661499977111816ms
+```
+
+### 基准测试 rs
+
+```rust
+fn judge_if(x: i32, y: i32) -> bool {
+    x > 0 && y > 0 || x < 0 && y < 0
+}
+
+fn judge_bitwise(x: i32, y: i32) -> bool {
+    (x ^ y) >= 0
+}
+
+#[test]
+fn bench4() {
+    const CASES: [(i32, i32); 4] = [(1, 1), (-1, -1), (1, -1), (-1, 1)];
+    let start = time::Instant::now();
+    for _ in 0..1_000_000 {
+        for (x, y) in &CASES {
+            judge_if(*x, *y);
+        }
+    }
+    let elapsed = start.elapsed();
+    println!("{:?}", elapsed);
+
+    let start = time::Instant::now();
+    for _ in 0..1_000_000 {
+        for (x, y) in &CASES {
+            judge_bitwise(*x, *y);
+        }
+    }
+    let elapsed = start.elapsed();
+    println!("{:?}", elapsed);
+}
+
+// 35.6272ms
+// 37.2833ms
 ```
 
 ## 测试环境
