@@ -15,6 +15,7 @@ const bit_or = (n) => {
 }
 
 const math_floor = (n) => {
+    // 仅限于正数, 负数使用 Math.ceil(n)
     return Math.floor(n)
 }
 
