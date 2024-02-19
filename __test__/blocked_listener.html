@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Blocked Listener</title>
+    </head>
+    <body>
+        <button>按钮</button>
+        <script>
+            function getElement(cssSelector) {
+                // to be implemented
+            }
+
+            (async () => {
+                const btn = getElement('button')
+                while (1) {
+                    await btn.waitClick
+                    console.log('按钮被点击了一次, 等待下一次点击')
+                }
+            })()
+        </script>
+
+        <script>
+            // function getElement(cssSelector) {
+            //     const btn = document.querySelector(cssSelector)
+            //
+            //     Object.defineProperty(btn, 'waitClick', {
+            //         get: () => new Promise(resolve => {
+            //             btn.onclick = () => {
+            //                 resolve()
+            //                 btn.onclick = null
+            //             }
+            //         })
+            //     })
+            //
+            //     return btn
+            // }
+            //
+            // (async () => {
+            //     const btn = getElement('button')
+            //     // while (1) {
+            //     await btn.waitClick
+            //     console.log('按钮被点击了')
+            //
+            //     await btn.waitClick
+            //     console.log('按钮被点击了')
+            //     // }
+            // })()
+        </script>
+    </body>
+</html>
