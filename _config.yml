@@ -46,7 +46,7 @@ marked:
   postAsset: true
 relative_link: false
 future: true
-syntax_highlighter: prismjs
+syntax_highlighter: prismjs  # highlight.js
 highlight:
   enable: false
   line_number: true

@@ -97,7 +97,6 @@ open_graph:
 # External url should start with http:// or https://
 menu:
   home: / || fa fa-home
-  #  TODO: add about page
   about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
@@ -368,8 +367,8 @@ codeblock:
     light: default  # atom-one-light
     dark: stackoverflow-dark  # atom-one-dark
   prism:
-    light: prism-tomorrow
-    dark: prism-tomorrow
+    light: prism  # prism-tomorrow
+    dark: prism  # prism-tomorrow
   # Add copy button on codeblock
   copy_button:
     enable: true
@@ -377,8 +376,8 @@ codeblock:
     style: mac
   # Fold code block
   fold:
-    enable: false
-    height: 500
+    enable: true
+    height: 300
 
 back2top:
   enable: true
