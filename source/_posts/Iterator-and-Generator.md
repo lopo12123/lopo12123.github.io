@@ -9,7 +9,7 @@ categories:
   - JavaScript
 ---
 
-使用迭代器和生成器, 可以对 `for ... of` 的行为进行自定义.
+ES6引入了迭代器和生成器的概念，这两个特性为JavaScript带来了更强大的迭代和异步编程能力
 
 <!-- more -->
 
