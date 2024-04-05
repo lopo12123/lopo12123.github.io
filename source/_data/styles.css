@@ -36,6 +36,7 @@ pre[class*="language-"] {
 
 code {
     font-family: 'JetBrains Mono', monospace !important;
+    font-variant-ligatures: none !important;
 
     .operator {
         background-color: transparent !important;
