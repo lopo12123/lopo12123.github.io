@@ -3,9 +3,9 @@ title: 关于 package.json
 date: 2023-12-23 23:02:44
 tags:
   - Node
-  - Javascript
+  - JavaScript
 categories:
-  - Javascript
+  - JavaScript
 ---
 
 一般而言，node项目主要分为两种类型：**应用程序**和**模块**。每个node项目都会有一个 `package.json` 文件，这个文件中包含了项目的一些描述和配置信息。
