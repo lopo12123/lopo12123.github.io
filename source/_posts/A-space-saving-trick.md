@@ -5,7 +5,7 @@ tags:
   - LeetCode
   - Rust
 categories:
-  - LeetCode
+  - Problem Set
 ---
 
 > 问题: [Q1686](https://leetcode.cn/problems/stone-game-vi/description/)
