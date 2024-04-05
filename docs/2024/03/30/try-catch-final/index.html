@@ -24,14 +24,14 @@
 
 
 
-<link rel="canonical" href="https://lopo12123.github.io/tags/bitwise/">
+<link rel="canonical" href="https://lopo12123.github.io/2024/03/30/try-catch-final/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/bitwise/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lopo12123.github.io/2024/03/30/try-catch-final/","path":"2024/03/30/try-catch-final/","title":"try-catch-final"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: bitwise | lopo</title>
+<title>try-catch-final | lopo</title>
   
 
 
@@ -180,50 +180,132 @@
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">bitwise
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lopo12123.github.io/2024/03/30/try-catch-final/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/media/wolf.png">
+      <meta itemprop="name" content="lopo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lopo">
+      <meta itemprop="description" content="find an anchor to stop drifting...">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="try-catch-final | lopo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          try-catch-final
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+      <time title="创建时间：2024-03-30 16:12:14 / 修改时间：16:41:00" itemprop="dateCreated datePublished" datetime="2024-03-30T16:12:14+08:00">2024-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">=</span> <span class="token number">2</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">=</span> <span class="token number">3</span>
+
+        <span class="token keyword">return</span> v
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">=</span> <span class="token number">4</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> v
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-02-12T23:03:55+08:00"
-              content="2024-02-12">
-          02-12
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/2024/02/12/Some-bitwise-operations/" itemprop="url">
-          <span itemprop="name">Some bitwise operations</span>
-        </a>
-      </div>
+    <footer class="post-footer">
+          
 
-      
-    </header>
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>lopo
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lopo12123.github.io/2024/03/30/try-catch-final/" title="try-catch-final">https://lopo12123.github.io/2024/03/30/try-catch-final/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MDN/" rel="tag"># MDN</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/27/Iterator-and-Generator/" rel="prev" title="Iterator and Generator">
+                  <i class="fa fa-angle-left"></i> Iterator and Generator
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/04/%E6%96%B0%E5%B9%B4%E7%9A%84%E5%B7%A7%E5%85%8B%E5%8A%9B%E6%A3%92/" rel="next" title="新年的巧克力棒">
+                  新年的巧克力棒 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 </div>
   </main>

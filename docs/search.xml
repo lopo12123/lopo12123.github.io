@@ -53,7 +53,7 @@
 <p>而此时占用的空间为 <code>i32</code> 的大小, 即 <code>4</code>。</p>
 ]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>Problem Set</category>
       </categories>
       <tags>
         <tag>LeetCode</tag>
@@ -178,6 +178,102 @@
       </categories>
       <tags>
         <tag>Design Pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github Actions</title>
+    <url>/2023/12/16/Github-Actions/</url>
+    <content><![CDATA[<p>GitHub Actions 是一种持续集成和持续交付 (CI&#x2F;CD) 平台，可用于自动执行生成、测试和部署管道。可以创建工作流程来构建和测试存储库的每个拉取请求，或将合并的拉取请求部署到生产环境。</p>
+<span id="more"></span>
+
+<p>GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行工作流，也可以在自己的数据中心或云基础架构中托管自己的自托管运行器。</p>
+<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/quickstart#introduction">快速入门</a></p>
+</div>
+
+<ol>
+<li>在存储库中创建一个<code>.github/workflows</code>目录。</li>
+<li>在<code>.github/workflows</code>目录中，创建一个<code>&lt;workflow-name&gt;.yml</code>文件来定义工作流的配置。</li>
+<li>当指定的事件发生时，工作流程将自动触发。</li>
+</ol>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="工作流-Workflow"><a href="#工作流-Workflow" class="headerlink" title="工作流 (Workflow)"></a>工作流 (Workflow)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-workflows">使用工作流</a></p>
+</div>
+
+<ul>
+<li>工作流由<code>.github/workflows</code> 下的<code>&lt;workflow-name&gt;.yml</code>文件定义，将在存储库中的<strong>事件触发</strong>时运行，也可以<strong>手动触发</strong>或按<strong>定义的计划</strong>触发。</li>
+<li>一个存储库可以有多个工作流，每个工作流可以执行一组不同的任务</li>
+</ul>
+<h3 id="事件-Event"><a href="#事件-Event" class="headerlink" title="事件 (Event)"></a>事件 (Event)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a></p>
+</div>
+
+<p>事件是存储库中触发工作流的特定行为。</p>
+<h3 id="作业-Job"><a href="#作业-Job" class="headerlink" title="作业 (Job)"></a>作业 (Job)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-jobs">使用作业</a></p>
+</div>
+
+<ul>
+<li>作业是工作流程中在<strong>同一</strong>运行器上执行的一组<strong>步骤</strong>。</li>
+<li><strong>步骤</strong>按顺序执行，并且彼此之间有依赖关系。</li>
+<li>默认情况下，作业没有依赖关系，并且<strong>并行</strong>运行。可以配置作业与其他作业的依赖关系。当一个作业依赖于另一个作业时，它将在运行之前等待依赖的作业完成。</li>
+</ul>
+<h3 id="操作-Action"><a href="#操作-Action" class="headerlink" title="操作 (Action)"></a>操作 (Action)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/creating-actions">创建操作</a></p>
+</div>
+
+<p>操作是GitHub Actions平台的自定义应用程序，用于执行<strong>复杂但频繁重复</strong>的任务。使用操作可帮助减少工作流文件中编写的重复代码量。</p>
+<h3 id="运行器-Runner"><a href="#运行器-Runner" class="headerlink" title="运行器 (Runner)"></a>运行器 (Runner)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-github-hosted-runners/about-github-hosted-runners">使用 GitHub 托管的运行器</a></p>
+</div>
+
+<ul>
+<li>运行器是在触发工作流时运行工作流的<strong>服务器</strong>。</li>
+<li>每个工作流运行都在<strong>新配置</strong>的虚拟机中执行。</li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> basic<span class="token punctuation">-</span>demo
+<span class="token key atrule">env</span><span class="token punctuation">:</span>
+  <span class="token key atrule">USERNAME</span><span class="token punctuation">:</span> <span class="token string">"lopo"</span>
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> master <span class="token punctuation">]</span>
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">greet-to-user-with-nodejs</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Setup node
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token number">18</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Create Greeter
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+          echo console.log("Hi, $&#123;&#123; env.USERNAME &#125;&#125;!") > greeter.js</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Greet to user
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> node greeter.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>L1</strong>: The <strong>name</strong> of the workflow as it will appear in the <code>Actions</code> tab of the GitHub repository. If this field is omitted, the name of the workflow file will be used instead.</li>
+<li><strong>L2-3</strong>: The environment variables that are available to all jobs and steps in the workflow. In this case, the environment variable <code>USERNAME</code> is set to <code>lopo</code>.</li>
+<li><strong>L4-6</strong>: Specifies the <strong>trigger</strong> for this workflow. In this case, the workflow will be triggered when a push event occurs on the master branch.</li>
+<li><strong>L7</strong>: Groups together all the <strong>jobs</strong> that run in this <strong>workflow</strong>.</li>
+<li><strong>L8</strong>: Defines a job named <code>greet-to-user-with-nodejs</code>.</li>
+<li><strong>L9</strong>: Specifies the type of machine to run the job on. In this case, the job will run on a <code>ubuntu-latest</code> machine.</li>
+<li><strong>L10</strong>: Groups together all the <strong>steps</strong> that run in this <strong>job</strong>.</li>
+<li><strong>L11, 13, 17, 20</strong>: Defines the name of the step. This is optional, but it is recommended to provide a descriptive name for each step.</li>
+<li><strong>L12, 14</strong>: Specifies the <strong>action</strong> to run using the <code>uses</code> keyword.</li>
+<li><strong>L15-16</strong>: Specifies come <strong>arguments</strong> for the action. In this case, the <code>node-version</code> argument is set to <code>18</code>.</li>
+<li><strong>L18-19, 21</strong>: Specifies the <strong>command</strong> to run using the <code>run</code> keyword.</li>
+<li>We can use the <span v-pre><code>$&#123;&#123; variable &#125;&#125;</code></span> syntax to access the variables defined in the workflow file. In this case, the <code>USERNAME</code> environment variable is accessed in the <code>Create Greeter</code> step using the <span v-pre><code>$&#123;&#123; env.USERNAME &#125;&#125;</code></span> syntax.</li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://docs.github.com/en/actions">GitHub Actions documentation</a></li>
+<li><a href="https://github.com/marketplace?type=actions">GitHub Marketplace</a></li>
+<li><a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions">Workflow Syntax</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Misc</category>
+      </categories>
+      <tags>
+        <tag>CI/CD</tag>
+        <tag>Github Actions</tag>
+        <tag>Workflow</tag>
       </tags>
   </entry>
   <entry>
@@ -581,102 +677,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Github Actions</title>
-    <url>/2023/12/16/Github-Actions/</url>
-    <content><![CDATA[<p>GitHub Actions 是一种持续集成和持续交付 (CI&#x2F;CD) 平台，可用于自动执行生成、测试和部署管道。可以创建工作流程来构建和测试存储库的每个拉取请求，或将合并的拉取请求部署到生产环境。</p>
-<span id="more"></span>
-
-<p>GitHub 提供 Linux、Windows 和 macOS 虚拟机来运行工作流，也可以在自己的数据中心或云基础架构中托管自己的自托管运行器。</p>
-<h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/quickstart#introduction">快速入门</a></p>
-</div>
-
-<ol>
-<li>在存储库中创建一个<code>.github/workflows</code>目录。</li>
-<li>在<code>.github/workflows</code>目录中，创建一个<code>&lt;workflow-name&gt;.yml</code>文件来定义工作流的配置。</li>
-<li>当指定的事件发生时，工作流程将自动触发。</li>
-</ol>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="工作流-Workflow"><a href="#工作流-Workflow" class="headerlink" title="工作流 (Workflow)"></a>工作流 (Workflow)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-workflows">使用工作流</a></p>
-</div>
-
-<ul>
-<li>工作流由<code>.github/workflows</code> 下的<code>&lt;workflow-name&gt;.yml</code>文件定义，将在存储库中的<strong>事件触发</strong>时运行，也可以<strong>手动触发</strong>或按<strong>定义的计划</strong>触发。</li>
-<li>一个存储库可以有多个工作流，每个工作流可以执行一组不同的任务</li>
-</ul>
-<h3 id="事件-Event"><a href="#事件-Event" class="headerlink" title="事件 (Event)"></a>事件 (Event)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-workflows/events-that-trigger-workflows">触发工作流的事件</a></p>
-</div>
-
-<p>事件是存储库中触发工作流的特定行为。</p>
-<h3 id="作业-Job"><a href="#作业-Job" class="headerlink" title="作业 (Job)"></a>作业 (Job)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-jobs">使用作业</a></p>
-</div>
-
-<ul>
-<li>作业是工作流程中在<strong>同一</strong>运行器上执行的一组<strong>步骤</strong>。</li>
-<li><strong>步骤</strong>按顺序执行，并且彼此之间有依赖关系。</li>
-<li>默认情况下，作业没有依赖关系，并且<strong>并行</strong>运行。可以配置作业与其他作业的依赖关系。当一个作业依赖于另一个作业时，它将在运行之前等待依赖的作业完成。</li>
-</ul>
-<h3 id="操作-Action"><a href="#操作-Action" class="headerlink" title="操作 (Action)"></a>操作 (Action)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/creating-actions">创建操作</a></p>
-</div>
-
-<p>操作是GitHub Actions平台的自定义应用程序，用于执行<strong>复杂但频繁重复</strong>的任务。使用操作可帮助减少工作流文件中编写的重复代码量。</p>
-<h3 id="运行器-Runner"><a href="#运行器-Runner" class="headerlink" title="运行器 (Runner)"></a>运行器 (Runner)</h3><div class="note info"><p>参考: <a href="https://docs.github.com/zh/actions/using-github-hosted-runners/about-github-hosted-runners">使用 GitHub 托管的运行器</a></p>
-</div>
-
-<ul>
-<li>运行器是在触发工作流时运行工作流的<strong>服务器</strong>。</li>
-<li>每个工作流运行都在<strong>新配置</strong>的虚拟机中执行。</li>
-</ul>
-<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> basic<span class="token punctuation">-</span>demo
-<span class="token key atrule">env</span><span class="token punctuation">:</span>
-  <span class="token key atrule">USERNAME</span><span class="token punctuation">:</span> <span class="token string">"lopo"</span>
-<span class="token key atrule">on</span><span class="token punctuation">:</span>
-  <span class="token key atrule">push</span><span class="token punctuation">:</span>
-    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> master <span class="token punctuation">]</span>
-<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
-  <span class="token key atrule">greet-to-user-with-nodejs</span><span class="token punctuation">:</span>
-    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
-    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checkout
-        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v2
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Setup node
-        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v3
-        <span class="token key atrule">with</span><span class="token punctuation">:</span>
-          <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token number">18</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Create Greeter
-        <span class="token key atrule">run</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
-          echo console.log("Hi, $&#123;&#123; env.USERNAME &#125;&#125;!") > greeter.js</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Greet to user
-        <span class="token key atrule">run</span><span class="token punctuation">:</span> node greeter.js<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li><strong>L1</strong>: The <strong>name</strong> of the workflow as it will appear in the <code>Actions</code> tab of the GitHub repository. If this field is omitted, the name of the workflow file will be used instead.</li>
-<li><strong>L2-3</strong>: The environment variables that are available to all jobs and steps in the workflow. In this case, the environment variable <code>USERNAME</code> is set to <code>lopo</code>.</li>
-<li><strong>L4-6</strong>: Specifies the <strong>trigger</strong> for this workflow. In this case, the workflow will be triggered when a push event occurs on the master branch.</li>
-<li><strong>L7</strong>: Groups together all the <strong>jobs</strong> that run in this <strong>workflow</strong>.</li>
-<li><strong>L8</strong>: Defines a job named <code>greet-to-user-with-nodejs</code>.</li>
-<li><strong>L9</strong>: Specifies the type of machine to run the job on. In this case, the job will run on a <code>ubuntu-latest</code> machine.</li>
-<li><strong>L10</strong>: Groups together all the <strong>steps</strong> that run in this <strong>job</strong>.</li>
-<li><strong>L11, 13, 17, 20</strong>: Defines the name of the step. This is optional, but it is recommended to provide a descriptive name for each step.</li>
-<li><strong>L12, 14</strong>: Specifies the <strong>action</strong> to run using the <code>uses</code> keyword.</li>
-<li><strong>L15-16</strong>: Specifies come <strong>arguments</strong> for the action. In this case, the <code>node-version</code> argument is set to <code>18</code>.</li>
-<li><strong>L18-19, 21</strong>: Specifies the <strong>command</strong> to run using the <code>run</code> keyword.</li>
-<li>We can use the <span v-pre><code>$&#123;&#123; variable &#125;&#125;</code></span> syntax to access the variables defined in the workflow file. In this case, the <code>USERNAME</code> environment variable is accessed in the <code>Create Greeter</code> step using the <span v-pre><code>$&#123;&#123; env.USERNAME &#125;&#125;</code></span> syntax.</li>
-</ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://docs.github.com/en/actions">GitHub Actions documentation</a></li>
-<li><a href="https://github.com/marketplace?type=actions">GitHub Marketplace</a></li>
-<li><a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions">Workflow Syntax</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Misc</category>
-      </categories>
-      <tags>
-        <tag>CI/CD</tag>
-        <tag>Github Actions</tag>
-        <tag>Workflow</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HyperText Transfer Protocol (HTTP)</title>
     <url>/2023/12/14/HTTP/</url>
     <content><![CDATA[<p><code>HTTP</code> is an <strong>application-level</strong> protocol for distributed, collaborative, hypermedia information systems, while <code>TCP</code> solves the logic of the <strong>transport layer</strong>. The reason why <code>HTTP</code> uses <code>TCP</code> instead of <code>UDP</code> is that (open) a web page must transfer a lot of data, and the <code>TCP</code> protocol provides transmission control, organizes data in order, and error correction.</p>
@@ -829,7 +829,7 @@
   <entry>
     <title>Iterator and Generator</title>
     <url>/2024/03/27/Iterator-and-Generator/</url>
-    <content><![CDATA[<p>使用迭代器和生成器, 可以对 <code>for ... of</code> 的行为进行自定义.</p>
+    <content><![CDATA[<p>ES6引入了迭代器和生成器的概念，这两个特性为JavaScript带来了更强大的迭代和异步编程能力</p>
 <span id="more"></span>
 
 <h2 id="迭代协议"><a href="#迭代协议" class="headerlink" title="迭代协议"></a>迭代协议</h2><p>迭代协议具体分为两种:</p>
@@ -1185,9 +1185,9 @@ String<span class="token punctuation">.</span>prototype<span class="token punctu
         <category>JavaScript</category>
       </categories>
       <tags>
+        <tag>MDN</tag>
         <tag>Iterator</tag>
         <tag>Generator</tag>
-        <tag>MDN</tag>
       </tags>
   </entry>
   <entry>
@@ -1914,10 +1914,10 @@ String<span class="token punctuation">.</span>prototype<span class="token punctu
         <category>HTML</category>
       </categories>
       <tags>
+        <tag>MDN</tag>
         <tag>HTML</tag>
         <tag>web</tag>
         <tag>mobile</tag>
-        <tag>MDN</tag>
       </tags>
   </entry>
   <entry>
@@ -2245,6 +2245,176 @@ String<span class="token punctuation">.</span>prototype<span class="token punctu
       <tags>
         <tag>Node</tag>
         <tag>Javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>try-catch-final</title>
+    <url>/2024/03/30/try-catch-final/</url>
+    <content><![CDATA[<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">=</span> <span class="token number">2</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">=</span> <span class="token number">3</span>
+
+        <span class="token keyword">return</span> v
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">=</span> <span class="token number">4</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> v
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>MDN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>新年的巧克力棒</title>
+    <url>/2024/04/04/%E6%96%B0%E5%B9%B4%E7%9A%84%E5%B7%A7%E5%85%8B%E5%8A%9B%E6%A3%92/</url>
+    <content><![CDATA[<p>马上就要到羊年了, 羊村一片欢腾, 懒羊羊则懒洋洋地躺在草坪上吃新年的巧克力棒.</p>
+<p>他手上的巧克力棒是个由<code>n</code>个巧克力单元格组成的长度为<code>n</code>的长条, 现在懒羊羊想把巧克力棒掰开成一个个小单元格.</p>
+<p>初始时懒羊羊会把这根巧克力棒丢在草坪上, 然后每次懒羊羊会从草坪上拿起一根长度大于<code>1</code>的巧克力棒, 然后从某两个相邻的单元格的间隙处掰开变成两根巧克力棒, 然后把这两根巧克力棒丢在草坪上. 懒羊羊初始愉悦值为<code>0</code>. 每次掰开巧克力棒后如果这两根巧克力棒长度相等, 那么懒羊羊将提升<code>1</code>点愉悦值.</p>
+<p>当然, 草坪上全是长度为<code>1</code>的巧克力棒时懒羊羊就会停止操作. 现在懒羊羊想知道, 他能获得的愉悦值最多是多少?</p>
+<span id="more"></span>
+
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
+<li>对于<code>n=1</code>, 初始时草坪上已经全是长度为<code>1</code>的了, 所以愉悦值为<code>0</code>.</li>
+<li>对于<code>n=3</code>, 懒羊羊可以先把它掰开变成一根长度为<code>1</code>的和一根长度为<code>2</code>的巧克力棒; 然后再把长度为<code>2</code>的巧克力棒从正中间掰开获得<code>1</code>点愉悦值, 所以答案是<code>1</code>.</li>
+<li>对于<code>n=4</code>, 懒羊羊可以先从正中间掰开变成两根长度为<code>2</code>的巧克力棒, 获得<code>1</code>点愉悦值; 然后再对于每根长度为<code>2</code> 的巧克力棒从正中间掰开各获得<code>1</code>点愉悦值, 所以答案是<code>3</code>.</li>
+<li><code>1&lt;=n&lt;=10^9</code>.</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><ol>
+<li>对每一块巧克力棒(长为<code>len</code>), 找到最大的<code>k</code>使得<code>2^k &lt;= len</code>. 将巧克力棒掰开为<code>2^k</code>和<code>len-2^k</code>两部分.</li>
+<li>对于<code>2^k</code>的部分, 可以满足每次都能恰好掰开使得两部分长度相等, 从而整体获得<code>2^k-1</code>点愉悦值.</li>
+<li>对于<code>len-2^k</code>的部分:<ul>
+<li>如果<code>len-2^k</code>为<code>0</code>或<code>1</code>, 则不需要再操作.</li>
+<li>否则, 重复步骤<code>1</code>.</li>
+</ul>
+</li>
+</ol>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">solution</span><span class="token punctuation">(</span><span class="token keyword">mut</span> length<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">u32</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> sat <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> length <span class="token operator">></span> <span class="token number">1</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> perf <span class="token operator">=</span> length<span class="token punctuation">.</span><span class="token function">ilog2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> perf_part <span class="token operator">=</span> <span class="token number">2u32</span><span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>perf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        sat <span class="token operator">+=</span> perf_part <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        length <span class="token operator">-=</span> perf_part<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    sat
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> cases <span class="token operator">=</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span>
+        <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">233333333</span><span class="token punctuation">,</span> <span class="token number">233333319</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> case <span class="token keyword">in</span> cases <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> tobe <span class="token operator">=</span> case<span class="token number">.1</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> got <span class="token operator">=</span> <span class="token function">solution</span><span class="token punctuation">(</span>case<span class="token number">.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"f(&#123;&#125;) tobe &#123;tobe&#125;, got &#123;got&#125; -- &#123;&#125;"</span><span class="token punctuation">,</span> case<span class="token number">.0</span><span class="token punctuation">,</span> tobe <span class="token operator">==</span> got<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="论证"><a href="#论证" class="headerlink" title="论证"></a>论证</h2><blockquote>
+<p><strong>个人理解, 仅供参考.</strong></p>
+</blockquote>
+<p>转换为等价问题: <strong>初始有<code>n</code>份大小为<code>1</code>单位的材料, 任意两份相同大小的材料可以融合成一份两倍大小的材料, 现对材料进行融合操作直到无法继续, 求最终的融合情况 (即各部分的大小).</strong> 可以根据最终的融合情况得到本题所求的最大愉悦值.</p>
+<h3 id="等价性"><a href="#等价性" class="headerlink" title="等价性"></a>等价性</h3><ul>
+<li>本题中巧克力棒每次掰开为相同大小的两份即可获得<code>1</code>愉悦值, 等价于材料融合时每次融合可以获得<code>1</code>愉悦值.</li>
+<li>本题中每次非等分时无法获得愉悦值, 等价于不同大小的材料无法融合.</li>
+</ul>
+<h3 id="等价求解"><a href="#等价求解" class="headerlink" title="等价求解"></a>等价求解</h3><blockquote>
+<p>结论1: 最终融合情况中无重复值.</p>
+</blockquote>
+<ul>
+<li>若存在两份大小相同的材料, 则可以将其融合得到一份两倍大小的材料, 与操作的终止条件矛盾. 所以最终融合情况中无重复值.</li>
+</ul>
+<blockquote>
+<p>结论2: 对于等价问题, 可以证明最终的融合情况的唯一性. (即最终各材料大小排序后组成的有序序列是唯一的)</p>
+</blockquote>
+<ul>
+<li>对于<code>n = 1</code>, 显然结果序列为<code>result = [1]</code>, 唯一.</li>
+<li>假设对于<code>n = k</code>的情况, 结果序列为<code>result = [size1, size2, ..., sizek]</code>(从小到大排序), 唯一.</li>
+<li>当<code>n = k + 1</code>时, 先对其中的<code>k</code>进行操作得到结果<code>result = [size1, size2, ..., sizek]</code>(从小到大排序). 对于剩下的大小为<code>a</code>的材料 (初始<code>a = 1</code>):<ul>
+<li>情况1: 若<code>result[0] &gt; a</code>, 则最终结果<code>result = [a, size1, size2, ..., sizek]</code>是唯一的.</li>
+<li>情况2: 若<code>result[0] = a</code>, 则将<code>a</code>与<code>size1</code>融合得到<code>a=2*size1</code>, 重复上述操作直到进入情况1.</li>
+</ul>
+</li>
+<li>所以最终的融合情况是唯一的.</li>
+</ul>
+<blockquote>
+<p>结论3: 对于<code>n</code>份材料, 所能得到的最大融合材料的大小<code>sizemax</code> 为 <code>2^k</code> (其中<code>2^k &lt;= n</code>且<code>2^(k+1) &gt; n</code>).</p>
+</blockquote>
+<ul>
+<li>证明<code>2^k</code>: 相同材料融合时, 材料大小<code>*2</code>, 初始材料大小为<code>1</code>, 所以最大融合材料的大小为<code>2</code>的幂.</li>
+<li>证明<code>2^k &lt;= n</code>: 由于材料总量为<code>n</code>, 所以最大融合材料的大小不会超过<code>n</code>.</li>
+<li>证明<code>2^(k+1) &gt; n</code>: 假设<code>2^(k+1) &lt;= n</code>, 则此时能够找到<code>2</code>份大小为<code>2^k</code>的材料, 从而可以继续融合, 与操作的终止条件矛盾. 所以<code>2^(k+1) &gt; n</code>.</li>
+</ul>
+<p>根据<strong>结论2</strong>, 可以每次先求解<strong>最大融合材料</strong>的大小:</p>
+<ul>
+<li>对于<code>n</code>份材料, 最大融合材料的大小为<code>2^k</code>记为<code>sizek</code>.</li>
+<li>将<code>2^k</code>大小的材料融合后, 剩下的材料大小为<code>n - 2^k</code>.</li>
+<li>重复上述步骤, 得到最终的融合情况<code>result = [size1, size2, ..., sizek]</code>.</li>
+</ul>
+<h3 id="结果转换"><a href="#结果转换" class="headerlink" title="结果转换"></a>结果转换</h3><p>对于大小为<code>sizei</code>的材料(<code>sizei&gt;1</code>), 将其等分并放回, 重复此操作直到得到<code>sizei</code>份大小为<code>1</code>的材料, 这个过程中的每一次操作都可以获得<code>1</code>愉悦值.</p>
+<p>操作次数<code>op(i) = sizei - 1</code>. 所以最终总的愉悦值为<code>op(1) + op(2) + ... + op(k)</code> &#x3D; <code>size1 + size2 + ... + sizek - k</code> &#x3D; <code>n - k</code> (<code>k</code>为<code>result</code>的长度).</p>
+<blockquote>
+<p>观察易得: <code>k</code> 等于 <code>n</code> 的二进制表示中 <code>1</code> 的个数. (使用示例说明)</p>
+</blockquote>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; 示例1
+  0b10101 (n)
+&#x3D; 0b00001 (size1)
++ 0b00100 (size2)
++ 0b10000 (size3)
+
+&#x2F;&#x2F; 示例2
+  0b11011 (n)
+&#x3D; 0b00001 (size1)
++ 0b00010 (size2)
++ 0b01000 (size3)
++ 0b10000 (size4)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="优化题解"><a href="#优化题解" class="headerlink" title="优化题解"></a>优化题解</h2><p>根据<strong>结果转换</strong>部分的结论, 可以直接求解<code>n</code>的二进制表示中<code>1</code>的个数, 从而得到最终的愉悦值.</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">solution</span><span class="token punctuation">(</span>n<span class="token punctuation">:</span> <span class="token keyword">u32</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token keyword">u32</span> <span class="token punctuation">&#123;</span>
+    n <span class="token operator">-</span> n<span class="token punctuation">.</span><span class="token function">count_ones</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token attribute attr-name">#[test]</span>
+<span class="token keyword">fn</span> <span class="token function-definition function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> cases <span class="token operator">=</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span>
+        <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">233333333</span><span class="token punctuation">,</span> <span class="token number">233333319</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> case <span class="token keyword">in</span> cases <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> tobe <span class="token operator">=</span> case<span class="token number">.1</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> got <span class="token operator">=</span> <span class="token function">solution</span><span class="token punctuation">(</span>case<span class="token number">.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"f(&#123;&#125;) tobe &#123;tobe&#125;, got &#123;got&#125; -- &#123;&#125;"</span><span class="token punctuation">,</span> case<span class="token number">.0</span><span class="token punctuation">,</span> tobe <span class="token operator">==</span> got<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://uoj.ac/problem/66">#66. 新年的巧克力棒</a></li>
+<li><a href="https://vfleaking.blog.uoj.ac/blog/100">vfleaking 的题解</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Problem Set</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>UOJ</tag>
       </tags>
   </entry>
 </search>

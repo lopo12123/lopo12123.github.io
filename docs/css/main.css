@@ -2826,7 +2826,7 @@ header.header {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #3dff5d;
+  background: #f1a28f;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2914,6 +2914,11 @@ pre[class*="language-"] {
 
 code {
     font-family: 'JetBrains Mono', monospace !important;
+    font-variant-ligatures: none !important;
+
+    .operator {
+        background-color: transparent !important;
+    }
 }
 
 .logo-line {
