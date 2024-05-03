@@ -2240,35 +2240,11 @@ String<span class="token punctuation">.</span>prototype<span class="token punctu
 </ul>
 ]]></content>
       <categories>
-        <category>Javascript</category>
-      </categories>
-      <tags>
-        <tag>Node</tag>
-        <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>try-catch-final</title>
-    <url>/2024/03/30/try-catch-final/</url>
-    <content><![CDATA[<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token number">1</span>
-    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
-        v <span class="token operator">=</span> <span class="token number">2</span>
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        v <span class="token operator">=</span> <span class="token number">3</span>
-
-        <span class="token keyword">return</span> v
-    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
-        v <span class="token operator">=</span> <span class="token number">4</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> v
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
-      <categories>
         <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>MDN</tag>
+        <tag>Node</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2415,6 +2391,99 @@ String<span class="token punctuation">.</span>prototype<span class="token punctu
       <tags>
         <tag>Rust</tag>
         <tag>UOJ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>try-catch-finally</title>
+    <url>/2024/05/03/try-catch-finally/</url>
+    <content><![CDATA[<p>关于<code>try-catch-finally</code>的执行顺序</p>
+<span id="more"></span>
+
+<p>根据<code>try/catch</code>和<code>finally</code>中是否有<code>return</code>语句, 可以分为以下几种情况:</p>
+<h2 id="组合情况"><a href="#组合情况" class="headerlink" title="组合情况"></a>组合情况</h2><h3 id="try-catch和finally中都没有return"><a href="#try-catch和finally中都没有return" class="headerlink" title="try/catch和finally中都没有return"></a><code>try/catch</code>和<code>finally</code>中都没有<code>return</code></h3><p>按照正常的执行顺序, 先执行<code>try</code>中的代码, 如果有异常则执行<code>catch</code>中的代码, 最后执行<code>finally</code>中的代码</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> v
+<span class="token punctuation">&#125;</span>
+<span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">// 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="try-catch中没有return-finally中有return"><a href="#try-catch中没有return-finally中有return" class="headerlink" title="try/catch中没有return, finally中有return"></a><code>try/catch</code>中没有<code>return</code>, <code>finally</code>中有<code>return</code></h3><p><code>finally</code>本身已经是最后执行的, 所以其中的<code>return</code>对整个函数的返回值没有影响</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> v
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">// 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="try-catch中有return-finally中没有return"><a href="#try-catch中有return-finally中没有return" class="headerlink" title="try/catch中有return, finally中没有return"></a><code>try/catch</code>中有<code>return</code>, <code>finally</code>中没有<code>return</code></h3><p>由于<code>finally</code>在<code>try/catch</code>后一定会执行, 所以<code>finally</code>中的语句<strong>可能</strong>会对<code>try/catch</code>中的<code>return</code>语句产生影响</p>
+<p>具体表现为:</p>
+<ul>
+<li>在<code>return</code>时已经确定了返回的内容(值或引用)</li>
+<li><code>finally</code>中对原变量的修改不会影响<code>return</code>的内容</li>
+<li><code>finally</code>中对同一引用的修改会影响<code>return</code>的内容</li>
+</ul>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// 对原变量的修改不会影响返回值</span>
+<span class="token keyword">const</span> <span class="token function-variable function">fn1</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token string">''</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token string">'try'</span>
+        <span class="token keyword">return</span> v
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token string">'catch'</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        v <span class="token operator">+=</span> <span class="token string">'finally'</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token function">fn1</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">// 'try'</span>
+
+<span class="token comment">// 对同一引用的修改会影响返回值</span>
+<span class="token keyword">const</span> <span class="token function-variable function">fn2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">&#123;</span> v<span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">&#125;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        obj<span class="token punctuation">.</span>v <span class="token operator">=</span> <span class="token number">2</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        obj<span class="token punctuation">.</span>v <span class="token operator">=</span> <span class="token number">3</span>
+        <span class="token keyword">return</span> obj
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        obj<span class="token punctuation">.</span>v <span class="token operator">=</span> <span class="token number">4</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">fn2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">// &#123; v: 4 &#125;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">fn2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>v<span class="token punctuation">)</span>  <span class="token comment">// 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="try-catch和finally中都有return"><a href="#try-catch和finally中都有return" class="headerlink" title="try/catch和finally中都有return"></a><code>try/catch</code>和<code>finally</code>中都有<code>return</code></h3><p><code>finally</code>中的<code>return</code>会覆盖<code>try/catch</code>中的<code>return</code></p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token number">2</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment">// 2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/try...catch">MDN - try…catch</a></p>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>MDN</tag>
       </tags>
   </entry>
 </search>
