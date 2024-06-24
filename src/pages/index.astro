@@ -1,0 +1,60 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const bio = 'If you\'re a plumber, you\'re better off learning how to use an ax by chopping down trees with it than unclogging gutters.'
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={ SITE_TITLE } description={ SITE_DESCRIPTION }/>
+    </head>
+    <body>
+        <Header/>
+        <main>
+            <blockquote>{ bio }</blockquote>
+            <div style="display: flex;flex-direction: column;align-items: center;">
+                {
+                    new Array(20).fill(0)
+                        .map((_, index) => {
+                            const offset = Math.sin(index / 2) * 34
+                            return (
+                                <p style=`transform: translateX(${ offset }px)`>
+                                    <span>Hi there, it's</span>
+                                    <img width="34" height="16" src="/lopo_animate.svg" alt="">
+                                </p>
+                            )
+                        })
+                }
+                {
+                    new Array(20).fill(0)
+                        .map((_, index) => {
+                            const scale = 2 - Math.abs(index - 10) * 0.1
+                            return (
+                                <p style=`transform: scale(${ scale })`>
+                                    <span>Hi there, it's</span>
+                                    <img width="34" height="16" src="/lopo_animate.svg" alt="">
+                                </p>
+                            )
+                        })
+                }
+                {
+                    new Array(20).fill(0)
+                        .map((_, index) => {
+                            const angle = Math.sin(index / 2) * 34
+                            return (
+                                <p style=`transform: rotate(${ angle }deg)`>
+                                    <span>Hi there, it's</span>
+                                    <img width="34" height="16" src="/lopo_animate.svg" alt="">
+                                </p>
+                            )
+                        })
+                }
+            </div>
+        </main>
+        <Footer/>
+    </body>
+</html>
