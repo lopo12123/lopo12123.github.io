@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+
+const declare2 = 'All articles on this site are the personal views of the author, and their accuracy and timeliness are not guaranteed.'
+const declare3 = 'The author is not responsible for any consequences arising from the use of these articles or their content.'
+---
+
+<Layout
+    title="About"
+    description="About me and my blog."
+    category="About"
+    publishDate={ new Date('2024/06/24') }
+    updatedDate={ new Date('2024/06/24') }>
+    <p>This is lopo’s personal blog!</p>
+    <p>THAT IS:</p>
+    <ul>
+        <li>
+            <span>Articles on this blog are licensed under</span>
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>
+            <span>unless otherwise noted and cited from other sites.</span>
+        </li>
+        <li>{ declare2 }</li>
+        <li>{ declare3 }</li>
+    </ul>
+    <hr>
+    <a href="https://github.com/lopo12123/lopo12123.github.io/issues/new" target="_blank">
+        REPORT AN ISSUE
+    </a>
+    <br>
+    <a href="mailto:lopo@zju.edu.cn?subject=Visitors from the blog">EMAIL ME</a>
+</Layout>
