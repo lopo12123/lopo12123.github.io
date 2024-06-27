@@ -7,104 +7,148 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
 const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf()
-);
+    (a, b) => {
+        const priority_diff = b.data.priority - a.data.priority;
+        if(priority_diff != 0) return priority_diff
+        return a.data.publishDate.valueOf() - b.data.publishDate.valueOf()
+    }
+)
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.slug}/`}>
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.publishDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+    <head>
+        <BaseHead title={ SITE_TITLE } description={ SITE_DESCRIPTION }/>
+        <style>
+            main {
+                width: 960px;
+            }
+
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2rem;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            ul li {
+                position: relative;
+                width: calc(50% - 1rem);
+                margin-bottom: 0.5rem;
+                padding: 1rem;
+                border-radius: 12px;
+                background-color: white;
+                box-shadow: var(--box-shadow);
+                box-sizing: border-box;
+                transition: 0.2s ease;
+
+                &:hover {
+                    box-shadow: var(--box-shadow-more);
+                }
+            }
+
+            ul li * {
+                text-decoration: none;
+            }
+
+            ul li:first-child {
+                width: 100%;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            ul li:first-child .title {
+                font-size: 2.369rem;
+            }
+
+            ul li a {
+                display: block;
+            }
+
+            .title {
+                margin: 0;
+                color: rgb(var(--black));
+                line-height: 1;
+            }
+
+            .date {
+                margin: 0;
+                color: rgb(var(--gray));
+            }
+
+            .index-tag {
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                left: 0;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 12px 0 1em 0;
+                background-color: white;
+                box-shadow: var(--box-shadow);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            ul li a:hover h4,
+            ul li a:hover .date {
+                color: rgb(var(--accent));
+            }
+
+            @media (max-width: 720px) {
+                ul {
+                    gap: 0.5em;
+                }
+
+                ul li {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                ul li:first-child {
+                    margin-bottom: 0;
+                }
+
+                ul li:first-child .title {
+                    font-size: 1.563em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <Header/>
+        <main>
+            <section>
+                <ul>
+                    {
+                        posts.map((post, index) => (
+                            <li>
+                                <div class="index-tag">{ index + 1 }</div>
+
+                                <a href={ `/blog/${ post.slug }/` }>
+                                    <h4 class="title">{ post.data.title }</h4>
+                                    <p class="date">
+                                        <span>Published on</span>
+                                        <FormattedDate date={ post.data.publishDate }/>
+                                    </p>
+                                    {
+                                        post.data.updatedDate && (
+                                            <p class="date">
+                                                <span>Updated on</span>
+                                                <FormattedDate date={ post.data.updatedDate }/>
+                                            </p>
+                                        )
+                                    }
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+        </main>
+        <Footer/>
+    </body>
 </html>
