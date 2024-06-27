@@ -46,11 +46,16 @@ const posts = (await getCollection('blog')).sort(
 
                 &:hover {
                     box-shadow: var(--box-shadow-more);
+
+                    .index-tag {
+                        opacity: 0;
+                    }
                 }
             }
 
             ul li * {
                 text-decoration: none;
+                transition: 0.2s ease;
             }
 
             ul li:first-child {
@@ -73,9 +78,10 @@ const posts = (await getCollection('blog')).sort(
                 line-height: 1;
             }
 
-            .date {
+            .lock, .date {
                 margin: 0;
                 color: rgb(var(--gray));
+                font-size: 1rem;
             }
 
             .index-tag {
@@ -93,8 +99,7 @@ const posts = (await getCollection('blog')).sort(
                 justify-content: center;
             }
 
-            ul li a:hover h4,
-            ul li a:hover .date {
+            ul li:hover h4 {
                 color: rgb(var(--accent));
             }
 
@@ -127,6 +132,12 @@ const posts = (await getCollection('blog')).sort(
                         posts.map((post, index) => (
                             <li>
                                 <div class="index-tag">{ index + 1 }</div>
+                                { post.data.encrypted && (
+                                    <p class="lock">
+                                        <span>🔒</span>
+                                        <span>This post is encrypted</span>
+                                    </p>
+                                ) }
 
                                 <a href={ `/blog/${ post.slug }/` }>
                                     <h4 class="title">{ post.data.title }</h4>
