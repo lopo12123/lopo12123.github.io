@@ -5,6 +5,9 @@
  */
 
 :root {
+    --header-height: 78px;
+    --footer-heigth: 78px;
+
     --accent: #2337ff;
     --accent-dark: #000d8a;
     --black: 15, 18, 25;
@@ -35,7 +38,16 @@
     font-display: swap;
 }
 
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    width: 100%;
+    height: 100%;
     font-family: 'Atkinson', sans-serif;
     margin: 0;
     padding: 0;
@@ -52,6 +64,7 @@ body {
 main {
     width: 720px;
     max-width: calc(100% - 2em);
+    min-height: calc(100% - var(--header-height) - var(--footer-heigth) - 6em);
     margin: auto;
     padding: 3em 1em;
 }
@@ -161,6 +174,7 @@ hr {
     }
 
     main {
+        min-height: calc(100% - var(--header-height) - var(--footer-heigth) - 2em);
         padding: 1em;
     }
 }
