@@ -120,7 +120,7 @@ const { title, description, category, publishDate, updatedDate } = Astro.props;
 
             <div class="floating-buttons">
                 <!-- TODO: outline menu -->
-                <div class="op-button" title="Back to Previous Page" onclick="back2prev()">←</div>
+                <div class="op-button" title="Back to Previous Page" onclick="back2blog()">←</div>
                 <div class="op-button" title="Back to Top" onclick="back2top()">↑</div>
             </div>
         </main>
@@ -128,8 +128,8 @@ const { title, description, category, publishDate, updatedDate } = Astro.props;
         <Footer/>
 
         <script is:inline>
-            function back2prev() {
-                window.history.back();
+            function back2blog() {
+                window.location.href = '/blog';
             }
 
             function back2top() {
