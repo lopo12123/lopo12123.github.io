@@ -28,9 +28,10 @@ import HeaderLink from './HeaderLink.astro';
 
 <style>
     header {
-        position: sticky;
+        position: fixed;
         z-index: 1;
         top: 0;
+        width: calc(100% - 2em);
         height: var(--header-height);
         margin: 0;
         padding: 0 1em;
