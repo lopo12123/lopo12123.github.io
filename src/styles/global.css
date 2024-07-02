@@ -148,10 +148,21 @@ pre > code {
 }
 
 blockquote {
-    border-left: 4px solid var(--accent);
+    position: relative;
     padding: 0 0 0 20px;
     margin: 0;
     font-size: 1.333em;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        border-radius: 2px;
+        background-color: var(--accent);
+    }
 }
 
 hr.solid {
