@@ -39,6 +39,20 @@
 }
 
 @font-face {
+    font-family: 'Poets Electra';
+    src: url('/fonts/poets_electra.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poets Electra';
+    src: url('/fonts/poets_electra-italic.woff') format('woff');
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'JetBrains Mono';
     src: url('/fonts/JetBrainsMono-Thin.ttf') format('truetype');
     font-weight: 100;
@@ -176,7 +190,8 @@ html, body {
 body {
     font-family: 'Atkinson', sans-serif;
     text-align: left;
-    background: linear-gradient(var(--gray-gradient)) no-repeat;
+    background-color: rgba(var(--gray-light), 50%);
+    /*background: linear-gradient(var(--gray-gradient)) no-repeat;*/
     background-size: 100% 600px;
     word-wrap: break-word;
     overflow-wrap: break-word;

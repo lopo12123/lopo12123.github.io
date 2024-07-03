@@ -4,18 +4,105 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-const bio = 'If you\'re a plumber, you\'re better off learning how to use an ax by chopping down trees with it than unclogging gutters.'
+// const bio = 'If you\'re a plumber, you\'re better off learning how to use an ax by chopping down trees with it than unclogging gutters.'
+
+const poem = `Little fly,
+Thy summer’s play
+My thoughtless hand
+Has brushed away.
+
+Am not I
+A fly like thee?
+Or art not thou
+A man like me?
+
+For I dance
+And drink and sing,
+Till some blind hand
+Shall brush my wing.
+
+If thought is life
+And strength and breath,
+And the want
+Of thought is death,
+
+Then am I
+A happy fly,
+If I live,
+Or if I die.`
 ---
 
 <!doctype html>
 <html lang="zh">
     <head>
         <BaseHead title={ SITE_TITLE } description={ SITE_DESCRIPTION }/>
+
+        <style>
+            .poem {
+                width: calc(100% - 2.5rem);
+                margin: 1.25rem 0;
+                padding: 1.25rem;
+                background-color: white;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, .05);
+                font-family: "Poets Electra", Georgia, "Times New Roman", serif;
+
+                > div:not(:first-child) {
+                    margin-top: 1rem;
+                }
+            }
+
+            .poem-title {
+                font-size: 2.5rem;
+                line-height: 3rem;
+                font-style: italic;
+                font-weight: 500;
+            }
+
+            .poem-meta {
+                font-size: 1.25rem;
+                line-height: 1.4;
+                display: flex;
+                align-items: center;
+
+                .author {
+                    color: #007ab3;
+                    text-decoration: none;
+                }
+
+                .years {
+                    margin-left: 1rem;
+                }
+            }
+
+            .poem-content {
+                font-size: 1.1rem;
+                line-height: 1.5;
+                white-space: pre;
+            }
+
+            .poem-quote {
+                margin-top: 1rem;
+                color: #777;
+                font-size: .8rem;
+                line-height: 1.56;
+            }
+        </style>
     </head>
     <body>
         <Header/>
         <main>
-            <blockquote style="margin-top: 64px; font-size: 24px;">{ bio }</blockquote>
+            <!--<blockquote style="margin-top: 64px; font-size: 24px;">{ bio }</blockquote>-->
+            <div class="poem">
+                <div class="poem-title">The Fly</div>
+                <div class="poem-meta">
+                    <a class="author" href="https://poets.org/poet/william-blake" target="_blank">William Blake</a>
+                    <div class="years">1757 – 1827</div>
+                </div>
+                <div class="poem-content">{ poem }</div>
+                <div class="poem-quote">
+                    From <i>Songs of Experience</i>. First published in 1794. This poem is in the public domain.
+                </div>
+            </div>
         </main>
         <Footer/>
     </body>
