@@ -79,13 +79,26 @@ const posts = (await getCollection('blog')).sort(
             .title {
                 margin: 0;
                 color: rgb(var(--black));
-                line-height: 1;
+                line-height: 1.7;
+
+                &:first-letter {
+                    font-size: 1.5em;
+                    text-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.1);
+                    font-family: "Poets Electra", Georgia, "Times New Roman", serif;
+                }
+            }
+
+            .desc {
+                margin: 0.5em 0;
+                color: var(--accent-dark);
+                font-size: 1rem;
+                line-height: 1.5;
             }
 
             .lock, .date {
                 margin: 0;
                 color: rgb(var(--gray));
-                font-size: 1rem;
+                font-size: 0.75rem;
             }
 
             .index-tag {
@@ -149,6 +162,7 @@ const posts = (await getCollection('blog')).sort(
 
                                 <a href={ `/blog/${ post.slug }/` }>
                                     <h4 class="title">{ post.data.title }</h4>
+                                    { post.data.description && <p class="desc">{ post.data.description }</p> }
                                     <p class="date">
                                         <span>Published on</span>
                                         <FormattedDate date={ post.data.publishDate }/>
@@ -164,10 +178,10 @@ const posts = (await getCollection('blog')).sort(
                                 </a>
                             </li>
                         ))
-                    }
-                </ul>
-            </section>
-        </main>
-        <Footer/>
-    </body>
-</html>
+                        }
+                        </ul>
+                        </section>
+                        </main>
+                        <Footer/>
+                        </body>
+                        </html>
