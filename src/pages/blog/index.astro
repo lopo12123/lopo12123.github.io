@@ -10,7 +10,7 @@ const posts = (await getCollection('blog')).sort(
     (a, b) => {
         const priority_diff = b.data.priority - a.data.priority;
         if(priority_diff != 0) return priority_diff
-        return a.data.publishDate.valueOf() - b.data.publishDate.valueOf()
+        return b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
     }
 )
 ---
