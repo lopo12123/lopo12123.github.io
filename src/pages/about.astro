@@ -1,5 +1,5 @@
 ---
-import BlogPost from '../layouts/BlogPost.astro';
+import PostLayout from '../layouts/PostLayout.astro'
 
 const bio = 'If you\'re a plumber, you\'re better off learning how to use an ax by chopping down trees with it than unclogging gutters.'
 
@@ -7,7 +7,7 @@ const declare2 = 'All articles on this site are the personal views of the author
 const declare3 = 'The author is not responsible for any consequences arising from the use of these articles or their content.'
 ---
 
-<BlogPost
+<PostLayout
     post={ {
         title: 'About',
         description: 'About me and my blog.',
@@ -34,4 +34,4 @@ const declare3 = 'The author is not responsible for any consequences arising fro
     </a>
     <br>
     <a href="mailto:lopo@zju.edu.cn?subject=Visitors from the blog">EMAIL ME</a>
-</BlogPost>
+</PostLayout>
