@@ -1,6 +1,8 @@
 ---
 import BlogPost from '../layouts/BlogPost.astro';
 
+const bio = 'If you\'re a plumber, you\'re better off learning how to use an ax by chopping down trees with it than unclogging gutters.'
+
 const declare2 = 'All articles on this site are the personal views of the author, and their accuracy and timeliness are not guaranteed.'
 const declare3 = 'The author is not responsible for any consequences arising from the use of these articles or their content.'
 ---
@@ -13,6 +15,8 @@ const declare3 = 'The author is not responsible for any consequences arising fro
         publishDate: new Date('2024/06/24'),
         updatedDate: new Date('2024/06/24'),
     } }>
+    <blockquote style="font-family: 'Poets Electra'; font-size: 1.25em;">{ bio }</blockquote>
+
     <p>This is lopo’s personal blog!</p>
     <p>THAT IS:</p>
     <ul>
