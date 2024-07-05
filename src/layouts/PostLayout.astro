@@ -43,10 +43,6 @@ const { title, description, category, publishDate, updatedDate } = post;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
-                .category {
-                    text-transform: capitalize;
-                }
             }
 
             .floating-buttons {
@@ -85,10 +81,7 @@ const { title, description, category, publishDate, updatedDate } = post;
                             <div>
                                 {
                                     category
-                                        ? (
-                                            <span>In Category</span>
-                                            <span class="category">《{ category }》</span>
-                                        )
+                                        ? <span>In Category《{ category }》</span>
                                         : <span>No category</span>
                                 }
                             </div>

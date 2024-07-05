@@ -98,10 +98,6 @@ const posts = (await getCollection('blog')).sort(
                 align-items: center;
                 flex-wrap: wrap;
                 gap: .5em;
-
-                .category {
-                    text-transform: capitalize;
-                }
             }
 
             .index-tag {
@@ -165,10 +161,7 @@ const posts = (await getCollection('blog')).sort(
                                             <div class="meta">
                                                 {
                                                     post.data.category
-                                                        ? <span>
-                                                            In Category<span
-                                                            class="category">《{ post.data.category }》</span>
-                                                        </span>
+                                                        ? <span>In Category《{ post.data.category }》</span>
                                                         : <span>No category</span>
                                                 }
                                                 <span>

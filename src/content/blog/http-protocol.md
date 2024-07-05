@@ -1,7 +1,7 @@
 ---
 title: Http协议
 description: 关于 Http/1.0、Http/1.1、Http/2.0、Http/3.0
-category: rfc read
+category: RFC Read
 publishDate: 2023/12/14
 ---
 

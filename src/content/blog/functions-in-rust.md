@@ -1,7 +1,7 @@
 ---
 title: Functions in Rust
 description: 关于Rust中的各种函数(闭包)类型
-category: rust
+category: Rust
 publishDate: 2024/07/02
 updatedDate: 2024/07/04
 ---

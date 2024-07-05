@@ -1,7 +1,7 @@
 ---
 title: Try-Catch-Finally
 description: 关于 try-catch-finally 中使用return的执行顺序
-category: js
+category: JavaScript
 publishDate: 2024/07/05
 ---
 
