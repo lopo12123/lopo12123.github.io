@@ -1,7 +1,7 @@
 ---
 title: 关于 meta 标签 (Viewport)
 description: meta:vp (即 <meta name="viewport" content="***"/>)
-publishDate: 2024-03-26 23:01:26
+publishDate: 2024/07/04
 category: html
 ---
 
