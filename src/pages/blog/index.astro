@@ -40,7 +40,6 @@ const posts = (await getCollection('blog')).sort(
             ul li {
                 position: relative;
                 width: calc(50% - 1rem);
-                /* margin-bottom: 0.5rem; */
                 padding: 1rem;
                 border-radius: 12px;
                 background-color: white;
@@ -62,18 +61,14 @@ const posts = (await getCollection('blog')).sort(
                 transition: 0.2s ease;
             }
 
-            /* ul li:first-child {
-                width: 100%;
-                margin-bottom: 1rem;
-                text-align: center;
-            }
-
-            ul li:first-child .title {
-                font-size: 2.369rem;
-            } */
-
             ul li a {
                 display: block;
+            }
+
+            .lock {
+                margin: 0;
+                color: rgb(var(--gray));
+                font-size: 0.8rem;
             }
 
             .title {
@@ -95,10 +90,18 @@ const posts = (await getCollection('blog')).sort(
                 line-height: 1.5;
             }
 
-            .lock, .date {
+            .meta {
                 margin: 0;
                 color: rgb(var(--gray));
-                font-size: 0.75rem;
+                font-size: .8em;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: .5em;
+
+                .category {
+                    text-transform: capitalize;
+                }
             }
 
             .index-tag {
@@ -133,14 +136,6 @@ const posts = (await getCollection('blog')).sort(
                     width: 100%;
                     text-align: center;
                 }
-
-                /* ul li:first-child {
-                    margin-bottom: 0;
-                }
-
-                ul li:first-child .title {
-                    font-size: 1.563em;
-                }*/
             }
         </style>
     </head>
@@ -150,38 +145,54 @@ const posts = (await getCollection('blog')).sort(
             <section>
                 <ul>
                     {
-                        posts.map((post, index) => (
-                            <li>
-                                <div class="index-tag">{ index + 1 }</div>
-                                { post.data.encrypted && (
-                                    <p class="lock">
-                                        <span>🔒</span>
-                                        <span>This post is encrypted</span>
-                                    </p>
-                                ) }
-
-                                <a href={ `/blog/${ post.slug }/` }>
-                                    <h4 class="title">{ post.data.title }</h4>
-                                    { post.data.description && <p class="desc">{ post.data.description }</p> }
-                                    <p class="date">
-                                        <span>Published on</span>
-                                        <FormattedDate date={ post.data.publishDate }/>
-                                    </p>
+                        posts.map((post, index) => {
+                            return (
+                                <li>
+                                    <div class="index-tag">{ index + 1 }</div>
                                     {
-                                        post.data.updatedDate && (
-                                            <p class="date">
-                                                <span>Updated on</span>
-                                                <FormattedDate date={ post.data.updatedDate }/>
+                                        post.data.encrypted && (
+                                            <p class="lock">
+                                                <span>🔒</span>
+                                                <span>This post is encrypted</span>
                                             </p>
                                         )
                                     }
-                                </a>
-                            </li>
-                        ))
-                        }
-                        </ul>
-                        </section>
-                        </main>
-                        <Footer/>
-                        </body>
-                        </html>
+
+                                    <a href={ `/blog/${ post.slug }/` }>
+                                        <h4 class="title">{ post.data.title }</h4>
+                                        { post.data.description && <p class="desc">{ post.data.description }</p> }
+                                        {
+                                            <div class="meta">
+                                                {
+                                                    post.data.category
+                                                        ? <span>
+                                                            In Category<span
+                                                            class="category">《{ post.data.category }》</span>
+                                                        </span>
+                                                        : <span>No category</span>
+                                                }
+                                                <span>
+                                                    <span>Published on</span>
+                                                    <FormattedDate date={ post.data.publishDate }/>
+                                                </span>
+                                                {
+                                                    post.data.updatedDate && (
+                                                        <span>
+                                                            <span>Updated on</span>
+                                                            <FormattedDate date={ post.data.updatedDate }/>
+                                                        </span>
+                                                    )
+                                                }
+                                            </div>
+                                        }
+                                    </a>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
+            </section>
+        </main>
+        <Footer/>
+    </body>
+</html>
