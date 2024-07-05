@@ -1,8 +1,8 @@
 ---
 title: 关于 meta 标签 (Viewport)
 description: meta:vp (即 <meta name="viewport" content="***"/>)
-publishDate: 2024/07/04
 category: HTML
+publishDate: 2024/07/04
 ---
 
 在移动设备上, 布局视口通常比屏幕的逻辑尺寸要大. 为了适应屏幕的大小, 移动设备浏览器会缩放网页内容. 但是, 有时候我们希望网页的布局视口和视觉视口大小相同 (此时文档对象的宽度和屏幕宽度相同), 这时候就需要使用 `meta` 标签来控制.
