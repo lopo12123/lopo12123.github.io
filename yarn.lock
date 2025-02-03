@@ -1762,7 +1762,10 @@ __metadata:
     "@types/react": ^18.2.20
     "@types/react-dom": ^18.2.7
     autoprefixer: ^10.4.19
+    highlight.js: ^11.11.1
     isbot: ^4.1.0
+    marked: ^15.0.6
+    marked-highlight: ^2.2.1
     postcss: ^8.4.38
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -3352,6 +3355,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlight.js@npm:^11.11.1":
+  version: 11.11.1
+  resolution: "highlight.js@npm:11.11.1"
+  checksum: 841ddd329a92be123a61ef4051698f824c3575deef588fbb810bd638f1575ddc96b7bdd925b97c05a29276bb119dfcb8e5bcb0acb31c86249371bf046e131d72
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^6.0.0, hosted-git-info@npm:^6.1.1":
   version: 6.1.3
   resolution: "hosted-git-info@npm:6.1.3"
@@ -3952,6 +3962,24 @@ __metadata:
   version: 1.1.1
   resolution: "markdown-extensions@npm:1.1.1"
   checksum: 8a6dd128be1c524049ea6a41a9193715c2835d3d706af4b8b714ff2043a82786dbcd4a8f1fa9ddd28facbc444426c97515aef2d1f3dd11d5e2d63749ba577b1e
+  languageName: node
+  linkType: hard
+
+"marked-highlight@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "marked-highlight@npm:2.2.1"
+  peerDependencies:
+    marked: ">=4 <16"
+  checksum: 3e57764da5219c02fc370226bde576fbe1f24d8d8bd0a31ddcb4363bfbce5e3d3fc5e1ace13f5029df89b24eb1498e503c2b91d1c48fa395a975893c8bc22b5d
+  languageName: node
+  linkType: hard
+
+"marked@npm:^15.0.6":
+  version: 15.0.6
+  resolution: "marked@npm:15.0.6"
+  bin:
+    marked: bin/marked.js
+  checksum: 5218363ac4f6cd1893318ad8b1efacdc8a416f87da28cbcffb419d97602168935249351a3fbe2c59221e7e9955862c6a038ec00f19bf4a6d7e8e0e2e9643d154
   languageName: node
   linkType: hard
 
