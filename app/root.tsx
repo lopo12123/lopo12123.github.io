@@ -1,4 +1,5 @@
 import {
+    Link,
     Links,
     Meta,
     Outlet,
@@ -7,8 +8,8 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 
-import "./styles/tailwind.css";
 import "./styles/font.css";
+import "./styles/index.css";
 
 export const links: LinksFunction = () => {
     return [
@@ -32,9 +33,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <Meta/>
                 <Links/>
             </head>
-            <body className={ 'font-sans' }>
-                <nav>
-
+            <body>
+                <nav className={ 'tab-bar' }>
+                    <Link to={ '/' }>
+                        <img
+                            className={ 'w-[65px] h-[30px]' }
+                            width={ 65 } height={ 30 }
+                            src="/favicon.svg" alt=""/>
+                    </Link>
                 </nav>
 
                 { children }
