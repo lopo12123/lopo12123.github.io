@@ -8,6 +8,8 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 
+import itislopo from "./assets/itislopo.svg"
+
 import "./styles/font.css";
 import "./styles/index.css";
 
@@ -37,9 +39,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <nav className={ 'tab-bar' }>
                     <Link to={ '/' }>
                         <img
-                            className={ 'w-[65px] h-[30px]' }
-                            width={ 65 } height={ 30 }
-                            src="/favicon.svg" alt=""/>
+                            className={ 'w-[105px] h-[30px]' }
+                            width={ 105 } height={ 30 }
+                            src={ itislopo } alt=""/>
                     </Link>
                 </nav>
 
