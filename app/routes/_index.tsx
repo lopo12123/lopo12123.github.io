@@ -27,7 +27,7 @@ export default function HomePage() {
     return (
         <main>
             <h2>The Fly</h2>
-            <hr className={ 'my-4' }/>
+            <hr/>
             {
                 poem.split('\n')
                     .map((line, index) => {
