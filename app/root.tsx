@@ -10,6 +10,7 @@ import type { LinksFunction, MetaFunction } from "@remix-run/node";
 
 import itislopo from "./assets/itislopo.svg"
 
+import "highlight.js/styles/github-dark.css"
 import "./styles/font.css";
 import "./styles/index.css";
 

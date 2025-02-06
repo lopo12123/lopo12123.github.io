@@ -26,6 +26,9 @@ const marked = new Marked(
                 const titleAttr = title ? ` title="${ title }"` : ''
                 return `<a href="${ href }"${ titleAttr } target="_blank">${ text }</a>`
             },
+            codespan({ text }: Tokens.Codespan): string {
+                return `<code class="codespan">${ text }</code>`
+            }
             // TODO: image preview
             // image({ href, text }: Tokens.Image): string {
             //     return `<img class="prose-image" src="${ href }" alt="${ text }" onclick="window.dispatchEvent(new CustomEvent('@lopo/preview', {detail: this}))"/>`
@@ -84,7 +87,7 @@ export default function ProseDetailPage() {
     const { title, created, updated, content, headings } = useLoaderData<ProseDetail>()
 
     return (
-        <main dangerouslySetInnerHTML={ { __html: content } }>
+        <main className={ 'prose-detail' } dangerouslySetInnerHTML={ { __html: content } }>
 
         </main>
     )

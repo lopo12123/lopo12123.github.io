@@ -54,13 +54,25 @@ a {
     text-decoration: none;
 }
 
+ul {
+    list-style-position: inside;
+}
+
 ol {
     padding-left: 2rem;
+}
+
+li {
+    margin-block: 0.25rem;
 }
 
 hr {
     border: none;
     border-bottom: 1px dashed;
+}
+
+code {
+    font-family: "JetBrains Mono", monospace;
 }
 
 img {
@@ -84,6 +96,7 @@ img {
     font-family: "Poets Electra", Inter, system-ui, Avenir, Helvetica, Arial, monospace;
     font-weight: 400;
     line-height: 1.5;
+    color-scheme: dark;
 }
 
 * {
@@ -91,16 +104,16 @@ img {
     padding: 0;
     box-sizing: border-box;
 
-    &::-webkit-scrollbar {
-        width: 0.5rem;
-        height: 0.5rem;
-    }
+    /*&::-webkit-scrollbar {*/
+    /*    width: 0.5rem;*/
+    /*    height: 0.5rem;*/
+    /*}*/
 
-    &::-webkit-scrollbar-thumb {
-        background-color: #ccc;
-        border-radius: 0.25rem;
-        cursor: pointer;
-    }
+    /*&::-webkit-scrollbar-thumb {*/
+    /*    background-color: #ccc;*/
+    /*    border-radius: 0.25rem;*/
+    /*    cursor: pointer;*/
+    /*}*/
 }
 
 html, body {
@@ -163,10 +176,6 @@ main {
 }
 
 main.prose-list {
-    li {
-        margin-block: 0.25rem;
-    }
-
     time {
         margin-left: 0.25rem;
     }
@@ -180,5 +189,16 @@ main.prose-list {
 }
 
 main.prose-detail {
+    code.codespan {
+        padding: 1px 2px;
+        background-color: #ffffff1a;
+        color: #e6e1dc;
+        font-size: 0.875em;
+        font-style: italic;
+        overflow-wrap: break-word;
+    }
 
+    code.hljs {
+        margin: 0 -1rem;
+    }
 }
