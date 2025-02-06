@@ -84,11 +84,39 @@ export const clientLoader: LoaderFunction = async ({ params }) => {
 }
 
 export default function ProseDetailPage() {
-    const { title, created, updated, content, headings } = useLoaderData<ProseDetail>()
+    const { title, categories, created, updated, content, headings } = useLoaderData<ProseDetail>()
 
     return (
-        <main className={ 'prose-detail' } dangerouslySetInnerHTML={ { __html: content } }>
-
+        <main className={ 'prose-detail' }>
+            <article>
+                <header>
+                    <h1>{ title }</h1>
+                    <p className={ 'meta' }>
+                        <span>Created </span>
+                        <time dateTime={ created }>{ created }</time>
+                        {
+                            updated ? (
+                                <>
+                                    <span> & Updated </span>
+                                    <time dateTime={ created }>{ created }</time>
+                                </>
+                            ) : null
+                        }
+                        <span> · </span>
+                        {
+                            categories.map(category => {
+                                return (
+                                    <a key={ category } className={ 'category' }
+                                       href={ `/prose/category/${ category }` }>
+                                        { category }
+                                    </a>
+                                )
+                            })
+                        }
+                    </p>
+                </header>
+                <div className={ 'prose-body' } dangerouslySetInnerHTML={ { __html: content } }/>
+            </article>
         </main>
     )
 }
