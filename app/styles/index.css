@@ -1,14 +1,87 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    unicode-bidi: isolate;
+}
+
+a {
+    text-decoration: none;
+}
+
+ol {
+    padding-left: 2rem;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px dashed;
+}
+
+img {
+    max-width: 100%;
+    margin: 0 auto;
+    -webkit-user-drag: none;
+}
 
 /* global */
 :root {
     --rt-opacity: 1 !important;
 
+    --darkgray: #464646;
+    --lightgray: #a6a6a6;
+    --lightyellow: #fdeeb5;
+    --yellow: #fad956;
+    --orange: #f8a602;
+
     --nav-height: 64px;
 
-    font-family: "Poets Electra", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Poets Electra", Inter, system-ui, Avenir, Helvetica, Arial, monospace;
     font-weight: 400;
     line-height: 1.5;
 }
@@ -34,25 +107,9 @@ html, body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #f1f3f7;
+    background-color: #000000;
+    color: #fefefe;
     font-size: 16px;
-}
-
-img {
-    max-width: 100%;
-    -webkit-user-drag: none;
-}
-
-h1 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    font-weight: 700;
-}
-
-h2 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    font-weight: 700;
 }
 
 nav.tab-bar {
@@ -61,34 +118,67 @@ nav.tab-bar {
     top: 0;
     left: 0;
     width: 100%;
+    /*width: 720px;*/
+    /*max-width: 100%;*/
+    /*margin: 0 auto;*/
     height: var(--nav-height);
     padding: 0 1.5rem;
-    background: white;
+    background: #4285f4;
     box-shadow: 0 2px 8px rgba(15, 18, 25, 5%);
     display: flex;
     align-items: center;
 }
 
+.main-wrapper {
+    width: 100%;
+    height: calc(100% - var(--nav-height));
+    overflow: auto;
+}
+
 main {
     width: 720px;
     max-width: 100%;
-    margin: 0 auto 1.25rem;
-    padding: 2rem 3rem;
-    background-color: white;
-    box-shadow: 0 0 20px #0000000d;
-    white-space: pre-wrap;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #232323;
+
+    a {
+        padding: 2px 2px 1px;
+        color: var(--yellow);
+        border-bottom: solid 1px var(--yellow);
+        display: inline-block;
+    }
+
+    time {
+        font-size: 14px;
+        font-family: "JetBrains Mono", monospace;
+    }
 
     h1 {
         font-style: italic;
         text-align: center;
+        text-wrap: balance;
     }
 
-    sub {
-        color: #8F959E;
-        font-size: 0.8rem;
+}
+
+main.prose-list {
+    li {
+        margin-block: 0.25rem;
     }
 
-    blockquote, ul, ol {
-        white-space: initial;
+    time {
+        margin-left: 0.25rem;
     }
+
+    .category {
+        margin-left: 0.25rem;
+        border: none;
+        background-color: var(--darkgray);
+        color: #fefefe;
+    }
+}
+
+main.prose-detail {
+
 }

@@ -38,14 +38,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <body>
                 <nav className={ 'tab-bar' }>
                     <Link to={ '/' }>
-                        <img
-                            className={ 'w-[105px] h-[30px]' }
-                            width={ 105 } height={ 30 }
-                            src={ itislopo } alt=""/>
+                        <img width={ 105 } height={ 30 } src={ itislopo } alt=""/>
                     </Link>
                 </nav>
 
-                { children }
+                <div className={ 'main-wrapper' }>
+                    { children }
+                </div>
 
                 <ScrollRestoration/>
                 <Scripts/>
