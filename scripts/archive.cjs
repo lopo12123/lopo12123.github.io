@@ -54,14 +54,6 @@ const items = files
     .map(file => resolve_prose_file(file))
     .sort((a, b) => new Date(b.created) - new Date(a.created))
 
-const statistics = {}
-items.forEach(cfg => {
-    cfg.categories.forEach(category => {
-        if (!statistics[category]) statistics[category] = 0
-        statistics[category] += 1
-    })
-})
-
 const target_file = path.resolve(public_dir, "archive.json")
-fs.writeFileSync(target_file, JSON.stringify({date: Date.now(), statistics, proses: items}), {encoding: 'utf-8'})
+fs.writeFileSync(target_file, JSON.stringify({date: Date.now(), proses: items}), {encoding: 'utf-8'})
 console.log('done')
