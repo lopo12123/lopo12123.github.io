@@ -219,6 +219,34 @@ main.prose-detail {
         overflow-wrap: break-word;
     }
 
+    pre {
+        position: relative;
+
+        .clip-button {
+            position: absolute;
+            top: 1rem;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--lightgray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            visibility: hidden;
+
+            img {
+                width: 16px;
+            }
+        }
+
+        &:hover {
+            .clip-button {
+                visibility: visible;
+            }
+        }
+    }
+
     code.hljs {
         margin: 0 -1rem;
     }

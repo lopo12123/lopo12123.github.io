@@ -5,9 +5,14 @@ import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 import { useLoaderData } from "@remix-run/react";
 
+import icon_copy from "../assets/copy.svg";
+import { useEffect } from "react";
+import { v4 } from "uuid";
+
 let counter: number[] = []
 const marked = new Marked(
     markedHighlight({
+        // this will be omitted since we set custom renderer for 'code'
         langPrefix: 'hljs language-',
         highlight(code, lang) {
             const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -28,16 +33,57 @@ const marked = new Marked(
             },
             codespan({ text }: Tokens.Codespan): string {
                 return `<code class="codespan">${ text }</code>`
-            }
+            },
+            code({ lang, text, raw }: Tokens.Code): string {
+                const id = v4()
+                window._seg[id] = raw
+
+                return `<pre>
+<code class="hljs language-${ lang }">${ text }</code>
+<button class="clip-button" title="Copy to clipboard" onclick="window._copy('${ id }')"><img src="${ icon_copy }" alt="Copy"/></button>
+</pre>`
+            },
             // TODO: image preview
             // image({ href, text }: Tokens.Image): string {
             //     return `<img class="prose-image" src="${ href }" alt="${ text }" onclick="window.dispatchEvent(new CustomEvent('@lopo/preview', {detail: this}))"/>`
             // }
         }
-    }
+    },
 );
 
+const copyToClipboard = async (text: string): Promise<boolean> => {
+    try {
+        if (window.navigator && 'clipboard' in navigator) {
+            await navigator.clipboard.writeText(text)
+        } else {
+            const tmp = document.createElement('input');
+            tmp.style.position = 'absolute'
+            tmp.style.zIndex = '-1'
+            tmp.style.top = '-100px'
+            tmp.style.left = '-100px'
+            tmp.value = text;
+            document.body.appendChild(tmp);
+            tmp.focus();
+            tmp.select();
+            document.execCommand('copy')
+            tmp.remove()
+        }
+        return true
+    } catch (err) {
+        console.log(err)
+        return false
+    }
+}
+
 const proseParser = (content: string): ProseDetail => {
+    // OPTIMIZE
+    window._copySegmentById = async (seg_id: string) => {
+        const raw = window._seg[seg_id]
+        copyToClipboard(raw.split('\n').slice(1, -1).join('\n'))
+        // TODO: toast
+    }
+    window._seg = {}
+
     const reg = /^---$\r?\n(?<frontmatter>[\s\S]*?)\r?\n^---$\r?\n/m
     const matches = content.match(reg)!
     const frontmatter = matches!.groups!.frontmatter
@@ -80,11 +126,20 @@ const proseParser = (content: string): ProseDetail => {
 export const clientLoader: LoaderFunction = async ({ params }) => {
     const filename = params['id']
     const source = await fetch(`/source/${ filename }.md`).then(r => r.text())
+
     return proseParser(source)
 }
 
 export default function ProseDetailPage() {
     const { title, categories, created, updated, content, headings } = useLoaderData<ProseDetail>()
+
+    // TODO: TOC wrapped in aside
+
+    useEffect(() => {
+        return () => {
+            window._seg = {}
+        }
+    }, [])
 
     return (
         <main className={ 'prose-detail' }>
