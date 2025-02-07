@@ -159,7 +159,7 @@ export default function ProseDetailPage() {
                             categories.map(category => {
                                 return (
                                     <a key={ category } className={ 'category' }
-                                       href={ `/prose/category/${ category }` }>
+                                       href={ `/prose?category=${ encodeURIComponent(category) }` }>
                                         { category }
                                     </a>
                                 )

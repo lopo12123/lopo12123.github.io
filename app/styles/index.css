@@ -181,6 +181,27 @@ main {
 }
 
 main.prose-list {
+    .hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            margin-left: 0.25rem;
+            padding: 0 0.25rem;
+            background-color: var(--darkgray);
+            font-variant: small-caps;
+            display: inline-block;
+        }
+
+        a {
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            border: none;
+        }
+    }
+
     time {
         margin-left: 0.25rem;
     }
