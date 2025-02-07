@@ -38,10 +38,7 @@ const marked = new Marked(
                 const id = v4()
                 window._seg[id] = raw
 
-                return `<pre>
-<code class="hljs language-${ lang }">${ text }</code>
-<button class="clip-button" title="Copy to clipboard" onclick="window._copy('${ id }')"><img src="${ icon_copy }" alt="Copy"/></button>
-</pre>`
+                return `<pre><code class="hljs language-${ lang }">${ text }</code><button class="clip-button" title="Copy to clipboard" onclick="window._copy('${ id }')"><img src="${ icon_copy }" alt="Copy"/></button></pre>`
             },
             // TODO: image preview
             // image({ href, text }: Tokens.Image): string {
