@@ -138,7 +138,7 @@ nav.tab-bar {
     /*margin: 0 auto;*/
     height: var(--nav-height);
     padding: 0 1.5rem;
-    background: #4285f4;
+    background: #fefefe;
     box-shadow: 0 2px 8px rgba(15, 18, 25, 5%);
     display: flex;
     align-items: center;
