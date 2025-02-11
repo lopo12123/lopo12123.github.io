@@ -7,10 +7,9 @@ import {
     ScrollRestoration, useLocation, useNavigate,
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import { ReactNode, useEffect } from "react";
+import type { ReactNode } from "react";
 
 import itislopo from "./assets/itislopo.svg"
-import back from "./assets/back.svg"
 
 import "highlight.js/styles/github-dark.css"
 import "./styles/font.css";
@@ -44,8 +43,22 @@ const IconBack = ({ onClick }: { onClick?: VoidFunction }) => {
     )
 }
 
+const IconProse = () => {
+    return (
+        <svg
+            viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em" height="1em" fill="currentColor">
+            <path
+                d="M792.576 925.184H241.152c-40.448 0-73.728-32.768-73.728-73.728V172.544c0-40.448 32.768-73.728 73.728-73.728h432.64l192.512 192.512v560.128c0 40.448-33.28 73.728-73.728 73.728zM241.152 144.896a27.533 27.533 0 0 0-27.648 27.648v678.912a27.533 27.533 0 0 0 27.648 27.648h551.424a27.533 27.533 0 0 0 27.648-27.648V310.272L654.336 144.384H241.152z"/>
+            <path
+                d="M843.264 324.096H697.856c-31.232 0-56.832-25.6-56.832-56.832V121.856h46.08v145.408c0 5.632 5.12 10.752 10.752 10.752h145.408v46.08z m-299.52 55.808H345.6c-12.8 0-23.04-10.24-23.04-23.04s10.24-23.04 23.04-23.04h198.144c12.8 0 23.04 10.24 23.04 23.04s-10.24 23.04-23.04 23.04z m143.872 161.28H345.6c-12.8 0-23.04-10.24-23.04-23.04s10.24-23.04 23.04-23.04h342.016c12.8 0 23.04 10.24 23.04 23.04s-10.24 23.04-23.04 23.04z m0 156.16H345.6c-12.8 0-23.04-10.24-23.04-23.04s10.24-23.04 23.04-23.04h342.016c12.8 0 23.04 10.24 23.04 23.04s-10.24 23.04-23.04 23.04z"/>
+        </svg>
+    )
+}
+
 export function Layout({ children }: { children: ReactNode }) {
-    const { state } = useLocation()
+    const { pathname, state } = useLocation()
     const navigate = useNavigate()
 
     const showBack = !!state?.['returnable']
@@ -64,6 +77,11 @@ export function Layout({ children }: { children: ReactNode }) {
                     <Link className={ 'icon-lopo' } to={ '/' } state={ { returnable: true } }>
                         <img width={ 105 } height={ 30 } src={ itislopo } alt=""/>
                     </Link>
+                    <Link className={ `icon-prose ${ pathname === '/prose' ? 'active' : '' }` }
+                          to={ '/prose' } state={ { returnable: true } }>
+                        <IconProse/>
+                    </Link>
+                    <i style={ { flex: 1 } }/>
                     { showBack ? <IconBack onClick={ () => navigate(-1) }/> : null }
                 </nav>
 
