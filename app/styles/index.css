@@ -85,20 +85,24 @@ img {
 :root {
     --rt-opacity: 1 !important;
 
+    --white: #ffffff;
+    --near-white: #fefefe;
+    --black: #000000;
+    --near-black: #232323;
     --darkgray: #464646;
     --midgray: #a6a6a6;
-    --lightgray: #d6d6d6;
+    --lightgray: #f2f2f2;
     --lightyellow: #fdeeb5;
     --yellow: #fad956;
     --orange: #f8a602;
 
     --nav-height: 64px;
-    --content-color: var(--lightgray);
+    --content-color: var(--near-black);
 
     font-family: "Poets Electra", Inter, system-ui, Avenir, Helvetica, Arial, monospace;
     font-weight: 400;
     line-height: 1.5;
-    color-scheme: dark;
+    /*color-scheme: dark;*/
 }
 
 * {
@@ -122,7 +126,7 @@ html, body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: var(--lightgray);
     color: var(--content-color);
     font-size: 16px;
 }
@@ -138,8 +142,7 @@ nav.tab-bar {
     /*margin: 0 auto;*/
     height: var(--nav-height);
     padding: 0 1.5rem;
-    background: #fefefe;
-    box-shadow: 0 2px 8px rgba(15, 18, 25, 5%);
+    background: var(--near-black);
     display: flex;
     align-items: center;
 }
@@ -155,7 +158,8 @@ main {
     max-width: 100%;
     margin: 0 auto;
     padding: 1rem;
-    background-color: #232323;
+    background-color: var(--near-white);
+    box-shadow: 0 2px 8px rgba(15, 18, 25, 5%);
 
     h1 {
         font-style: italic;
@@ -165,8 +169,8 @@ main {
 
     a {
         padding: 2px 2px 1px;
-        color: var(--yellow);
-        border-bottom: solid 1px var(--yellow);
+        color: var(--orange);
+        border-bottom: solid 1px var(--orange);
         display: inline-block;
     }
 
@@ -189,7 +193,7 @@ main.prose-list {
         span {
             margin-left: 0.25rem;
             padding: 0 0.25rem;
-            background-color: var(--darkgray);
+            background-color: var(--lightgray);
             font-variant: small-caps;
             display: inline-block;
         }
@@ -209,7 +213,7 @@ main.prose-list {
     .category {
         margin-left: 0.25rem;
         border: none;
-        background-color: var(--darkgray);
+        background-color: var(--lightgray);
         color: var(--content-color);
     }
 }
@@ -217,12 +221,14 @@ main.prose-list {
 main.prose-detail {
     .meta {
         margin-top: -0.25rem;
-        color: #686868;
+        color: var(--midgray);
         font-size: .875rem;
+        text-align: center;
+        text-wrap: balance;
 
         .category {
             border: none;
-            background-color: var(--darkgray);
+            background-color: var(--lightgray);
             color: var(--content-color);
 
             &:not(:first-of-type) {
@@ -233,8 +239,8 @@ main.prose-detail {
 
     code.codespan {
         padding: 1px 2px;
-        background-color: #ffffff1a;
-        color: #e6e1dc;
+        background-color: var(--lightgray);
+        color: var(--orange);
         font-size: 0.875em;
         font-style: italic;
         overflow-wrap: break-word;
