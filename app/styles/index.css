@@ -196,7 +196,8 @@ main {
     a {
         padding: 2px 2px 1px;
         color: var(--orange);
-        border-bottom: solid 1px var(--orange);
+        text-decoration: underline var(--orange) solid 1px;
+        text-underline-offset: 0.25rem;
         display: inline-block;
     }
 
@@ -228,7 +229,7 @@ main.prose-list {
             width: 20px;
             height: 20px;
             padding: 0;
-            border: none;
+            text-decoration: none;
         }
     }
 
@@ -238,9 +239,9 @@ main.prose-list {
 
     .category {
         margin-left: 0.25rem;
-        border: none;
         background-color: var(--lightgray);
         color: var(--content-color);
+        text-decoration: none;
     }
 }
 
@@ -253,9 +254,9 @@ main.prose-detail {
         text-wrap: balance;
 
         .category {
-            border: none;
             background-color: var(--lightgray);
             color: var(--content-color);
+            text-decoration: none;
 
             &:not(:first-of-type) {
                 margin-left: 0.25rem;
