@@ -32,7 +32,7 @@ export default function ProseListPage() {
                     <p className={ 'hint' }>
                         Category:
                         <span>{ category }</span>
-                        <Link to={ '?' }>
+                        <Link to={ '?' } state={ { returnable: true } }>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.26953 18.6024L18.4689 5.40309" stroke="currentColor" strokeWidth="1.5"
@@ -50,15 +50,18 @@ export default function ProseListPage() {
                     proses.map(prose => {
                         return (
                             <li key={ prose.filename } className={ '' }>
-                                <a href={ `/prose/${ prose.filename }` }>{ prose.title }</a>
+                                <Link to={ `/prose/${ prose.filename }` } state={ { returnable: true } }>
+                                    { prose.title }
+                                </Link>
                                 <time dateTime={ prose.created }>{ prose.created }</time>
                                 {
                                     prose.categories.map(category => {
                                         return (
-                                            <a key={ category } className={ 'category' }
-                                               href={ `?category=${ encodeURIComponent(category) }` }>
+                                            <Link key={ category } className={ 'category' }
+                                                  to={ `?category=${ encodeURIComponent(category) }` }
+                                                  state={ { returnable: true } }>
                                                 { category }
-                                            </a>
+                                            </Link>
                                         )
                                     })
                                 }

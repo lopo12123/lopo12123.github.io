@@ -4,11 +4,13 @@ import {
     Meta,
     Outlet,
     Scripts,
-    ScrollRestoration,
+    ScrollRestoration, useLocation, useNavigate,
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import { ReactNode, useEffect } from "react";
 
 import itislopo from "./assets/itislopo.svg"
+import back from "./assets/back.svg"
 
 import "highlight.js/styles/github-dark.css"
 import "./styles/font.css";
@@ -26,7 +28,28 @@ export const meta: MetaFunction = () => {
     ]
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+const IconBack = ({ onClick }: { onClick?: VoidFunction }) => {
+    return (
+        <svg
+            className={ 'icon-back' }
+            viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em" height="1em" fill="currentColor"
+            onClick={ onClick }>
+            <path
+                d="M425.856 886.263467a29.499733 29.499733 0 0 1-19.669333-7.466667L18.4832 534.135467a29.636267 29.636267 0 0 1 0-44.305067L406.186667 145.186133a29.5936 29.5936 0 0 1 31.761066-4.855466 29.636267 29.636267 0 0 1 17.527467 27.016533v215.415467a29.602133 29.602133 0 0 1-29.610667 29.6192 29.610667 29.610667 0 0 1-29.6192-29.6192V233.284267L82.7136 511.982933 396.245333 790.698667V641.237333a29.610667 29.610667 0 0 1 29.6192-29.6192 29.602133 29.602133 0 0 1 29.610667 29.6192v215.415467a29.6448 29.6448 0 0 1-29.6192 29.610667z"/>
+            <path
+                d="M985.856 886.263467a29.627733 29.627733 0 0 1-27.477333-18.628267c-0.759467-1.672533-88.507733-196.795733-532.522667-196.795733-16.366933 0-29.6192-13.252267-29.6192-29.6192s13.243733-29.6192 29.6192-29.6192c295.185067 0 446.788267 82.0224 521.361067 149.0176-68.317867-343.287467-501.461333-348.2112-521.4208-348.2624a29.6192 29.6192 0 0 1 0.059733-59.2384c5.896533 0 589.610667 5.7856 589.610667 503.509333a29.678933 29.678933 0 0 1-29.610667 29.636267z"/>
+        </svg>
+    )
+}
+
+export function Layout({ children }: { children: ReactNode }) {
+    const { state } = useLocation()
+    const navigate = useNavigate()
+
+    const showBack = !!state?.['returnable']
+
     return (
         <html lang="zh">
             <head>
@@ -38,9 +61,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </head>
             <body>
                 <nav className={ 'tab-bar' }>
-                    <Link to={ '/' }>
+                    <Link className={ 'icon-lopo' } to={ '/' } state={ { returnable: true } }>
                         <img width={ 105 } height={ 30 } src={ itislopo } alt=""/>
                     </Link>
+                    { showBack ? <IconBack onClick={ () => navigate(-1) }/> : null }
                 </nav>
 
                 <div className={ 'main-wrapper' }>

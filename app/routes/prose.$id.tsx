@@ -3,7 +3,7 @@ import { ProseDetail, ProseHeading } from "~/models/prose";
 import { Marked, Tokens } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 
 import icon_copy from "../assets/copy.svg";
 import { useEffect } from "react";
@@ -158,10 +158,11 @@ export default function ProseDetailPage() {
                         {
                             categories.map(category => {
                                 return (
-                                    <a key={ category } className={ 'category' }
-                                       href={ `/prose?category=${ encodeURIComponent(category) }` }>
+                                    <Link key={ category } className={ 'category' }
+                                          to={ `/prose?category=${ encodeURIComponent(category) }` }
+                                          state={ { returnable: true } }>
                                         { category }
-                                    </a>
+                                    </Link>
                                 )
                             })
                         }

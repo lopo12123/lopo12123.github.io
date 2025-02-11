@@ -145,6 +145,20 @@ nav.tab-bar {
     background: var(--near-black);
     display: flex;
     align-items: center;
+
+    .icon-lopo {
+        height: 30px;
+    }
+
+    .icon-back {
+        margin-left: 1rem;
+        color: var(--white);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--yellow);
+        }
+    }
 }
 
 .main-wrapper {
