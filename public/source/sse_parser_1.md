@@ -1,7 +1,8 @@
 ﻿---
-title: SSE 响应数据解析封装
-category: javascript
+title: SSE 响应数据解析 (1)
+category: javascript, sse
 created: 2024-11-01
+updated: 2024-01-13
 ---
 
 SSE 形式的接口越来越常见.
