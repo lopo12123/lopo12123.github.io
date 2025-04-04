@@ -7,11 +7,12 @@ import {
 } from "@remix-run/react";
 import type { ReactNode } from "react";
 
-import "./tailwind.css";
+import "./styles/font.css";
+import "./styles/global.css";
 
 export function Layout({ children }: { children: ReactNode }) {
     return (
-        <html lang="zh">
+        <html lang="zh" className="light">
             <head>
                 <meta charSet="utf-8"/>
                 <meta name="viewport"
