@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 30" stroke="#fff">
+    <defs>
+        <line id="h-line" x1="1.5" x2="8.5" y1="0" y2="0" stroke-width="2" stroke-linecap="round"/>
+        <line id="v-line" x1="0" x2="0" y1="1.5" y2="8.5" stroke-width="2" stroke-linecap="round"/>
+
+        <g id="char-l">
+            <use href="#v-line" x="0" y="0"/>
+            <use href="#v-line" x="0" y="10"/>
+            <use href="#h-line" x="0" y="20"/>
+        </g>
+        <g id="char-o">
+            <use href="#v-line" x="0" y="0"/>
+            <use href="#v-line" x="0" y="10"/>
+            <use href="#v-line" x="10" y="0"/>
+            <use href="#v-line" x="10" y="10"/>
+            <use href="#h-line" x="0" y="0"/>
+            <use href="#h-line" x="0" y="20"/>
+        </g>
+        <g id="char-p">
+            <use href="#v-line" x="0" y="0"/>
+            <use href="#v-line" x="0" y="10"/>
+            <use href="#v-line" x="10" y="0"/>
+            <use href="#h-line" x="0" y="0"/>
+            <use href="#h-line" x="0" y="10"/>
+        </g>
+        <g id="char-8">
+            <use href="#v-line" x="0" y="0"/>
+            <use href="#v-line" x="0" y="10"/>
+            <use href="#v-line" x="10" y="0"/>
+            <use href="#v-line" x="10" y="10"/>
+            <use href="#h-line" x="0" y="0"/>
+            <use href="#h-line" x="0" y="10"/>
+            <use href="#h-line" x="0" y="20"/>
+        </g>
+
+    </defs>
+
+    <use href="#char-l" x="5" y="5"/>
+    <use href="#char-o" x="20" y="5"/>
+    <use href="#char-p" x="35" y="5"/>
+    <use href="#char-o" x="50" y="5"/>
+</svg>
