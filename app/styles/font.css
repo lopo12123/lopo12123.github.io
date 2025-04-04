@@ -1,0 +1,31 @@
+@font-face {
+    font-family: incognito;
+    src: url(/font/incognito-400.woff2) format("woff2");
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: incognito;
+    src: url(/font/incognito-600.woff2) format("woff2");
+    font-display: swap;
+    font-weight: 600;
+    font-style: normal
+}
+
+@font-face {
+    font-family: incognito;
+    src: url(/font/incognito-700.woff2) format("woff2");
+    font-display: swap;
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: incognito;
+    src: url(/font/incognito-800.woff2) format("woff2");
+    font-display: swap;
+    font-weight: 800;
+    font-style: normal
+}
