@@ -1,10 +1,6 @@
-import {
-    Links,
-    Meta,
-    Outlet,
-    Scripts,
-    ScrollRestoration,
-} from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { useEffect } from "react";
+import { IconMoon, IconSun } from "~/components/icon";
 
 import "./styles/font.css";
 import "./styles/global.css";
@@ -13,32 +9,53 @@ import "./styles/custom.css";
 const Header = () => {
     const toggleTheme = () => {
         const html = document.documentElement
-        if (html.className == 'dark') {
-            html.className = 'light'
-        } else if (html.className == 'light') {
+        if (html.className == 'light') {
             html.className = 'dark'
+            localStorage.setItem('theme', 'dark')
         } else {
-            // exception!
             html.className = 'light'
+            localStorage.setItem('theme', 'light')
         }
     }
 
+    useEffect(() => {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.className = 'dark'
+        }
+    }, []);
+
     return (
-        <header>
+        <header className={ 'border-b border-[#e4e4e7] dark:border-[#27272a]' }>
             <div className={ 'content-body mx-auto flex items-center justify-between' }>
                 <a href="/">
-                    <img className={ 'logo logo-black dark:hidden' } height={ 48 }
-                         src="/lopo-black.svg" alt="logo"/>
-                    <img className={ 'logo logo-white hidden dark:inline-block' } height={ 48 }
-                         src="/lopo-white.svg" alt="logo"/>
+                    <img className={ 'logo' } src="/lopo_animate.svg" width={ 75 } height={ 36 } alt="logo"/>
+                    {/*<img className={ 'logo logo-black dark:hidden' }*/ }
+                    {/*     width={ 78 } height={ 36 }*/ }
+                    {/*     src="/lopo-black.svg" alt="logo"/>*/ }
+                    {/*<img className={ 'logo logo-white hidden dark:inline-block' }*/ }
+                    {/*     width={ 78 } height={ 36 }*/ }
+                    {/*     src="/lopo-white.svg" alt="logo"/>*/ }
                 </a>
 
                 <nav>
-                    {/* TODO: nav */ }
+                    <ul className={ 'font-incognito flex items-center space-x-8' }>
+                        <li><a href="/essay">Essay</a></li>
+                        <li><a href="/project">Project</a></li>
+                        <li><a href="/photo">Photo</a></li>
+                        <li><a href="/about">About</a></li>
+                    </ul>
                 </nav>
 
-                {/* TODO: switch button */ }
-                <button onClick={ toggleTheme }>aaa</button>
+                <button
+                    className={
+                        'w-9 h-9 border border-[#e4e4e7] dark:border-[#27272a] rounded-full ' +
+                        ' bg-[#f4f4f5] dark:bg-[#27272b66] ' +
+                        'text-[22px] flex items-center justify-center'
+                    }
+                    onClick={ toggleTheme }>
+                    <IconSun className={ 'dark:hidden' }/>
+                    <IconMoon className={ 'hidden dark:block' }/>
+                </button>
             </div>
         </header>
     )

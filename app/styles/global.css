@@ -6,6 +6,7 @@
     --text-primary: #3f3f46;
     --text-secondary: #52525b;
     --text-tertiary: #71717a;
+
     color-scheme: light;
 }
 
@@ -13,6 +14,7 @@
     --text-primary: #ffffff;
     --text-secondary: #a1a1aa;
     --text-tertiary: #71717a;
+
     color-scheme: dark;
 
     body {
@@ -29,6 +31,12 @@ body {
     background-image: url("/media/site/tile.png");
     background-size: 200px 200px;
     color: var(--text-secondary);
+}
+
+nav {
+    ul {
+        list-style-type: none;
+    }
 }
 
 h1 {
