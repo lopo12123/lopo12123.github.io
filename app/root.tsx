@@ -26,7 +26,7 @@ const Header = () => {
 
     return (
         <header className={ 'border-b border-[#e4e4e7] dark:border-[#27272a]' }>
-            <div className={ 'content-body mx-auto flex items-center justify-between' }>
+            <div className={ 'content-body flex items-center justify-between' }>
                 <a href="/">
                     <img className={ 'logo' } src="/lopo_animate.svg" width={ 75 } height={ 36 } alt="logo"/>
                     {/*<img className={ 'logo logo-black dark:hidden' }*/ }

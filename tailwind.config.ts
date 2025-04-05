@@ -6,7 +6,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                incognito: 'incognito'
+                incognito: 'incognito',
+                poets: 'Poets Electra',
             },
         },
     },

@@ -29,3 +29,17 @@
     font-weight: 800;
     font-style: normal
 }
+
+@font-face {
+    font-family: 'Poets Electra';
+    src: url('/font/poets_electra.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poets Electra';
+    src: url('/font/poets_electra-italic.woff') format('woff');
+    font-style: italic;
+    font-display: swap;
+}
