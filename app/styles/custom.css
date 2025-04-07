@@ -7,4 +7,8 @@
     margin-left: auto;
     margin-right: auto;
     padding: 0 2rem;
+
+    main& {
+        padding-top: 4rem;
+    }
 }
