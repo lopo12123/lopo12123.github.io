@@ -1,9 +1,4 @@
-const destinations = [
-    { title: 'Essay', path: '/essay' },
-    { title: 'Project', path: '/project' },
-    { title: 'Photo', path: '/photo' },
-    { title: 'About', path: '/about' },
-]
+import { navItems } from "~/configs/navigation";
 
 export default function HomePage() {
     return (
@@ -12,7 +7,7 @@ export default function HomePage() {
 
             <ul>
                 {
-                    destinations.map(({ title, path }) => {
+                    navItems.map(({ title, path }) => {
                         return (
                             <li key={ path } className={ 'hover:underline underline-offset-4 transition-all' }>
                                 <a className={ 'block' } href={ path }>{ title }</a>

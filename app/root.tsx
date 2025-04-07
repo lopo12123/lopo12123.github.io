@@ -5,6 +5,7 @@ import { IconMoon, IconSun } from "~/components/icon";
 import "./styles/font.css";
 import "./styles/global.css";
 import "./styles/custom.css";
+import { navItems } from "~/configs/navigation";
 
 const Header = () => {
     const toggleTheme = () => {
@@ -39,10 +40,11 @@ const Header = () => {
 
                 <nav>
                     <ul className={ 'font-incognito flex items-center space-x-8' }>
-                        <li><a href="/essay">Essay</a></li>
-                        <li><a href="/project">Project</a></li>
-                        <li><a href="/photo">Photo</a></li>
-                        <li><a href="/about">About</a></li>
+                        {
+                            navItems.map(({ title, path }) => {
+                                return <li key={ path }><a href={ path }>{ title }</a></li>
+                            })
+                        }
                     </ul>
                 </nav>
 
