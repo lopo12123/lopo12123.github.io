@@ -24,14 +24,14 @@ const split = (markdown) => {
 
 const archive = (sub) => {
     const manifest = []
-    for (const project of readdirSync(join(SOURCE_DIR, sub))) {
-        const raw = readFileSync(join(SOURCE_DIR, sub, project), 'utf-8')
-        const [meta, content] = split(raw)
-        const projectId = canonical(project)
-        meta['path'] = projectId
+    for (const filename of readdirSync(join(SOURCE_DIR, sub))) {
+        const raw = readFileSync(join(SOURCE_DIR, sub, filename), 'utf-8')
+        const [meta, content] = split(raw.trim())
+        const fileId = canonical(filename)
+        meta['id'] = fileId
         manifest.push(meta)
-        writeFileSync(join(ARCHIVE_DIR, sub, `${projectId}.content`), content, 'utf-8')
-        writeFileSync(join(ARCHIVE_DIR, sub, `${projectId}.metadata`), JSON.stringify(meta), 'utf-8')
+        writeFileSync(join(ARCHIVE_DIR, sub, `${fileId}.content`), content, 'utf-8')
+        writeFileSync(join(ARCHIVE_DIR, sub, `${fileId}.metadata`), JSON.stringify(meta), 'utf-8')
     }
     writeFileSync(join(ARCHIVE_DIR, sub, 'manifest.json'), JSON.stringify(manifest))
     console.log(`> "${sub}" archived`)
