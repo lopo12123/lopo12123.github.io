@@ -10,5 +10,12 @@
 
     main& {
         padding-top: 4rem;
+
+        li a {
+            &:hover {
+                text-decoration: underline;
+                text-underline-offset: 0.25rem;
+            }
+        }
     }
 }

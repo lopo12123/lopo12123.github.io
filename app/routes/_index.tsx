@@ -9,8 +9,8 @@ export default function HomePage() {
                 {
                     navItems.map(({ title, path }) => {
                         return (
-                            <li key={ path } className={ 'hover:underline underline-offset-4 transition-all' }>
-                                <a className={ 'block' } href={ path }>{ title }</a>
+                            <li key={ path }>
+                                <a href={ path }>{ title }</a>
                             </li>
                         )
                     })
