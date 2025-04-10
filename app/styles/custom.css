@@ -19,3 +19,13 @@
         }
     }
 }
+
+code[class*=language-] {
+    border: solid 1px #e4e4e7;
+
+    :is(.dark &) {
+        border: solid 1px #27272a;
+    }
+
+    border-radius: 0.5rem;
+}

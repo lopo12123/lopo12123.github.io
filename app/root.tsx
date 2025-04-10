@@ -1,20 +1,33 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { useEffect } from "react";
 import { IconMoon, IconSun } from "~/components/icon";
+import { navItems } from "~/configs/navigation";
+import type { LinksFunction } from "@remix-run/node";
+
+import hlLight from "highlight.js/styles/github.css?url"
+import hlDark from "highlight.js/styles/github-dark.css?url"
 
 import "./styles/font.css";
 import "./styles/global.css";
 import "./styles/custom.css";
-import { navItems } from "~/configs/navigation";
+
+export const links: LinksFunction = () => {
+    return [
+        { rel: 'icon', type: 'image/svg+xml', href: '/lopo.svg' },
+        { rel: 'stylesheet', href: hlLight, id: 'hl-style' },
+    ]
+}
 
 const Header = () => {
     const toggleTheme = () => {
         const html = document.documentElement
         if (html.className == 'light') {
             html.className = 'dark'
+            ;(document.getElementById("hl-style") as HTMLLinkElement).href = hlDark
             localStorage.setItem('theme', 'dark')
         } else {
             html.className = 'light'
+            ;(document.getElementById("hl-style") as HTMLLinkElement).href = hlLight
             localStorage.setItem('theme', 'light')
         }
     }
@@ -22,6 +35,7 @@ const Header = () => {
     useEffect(() => {
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.className = 'dark'
+            ;(document.getElementById("hl-style") as HTMLLinkElement).href = hlDark
         }
     }, []);
 
@@ -30,12 +44,6 @@ const Header = () => {
             <div className={ 'content-body flex items-center justify-between' }>
                 <a href="/">
                     <img className={ 'logo' } src="/lopo_animate.svg" width={ 75 } height={ 36 } alt="logo"/>
-                    {/*<img className={ 'logo logo-black dark:hidden' }*/ }
-                    {/*     width={ 78 } height={ 36 }*/ }
-                    {/*     src="/lopo-black.svg" alt="logo"/>*/ }
-                    {/*<img className={ 'logo logo-white hidden dark:inline-block' }*/ }
-                    {/*     width={ 78 } height={ 36 }*/ }
-                    {/*     src="/lopo-white.svg" alt="logo"/>*/ }
                 </a>
 
                 <nav>
@@ -70,8 +78,7 @@ export default function App() {
                 <meta charSet="utf-8"/>
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-                <title>霓为衣兮风为马</title>
-                <link rel="icon" type="image/svg+xml" href="/lopo.svg"/>
+                <title>还得是 lopo !</title>
 
                 <Meta/>
                 <Links/>
