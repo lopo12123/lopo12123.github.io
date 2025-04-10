@@ -12,6 +12,8 @@
         padding-top: 4rem;
 
         li a {
+            color: #3b82f6;
+
             &:hover {
                 text-decoration: underline;
                 text-underline-offset: 0.25rem;
@@ -20,12 +22,24 @@
     }
 }
 
-code[class*=language-] {
+.code-block {
     border: solid 1px #e4e4e7;
+    border-radius: 0.5rem;
+    overflow: hidden;
 
     :is(.dark &) {
         border: solid 1px #27272a;
     }
 
-    border-radius: 0.5rem;
+    .code-block-header {
+        padding: 0.5rem 1rem;
+        border-bottom: solid 1px #e4e4e7;
+        background-color: #fafafa;
+        font-size: 0.875rem;
+
+        :is(.dark &) {
+            border-bottom: solid 1px #27272a;
+            background-color: #141414;
+        }
+    }
 }

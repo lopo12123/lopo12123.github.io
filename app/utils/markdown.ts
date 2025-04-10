@@ -22,11 +22,16 @@ const parseMarkdown = (sub: 'essay' | 'project', id: string, content: string) =>
                 image({ href, title }: Tokens.Image): string {
                     return `<img src="/media/${ sub }/${ id }/${ href }" alt="${ title ?? '' }"/>`
                 },
-                // code({ text, lang, escaped }: Tokens.Code): string {
-                //     console.log(text, lang)
-                //     console.log(escaped)
-                //     return `<pre class="code-wrapper"><code class="hljs language-${ lang }">${ text }</code></pre>`
-                // }
+                code({ text, lang, escaped }: Tokens.Code): string {
+                    return `<div class="code-block">
+<div class="code-block-header">
+<span class="language-name">${lang}</span>
+<!-- TODO: COPY BUTTON -->
+</div>
+<pre class="code-block-body"><code class="hljs language-${ lang }">${ text }</code></pre>
+</div>
+`
+                }
             }
         }
     ).parse(content) as string
