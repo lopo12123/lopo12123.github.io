@@ -1,10 +1,19 @@
 import { ClientLoaderFunctionArgs, useLoaderData } from "@remix-run/react";
 import { EssayMeta } from "~/types";
 import { parseMarkdown } from "~/utils/markdown";
+import { resources } from "~/utils/resource";
 
 type EssayLoaderData = {
     metadata: EssayMeta | null
     content: string | null
+}
+
+export const loader = ({ params }: ClientLoaderFunctionArgs) => {
+    const essayId = params['essayId']!
+    return {
+        metadata: resources.get('essay', essayId, 'metadata'),
+        content: parseMarkdown('essay', essayId, resources.get('essay', essayId, 'content')),
+    } satisfies EssayLoaderData
 }
 
 export const clientLoader = async ({ params }: ClientLoaderFunctionArgs) => {
@@ -21,7 +30,7 @@ export const clientLoader = async ({ params }: ClientLoaderFunctionArgs) => {
 }
 
 export default function EssayPage() {
-    const { metadata, content } = useLoaderData<EssayLoaderData>()
+    const { content } = useLoaderData<EssayLoaderData>()
 
     return (
         <main className={ 'content-body' }>
