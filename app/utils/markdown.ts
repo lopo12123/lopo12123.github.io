@@ -26,7 +26,7 @@ const parseMarkdown = (sub: 'essay' | 'project', id: string, content: string) =>
                     return `<div class="code-block">
 <div class="code-block-header" onclick="__delegate.toggleCodeBlock(this)">
 <span class="language-name">${ lang }</span>
-<!-- TODO: COPY BUTTON -->
+<button onclick="__delegate.copyCode(this)">COPY</button>
 </div>
 <pre class="code-block-body"><code class="hljs language-${ lang }">${ text }</code></pre>
 </div>

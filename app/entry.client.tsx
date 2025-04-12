@@ -12,8 +12,13 @@ window.__delegate = {
     toggleCodeBlock: (element) => {
         element.parentElement!.toggleAttribute('data-collapse')
     },
-    copyCode(element) {
+    // OPTIMIZE: better implementation
+    async copyCode(element) {
+        window.event?.stopPropagation()
 
+        const code = (element.parentElement!.nextElementSibling as HTMLPreElement).innerText
+        await navigator.clipboard.writeText(code)
+        console.log('Copied')
     }
 }
 

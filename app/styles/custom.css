@@ -23,7 +23,6 @@
         padding: 0.5rem 1rem;
         background-color: var(--code-block-header-bg);
         font-size: 0.875rem;
-        cursor: pointer;
 
         &::before {
             content: "";
@@ -32,6 +31,17 @@
             border-right: solid 4px transparent;
             transition: transform .3s;
             display: inline-block;
+        }
+
+        button {
+            float: right;
+            padding: 0 0.25rem;
+            color: var(--link-decoration);
+            font-size: 0.75rem;
+
+            &:hover {
+                color: var(--link-decoration__hover);
+            }
         }
     }
 
