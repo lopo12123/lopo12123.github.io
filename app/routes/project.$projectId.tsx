@@ -3,6 +3,7 @@ import { ProjectMeta } from "~/types";
 import { parseMarkdown } from "~/utils/markdown";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { resources } from "~/utils/resource";
+import { MarkdownArticle } from "~/components/MarkdownArticle";
 
 type ProjectLoaderData = {
     metadata: ProjectMeta | null
@@ -35,7 +36,7 @@ export default function ProjectPage() {
 
     return (
         <main className={ 'content-body' }>
-            { !!content ? <article dangerouslySetInnerHTML={ { __html: content } }/> : null }
+            { !!content ? <MarkdownArticle html={ content }/> : null }
         </main>
     )
 }

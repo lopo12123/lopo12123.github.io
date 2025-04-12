@@ -3,6 +3,7 @@ import { EssayMeta } from "~/types";
 import { parseMarkdown } from "~/utils/markdown";
 import { resources } from "~/utils/resource";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { MarkdownArticle } from "~/components/MarkdownArticle";
 
 type EssayLoaderData = {
     metadata: EssayMeta | null
@@ -35,7 +36,7 @@ export default function EssayPage() {
 
     return (
         <main className={ 'content-body' }>
-            { !!content ? <article dangerouslySetInnerHTML={ { __html: content } }/> : null }
+            { !!content ? <MarkdownArticle html={ content }/> : null }
         </main>
     )
 }
