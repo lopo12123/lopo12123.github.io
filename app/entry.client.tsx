@@ -8,6 +8,15 @@ import { RemixBrowser } from "@remix-run/react";
 import { startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 
+window.__delegate = {
+    toggleCodeBlock: (element) => {
+        element.parentElement!.toggleAttribute('data-collapse')
+    },
+    copyCode(element) {
+
+    }
+}
+
 startTransition(() => {
     hydrateRoot(document, <RemixBrowser/>);
 });

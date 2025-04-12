@@ -24,8 +24,8 @@ const parseMarkdown = (sub: 'essay' | 'project', id: string, content: string) =>
                 },
                 code({ text, lang, escaped }: Tokens.Code): string {
                     return `<div class="code-block">
-<div class="code-block-header">
-<span class="language-name">${lang}</span>
+<div class="code-block-header" onclick="__delegate.toggleCodeBlock(this)">
+<span class="language-name">${ lang }</span>
 <!-- TODO: COPY BUTTON -->
 </div>
 <pre class="code-block-body"><code class="hljs language-${ lang }">${ text }</code></pre>

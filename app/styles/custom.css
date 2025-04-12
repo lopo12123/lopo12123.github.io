@@ -19,12 +19,34 @@
     overflow: hidden;
 
     .code-block-header {
+        position: relative;
         padding: 0.5rem 1rem;
         background-color: var(--code-block-header-bg);
         font-size: 0.875rem;
+        cursor: pointer;
+
+        &::before {
+            content: "";
+            border-top: solid 8px var(--text-primary);
+            border-left: solid 4px transparent;
+            border-right: solid 4px transparent;
+            transition: transform .3s;
+            display: inline-block;
+        }
     }
 
     .code-block-body {
         border-top: solid 1px var(--code-block-border);
+    }
+
+    &[data-collapse] {
+        .code-block-header::before {
+            content: "";
+            transform: rotate(-90deg);
+        }
+
+        .code-block-body {
+            display: none;
+        }
     }
 }
