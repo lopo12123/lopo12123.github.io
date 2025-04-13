@@ -33,6 +33,8 @@ const archive = (sub) => {
         writeFileSync(join(ARCHIVE_DIR, sub, `${id}.content`), content, 'utf-8')
         writeFileSync(join(ARCHIVE_DIR, sub, `${id}.metadata`), JSON.stringify(meta), 'utf-8')
     }
+
+    manifest.sort((a, b) => Date.parse(b['datetime']) - Date.parse(a['datetime']))
     writeFileSync(join(ARCHIVE_DIR, sub, 'manifest.json'), JSON.stringify(manifest))
     console.log(`> "${sub}" archived`)
 }
