@@ -7,6 +7,7 @@
     --text-toast: #52c41a;
     --toast-bg: #f6ffed;
     --toast-border: #b7eb8f;
+    --border-decoration: #7d7d7d4d;
 }
 
 .light {
@@ -15,9 +16,7 @@
     --text-tertiary: #71717a;
     --text-link: #00000080;
 
-    --blockquote-decoration: #7d7d7d4d;
-    --link-decoration: #7d7d7d4d;
-    --link-decoration__hover: #555555;
+    --border-decoration__hover: #555555;
     --code-block-border: #e4e4e7;
     --code-block-header-bg: #fafafa;
     --inline-code-bg: #e4e4e7;
@@ -31,9 +30,7 @@
     --text-tertiary: #71717a;
     --text-link: #ffffff80;
 
-    --blockquote-decoration: #7d7d7d4d;
-    --link-decoration: #7d7d7d4d;
-    --link-decoration__hover: #bbbbbb;
+    --border-decoration__hover: #bbbbbb;
     --code-block-border: #27272a;
     --code-block-header-bg: #141414;
     --inline-code-bg: #27272a;
@@ -65,11 +62,11 @@ nav {
 main.content-body {
     a {
         color: var(--text-link);
-        border-bottom: solid 1px var(--link-decoration);
+        border-bottom: solid 1px var(--border-decoration);
         transition: border-color .3s;
 
         &:hover {
-            border-color: var(--link-decoration__hover);
+            border-color: var(--border-decoration__hover);
         }
     }
 }
@@ -121,7 +118,7 @@ p {
 
 blockquote {
     padding-left: 1rem;
-    border-left: solid 0.25rem var(--blockquote-decoration);
+    border-left: solid 0.25rem var(--border-decoration);
 
     & > * {
         opacity: 0.7;
@@ -129,11 +126,16 @@ blockquote {
 }
 
 code:not(.hljs) {
-    margin: 0 0.25rem;
+    margin-right: 0.25rem;
     padding: 0.25em;
     border-radius: 2px;
     background-color: var(--inline-code-bg);
     font-size: 0.875em;
+    white-space: pre;
+
+    &:not(:first-child) {
+        margin-left: 0.25rem;
+    }
 }
 
 img {
@@ -163,6 +165,12 @@ ol {
 
 li {
     margin-bottom: 1rem;
+}
+
+hr {
+    width: 4rem;
+    margin: 2rem auto;
+    border-color: var(--border-decoration);
 }
 
 dialog#toast-container {
