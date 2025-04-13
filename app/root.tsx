@@ -84,6 +84,8 @@ export default function App() {
                 <Links/>
             </head>
             <body>
+                <dialog id={ 'toast-container' }/>
+
                 <Header/>
                 <Outlet/>
 

@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --toast-top-offset: 3rem;
+    --text-toast: #52c41a;
+    --toast-bg: #f6ffed;
+    --toast-border: #b7eb8f;
+}
+
 .light {
     --text-primary: #3f3f46;
     --text-secondary: #52525b;
@@ -137,4 +144,17 @@ ol {
 
 li {
     margin-bottom: 1rem;
+}
+
+dialog#toast-container {
+    position: fixed;
+    z-index: 999;
+    top: var(--toast-top-offset);
+    padding: 0.25rem 1rem;
+    border: solid 1px var(--toast-border);
+    border-radius: 0.25rem;
+    background-color: var(--toast-bg);
+    color: var(--text-toast);
+    font-size: 0.875rem;
+    pointer-events: none;
 }

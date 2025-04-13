@@ -8,17 +8,36 @@ import { RemixBrowser } from "@remix-run/react";
 import { startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 
+const toastContainer = document.getElementById('toast-container')! as HTMLDialogElement
+let toastAnimation: Animation | null = null
+
 window.__delegate = {
     toggleCodeBlock: (element) => {
         element.parentElement!.toggleAttribute('data-collapse')
     },
-    // OPTIMIZE: better implementation
     async copyCode(element) {
         window.event?.stopPropagation()
 
         const code = (element.parentElement!.nextElementSibling as HTMLPreElement).innerText
         await navigator.clipboard.writeText(code)
-        console.log('Copied')
+        this.toast('Copied')
+    },
+    toast(content) {
+        toastAnimation?.cancel()
+        toastContainer.innerText = content
+        toastContainer.show()
+        toastAnimation = toastContainer.animate([
+            { offset: 0, opacity: 1, transform: 'translateY(0)' },
+            { offset: 0.66, opacity: 1, transform: 'translateY(0)' },
+            { offset: 1, opacity: 0, transform: 'translateY(-100%)' },
+        ], {
+            duration: 3000,
+            fill: 'forwards',
+        })
+        toastAnimation.onfinish = () => {
+            toastContainer.innerText = ''
+            toastContainer.close()
+        }
     }
 }
 
