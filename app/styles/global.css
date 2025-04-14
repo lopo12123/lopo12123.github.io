@@ -145,6 +145,20 @@ img {
     -webkit-user-drag: none;
 }
 
+figure {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    figcaption {
+        margin-top: 0.75rem;
+        color: var(--text-tertiary);
+        font-size: 0.75rem;
+    }
+}
+
 b, strong {
     color: var(--text-primary);
     font-weight: 700;
