@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"
+     stroke="black" stroke-width="0.5">
+    <defs>
+        <path id="arrow" d="M0,0 0,2 3,1 z" fill="black" stroke-width="0"/>
+    </defs>
+
+    <path d="M10,20 40,20 40,30 10,30Z M20,10 30,10 30,40 20,40Z" fill-rule="nonzero" fill="#FF000080"/>
+    <circle cx="27" cy="23" r="1" stroke-width="0"/>
+    <line x1="27" y1="23" x2="30" y2="0"/>
+    <text x="24" y="17" font-size="4">1</text>
+    <text x="14" y="27" font-size="4">2</text>
+    <text x="24" y="27" font-size="4">3</text>
+    <text x="34" y="27" font-size="4">4</text>
+    <text x="24" y="37" font-size="4">5</text>
+    <text x="16" y="50" font-size="6">nonzero</text>
+
+    <line x1="50" y1="0" x2="50" y2="60" stroke-width="0.5"/>
+
+    <g transform="translate(50,0)">
+        <path d="M10,20 40,20 40,30 10,30Z M20,10 30,10 30,40 20,40Z" fill-rule="evenodd" fill="#0000FF80"/>
+        <circle cx="27" cy="23" r="1" stroke-width="0"/>
+        <line x1="27" y1="23" x2="30" y2="0"/>
+        <text x="24" y="17" font-size="4">1</text>
+        <text x="14" y="27" font-size="4">2</text>
+        <text x="24" y="27" font-size="4">3</text>
+        <text x="34" y="27" font-size="4">4</text>
+        <text x="24" y="37" font-size="4">5</text>
+        <text x="16" y="50" font-size="6">evenodd</text>
+    </g>
+
+</svg>
