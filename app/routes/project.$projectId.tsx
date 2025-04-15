@@ -4,6 +4,7 @@ import { parseMarkdown } from "~/utils/markdown";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { resources } from "~/utils/resource";
 import { MarkdownArticle } from "~/components/MarkdownArticle";
+import { ContentFooter } from "~/layout/content_footer";
 
 type ProjectLoaderData = {
     metadata: ProjectMeta | null
@@ -37,6 +38,7 @@ export default function ProjectPage() {
     return (
         <main className={ 'content-body' }>
             { !!content ? <MarkdownArticle html={ content }/> : null }
+            <ContentFooter/>
         </main>
     )
 }
