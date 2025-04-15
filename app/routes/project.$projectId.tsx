@@ -36,7 +36,7 @@ export default function ProjectPage() {
     const { content } = useLoaderData<ProjectLoaderData>()
 
     return (
-        <main className={ 'content-body' }>
+        <main className={ 'article content-body' }>
             { !!content ? <MarkdownArticle html={ content }/> : null }
             <ContentFooter/>
         </main>

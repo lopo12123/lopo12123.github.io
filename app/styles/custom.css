@@ -34,6 +34,35 @@
     }
 }
 
+main.gallery {
+    ul {
+        margin: 0;
+        list-style-type: none;
+    }
+
+    a {
+        color: var(--text-secondary);
+        opacity: 0.7;
+        transition: opacity 0.3s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+main.article {
+    a {
+        color: var(--text-link);
+        border-bottom: solid 1px var(--border-decoration);
+        transition: border-color .3s;
+
+        &:hover {
+            border-color: var(--border-decoration__hover);
+        }
+    }
+}
+
 .code-block {
     border: solid 1px var(--code-block-border);
     border-radius: 0.5rem;
@@ -57,11 +86,11 @@
         button {
             float: right;
             padding: 0 0.25rem;
-            color: var(--link-decoration);
+            color: var(--border-decoration);
             font-size: 0.75rem;
 
             &:hover {
-                color: var(--link-decoration__hover);
+                color: var(--border-decoration__hover);
             }
         }
     }

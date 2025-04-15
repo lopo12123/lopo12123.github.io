@@ -11,17 +11,18 @@ export default function EssayGalleryPage() {
     const manifest = useLoaderData<typeof loader>()
 
     return (
-        <main className={ 'content-body' }>
+        <main className={ 'gallery content-body' }>
             <h1>Essays ...</h1>
-
-            {/*<p>✍️ producing ...</p>*/}
 
             <ul>
                 {
-                    manifest.map(({ id, title }) => {
+                    manifest.map(({ id, title, datetime }) => {
                         return (
                             <li key={ id }>
-                                <a href={ `/essay/${ id }` }>{ title }</a>
+                                <a className={ 'flex items-center' } href={ `/essay/${ id }` }>
+                                    <div className={ 'mr-2 text-[18px]' }>{ title }</div>
+                                    <time className={ 'text-[14px]' } dateTime={ datetime }>{ datetime }</time>
+                                </a>
                             </li>
                         )
                     })

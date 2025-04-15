@@ -36,7 +36,7 @@ export default function EssayPage() {
     const { content } = useLoaderData<EssayLoaderData>()
 
     return (
-        <main className={ 'content-body' }>
+        <main className={ 'article content-body' }>
             { !!content ? <MarkdownArticle html={ content }/> : null }
             <ContentFooter/>
         </main>

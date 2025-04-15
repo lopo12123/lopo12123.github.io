@@ -11,10 +11,10 @@ export default function ProjectGalleryPage() {
     const manifest = useLoaderData<typeof loader>()
 
     return (
-        <main className={ 'content-body' }>
+        <main className={ 'gallery content-body' }>
             <h1>Projects ...</h1>
 
-            {/*<p>🚀 coming soon ...</p>*/}
+            <p>🚀 coming soon ...</p>
 
             <ul>
                 {
