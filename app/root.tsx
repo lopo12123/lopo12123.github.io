@@ -32,6 +32,14 @@ const Header = () => {
         }
     }
 
+    const toggleThemeDelegate = () => {
+        if (!document.startViewTransition) {
+            toggleTheme()
+        } else {
+            document.startViewTransition(() => toggleTheme())
+        }
+    }
+
     useEffect(() => {
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.className = 'dark'
@@ -56,13 +64,8 @@ const Header = () => {
                     </ul>
                 </nav>
 
-                <button
-                    className={
-                        'w-9 h-9 border border-[#e4e4e7] dark:border-[#27272a] rounded-full ' +
-                        ' bg-[#f4f4f5] dark:bg-[#27272b66] ' +
-                        'text-[22px] flex items-center justify-center'
-                    }
-                    onClick={ toggleTheme }>
+                <button className={ 'w-6 h-6 text-[18px] flex items-center justify-center' }
+                        onClick={ toggleThemeDelegate }>
                     <IconSun className={ 'dark:hidden' }/>
                     <IconMoon className={ 'hidden dark:block' }/>
                 </button>
