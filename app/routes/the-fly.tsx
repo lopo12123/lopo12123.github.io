@@ -6,7 +6,7 @@ const sections = [
     'Then am I\nA happy fly,\nIf I live,\nOr if I die.',
 ]
 
-export default function AboutPage() {
+export default function TheFlyPage() {
     return (
         <main className={ 'content-body font-poets text-center whitespace-pre-wrap' }>
             <h1 className={ 'font-poets italic' }>The Fly</h1>
