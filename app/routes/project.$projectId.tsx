@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { ClientLoaderFunctionArgs, useLoaderData } from "@remix-run/react";
 import { ProjectMeta } from "~/types";
 import { parseMarkdown } from "~/utils/markdown";
 import { LoaderFunctionArgs } from "@remix-run/node";

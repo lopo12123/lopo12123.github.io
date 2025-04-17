@@ -1,5 +1,6 @@
 import { resources } from "~/utils/resource";
 import { useLoaderData } from "@remix-run/react";
+import { ProjectMeta } from "~/types";
 
 export const loader = () => resources.get('project')
 
@@ -8,7 +9,7 @@ export const loader = () => resources.get('project')
 // }
 
 export default function ProjectGalleryPage() {
-    const manifest = useLoaderData<typeof loader>()
+    const manifest = useLoaderData<ProjectMeta[]>()
 
     return (
         <main className={ 'gallery content-body' }>

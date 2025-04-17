@@ -23,11 +23,12 @@ export const loader = () => {
 }
 
 // export const clientLoader = async () => {
-//     return fetch('/archive/essay/manifest.json').then(r => r.json()) as unknown as EssayMeta[]
+//     const items = await fetch('/archive/essay/manifest.json').then(r => r.json()) as unknown as EssayMeta[]
+//     return [ ...groupedByYear(items) ]
 // }
 
 export default function EssayGalleryPage() {
-    const manifest = useLoaderData<typeof loader>()
+    const manifest = useLoaderData<GroupedEssayItem[]>() ?? []
 
     return (
         <main className={ 'gallery content-body' }>
