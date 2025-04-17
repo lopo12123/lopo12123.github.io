@@ -10,13 +10,9 @@ declare module "@remix-run/node" {
 }
 
 export default defineConfig(({ command, mode }) => {
-    const isSpa = process.env.NODE_ENV === 'production' && mode === 'spa'
-
     return {
-        base: isSpa ? './' : undefined,
         plugins: [
             remix({
-                ssr: mode != 'spa',
                 future: {
                     v3_fetcherPersist: true,
                     v3_relativeSplatPath: true,
