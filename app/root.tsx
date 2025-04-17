@@ -1,4 +1,4 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { useEffect } from "react";
 import { IconMoon, IconSun } from "~/components/icon";
 import { navItems } from "~/configs/navigation";
@@ -93,6 +93,25 @@ export default function App() {
                 <Outlet/>
 
                 <ScrollRestoration/>
+                <Scripts/>
+            </body>
+        </html>
+    );
+}
+
+export function ErrorBoundary() {
+    const error = useRouteError();
+    console.error(error);
+
+    return (
+        <html lang="zh">
+            <head>
+                <title>Oh no!</title>
+                <Meta/>
+                <Links/>
+            </head>
+            <body>
+                {/* add the UI you want your users to see */ }
                 <Scripts/>
             </body>
         </html>
