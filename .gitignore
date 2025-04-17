@@ -27,3 +27,5 @@ __test__
 *.njsproj
 *.sln
 *.sw?
+
+build
