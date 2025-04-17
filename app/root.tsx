@@ -13,7 +13,6 @@ import "./styles/custom.css";
 
 export const links: LinksFunction = () => {
     return [
-        { rel: 'icon', type: 'image/svg+xml', href: '/lopo.svg' },
         { rel: 'stylesheet', href: hlLight, id: 'hl-style' },
     ]
 }
@@ -82,6 +81,7 @@ export default function App() {
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
                 <title>还得是 lopo !</title>
+                <link rel="icon" type="image/svg+xml" href="/lopo.svg"/>
 
                 <Meta/>
                 <Links/>
