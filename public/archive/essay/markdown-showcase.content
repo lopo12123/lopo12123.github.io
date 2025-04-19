@@ -1,0 +1,123 @@
+# Markdown 示例
+
+主要用于编写 Markdown 渲染组件时测试使用
+
+## 原文
+
+````text
+# heading1
+## heading2
+### heading3
+#### heading4
+##### heading5
+###### heading6
+
+paragraph content line 1  
+paragraph content line 2  
+paragraph content line 3
+
+- unordered list item1
+- unordered list item2
+- unordered list item3
+
+1. ordered list item1
+2. ordered list item2
+3. ordered list item3
+
+_strong 1_
+
+*strong 2*
+
+__emphasis 1__
+
+**emphasis 2**
+
+~delete 1~
+
+~~delete 2~~
+
+`inline code`
+
+```
+code block 1
+```
+
+    code block 2 (indent with at least 4 spaces)
+
+[link](https://example.com)
+
+![image](https://example.com)
+
+horizontal rules
+
+___
+
+_ _ _
+
+---
+
+- - -
+
+***
+
+* * *
+````
+
+## 效果
+
+# heading1
+## heading2
+### heading3
+#### heading4
+##### heading5
+###### heading6
+
+paragraph content line 1  
+paragraph content line 2  
+paragraph content line 3
+
+- unordered list item1
+- unordered list item2
+- unordered list item3
+
+1. ordered list item1
+2. ordered list item2
+3. ordered list item3
+
+_strong 1_
+
+*strong 2*
+
+__emphasis 1__
+
+**emphasis 2**
+
+~delete 1~
+
+~~delete 2~~
+
+`inline code`
+
+```
+code block 1
+```
+
+    code block 2 (indent with at least 4 spaces)
+
+[link](https://example.com)
+
+![image](https://example.com)
+
+horizontal rules
+
+___
+
+_ _ _
+
+---
+
+- - -
+
+***
+
+* * *
