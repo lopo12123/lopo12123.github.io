@@ -25,7 +25,7 @@ const parseMarkdown = (sub: 'essay' | 'project', id: string, content: string) =>
 <figcaption>${text}</figcaption>
 </figure>`
                 },
-                code({ text, lang, escaped }: Tokens.Code): string {
+                code({ text, lang = '', escaped }: Tokens.Code): string {
                     return `<div class="code-block">
 <div class="code-block-header" onclick="__delegate.toggleCodeBlock(this)">
 <span class="language-name">${ lang }</span>
