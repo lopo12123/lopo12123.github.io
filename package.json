@@ -5,9 +5,7 @@
     "type": "module",
     "scripts": {
         "build": "remix vite:build",
-        "build:spa": "remix vite:build --mode=spa",
         "dev": "remix vite:dev",
-        "dev:spa": "remix vite:dev --mode=spa",
         "start": "remix-serve ./build/server/index.js",
         "typecheck": "tsc"
     },
