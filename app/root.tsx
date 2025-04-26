@@ -80,7 +80,7 @@ export default function App() {
                 <meta charSet="utf-8"/>
                 <meta name="viewport"
                       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-                <title>还得是 lopo !</title>
+                <title>L ! O ! P ! O !</title>
                 <link rel="icon" type="image/svg+xml" href="/lopo.svg"/>
 
                 <Meta/>
@@ -88,6 +88,7 @@ export default function App() {
             </head>
             <body>
                 <dialog id={ 'toast-container' }/>
+                <dialog id={ 'preview-container' }/>
 
                 <Header/>
                 <Outlet/>

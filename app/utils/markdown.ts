@@ -21,7 +21,7 @@ const parseMarkdown = (sub: 'essay' | 'project', id: string, content: string) =>
                 },
                 image({ href, text }: Tokens.Image): string {
                     return `<figure>
-<img src="/media/${ sub }/${ id }/${ href }" alt="${ text ?? '' }"/>
+<img onclick="__delegate.preview(this)" src="/media/${ sub }/${ id }/${ href }" alt="${ text ?? '' }"/>
 <figcaption>${text}</figcaption>
 </figure>`
                 },

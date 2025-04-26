@@ -200,3 +200,11 @@ dialog#toast-container {
     font-size: 0.875rem;
     pointer-events: none;
 }
+
+dialog#preview-container {
+    outline: none;
+
+    &::backdrop {
+        background-color: var(--border-decoration);
+    }
+}

@@ -11,6 +11,8 @@ import { hydrateRoot } from "react-dom/client";
 const toastContainer = document.getElementById('toast-container')! as HTMLDialogElement
 let toastAnimation: Animation | null = null
 
+const previewContainer = document.getElementById('preview-container')! as HTMLDialogElement
+
 window.__delegate = {
     toggleCodeBlock: (element) => {
         element.parentElement!.toggleAttribute('data-collapse')
@@ -37,6 +39,20 @@ window.__delegate = {
         toastAnimation.onfinish = () => {
             toastContainer.innerText = ''
             toastContainer.close()
+        }
+    },
+    preview(element) {
+        const inPreview = element.hasAttribute('preview')
+        element.toggleAttribute('preview')
+
+        const phantomElement = element.cloneNode()
+
+        if (inPreview) {
+            previewContainer.innerHTML = ''
+            previewContainer.close()
+        } else {
+            previewContainer.appendChild(phantomElement)
+            previewContainer.showModal()
         }
     }
 }
