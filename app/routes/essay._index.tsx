@@ -1,6 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
-import { resources } from "~/utils/resource";
 import { EssayMeta } from "~/types";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
 type GroupedEssayItem = { type: 'year', data: string } | { type: 'essay', data: EssayMeta }
 
@@ -17,15 +17,12 @@ function* groupedByYear(essay: EssayMeta[]): Generator<GroupedEssayItem> {
     }
 }
 
-export const loader = () => {
-    const items = resources.get('essay')
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+    const url = new URL('/archive/essay/manifest.json', request.url)
+    const items = await fetch(url).then(r => r.json()) as EssayMeta[]
+
     return [ ...groupedByYear(items) ]
 }
-
-// export const clientLoader = async () => {
-//     const items = await fetch('/archive/essay/manifest.json').then(r => r.json()) as unknown as EssayMeta[]
-//     return [ ...groupedByYear(items) ]
-// }
 
 export default function EssayGalleryPage() {
     const manifest = useLoaderData<GroupedEssayItem[]>() ?? []

@@ -1,12 +1,13 @@
-import { resources } from "~/utils/resource";
 import { useLoaderData } from "@remix-run/react";
 import { ProjectMeta } from "~/types";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
-export const loader = () => resources.get('project')
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+    const url = new URL('/archive/project/manifest.json', request.url)
+    const items = await fetch(url).then(r => r.json()) as ProjectMeta[]
 
-// export const clientLoader = async () => {
-//     return fetch('/archive/project/manifest.json').then(r => r.json()) as unknown as ProjectMeta[]
-// }
+    return items satisfies  ProjectMeta[]
+}
 
 export default function ProjectGalleryPage() {
     const manifest = useLoaderData<ProjectMeta[]>()
