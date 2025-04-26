@@ -78,6 +78,10 @@ main.article {
             border-color: var(--border-decoration__hover);
         }
     }
+
+    img {
+        width: 600px;
+    }
 }
 
 .code-block {
