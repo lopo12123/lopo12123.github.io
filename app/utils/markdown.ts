@@ -19,10 +19,10 @@ const parseMarkdown = (sub: 'essay' | 'project', id: string, content: string) =>
                     const titleAttr = title ? ` title="${ title }"` : ''
                     return `<a href="${ href }"${ titleAttr } target="_blank">${ text }</a>`
                 },
-                image({ href, text }: Tokens.Image): string {
+                image({ href, text, title }: Tokens.Image): string {
                     const src = /^https?:\/\//.test(href) ? href : `/media/${ sub }/${ id }/${ href }`
                     return `<figure>
-<img onclick="__delegate.preview(this)" src="${ src }" alt="${ text ?? '' }"/>
+<img onclick="__delegate.preview(this)" src="${ src }" alt="${ text ?? '' }" ${ title ? `title="${ title }"` : '' }/>
 <figcaption>${ text }</figcaption>
 </figure>`
                 },
