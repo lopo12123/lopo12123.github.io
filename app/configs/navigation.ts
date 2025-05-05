@@ -8,7 +8,7 @@ const navItems: NavItem[] = [
     // { title: 'Project', path: '/project' },
     { title: 'Photo', path: '/photo' },
     // { title: 'Annual', path: '/annual' },
-    { title: 'The Fly', path: '/the-fly' },
+    // { title: 'The Fly', path: '/the-fly' },
     // { title: 'About', path: '/about' },
 ]
 

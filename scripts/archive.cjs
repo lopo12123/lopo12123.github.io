@@ -45,4 +45,4 @@ const MEDIA_DIR = join(ROOT_DIR, 'public', 'media')
 const ARCHIVE_DIR = join(ROOT_DIR, 'public', 'archive')
 
 archive('essay')
-archive('project')
+// archive('project')
