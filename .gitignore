@@ -29,3 +29,6 @@ __test__
 *.sw?
 
 build
+
+.tmp/*
+!.tmp/.gitkeep
