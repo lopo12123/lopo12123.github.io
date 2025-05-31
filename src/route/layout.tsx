@@ -1,23 +1,13 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "@remix-run/react";
 import { useEffect } from "react";
-import { IconMoon, IconSun } from "~/components/icon";
-import { navItems } from "~/configs/navigation";
-import type { LinksFunction } from "@remix-run/node";
+import { IconMoon, IconSun } from "../components/icon.tsx";
+import { Link, Outlet } from "react-router";
+import { navItems } from "../config/nav_item.ts";
 
 import hlLight from "highlight.js/styles/github.css?url"
 import hlDark from "highlight.js/styles/github-dark.css?url"
+import { createPortal } from "react-dom";
 
-import "./styles/font.css";
-import "./styles/global.css";
-import "./styles/custom.css";
-
-export const links: LinksFunction = () => {
-    return [
-        { rel: 'stylesheet', href: hlLight, id: 'hl-style' },
-    ]
-}
-
-const Header = () => {
+const PageHeader = () => {
     const toggleTheme = () => {
         const html = document.documentElement
         if (html.className == 'light') {
@@ -48,16 +38,23 @@ const Header = () => {
 
     return (
         <header className={ 'border-b border-[#e4e4e7] dark:border-[#27272a]' }>
+            {
+                createPortal(
+                    <link id={ 'hl-style' } rel={ 'stylesheet' } href={ hlLight }/>,
+                    document.head
+                )
+            }
+
             <div className={ 'content-body flex items-center justify-between' }>
-                <a href="/">
+                <Link to={ '/' }>
                     <img className={ 'logo' } src="/lopo_animate.svg" width={ 75 } height={ 36 } alt="logo"/>
-                </a>
+                </Link>
 
                 <nav>
                     <ul className={ 'font-incognito flex items-center space-x-8' }>
                         {
                             navItems.map(({ title, path }) => {
-                                return <li key={ path }><a href={ path }>{ title }</a></li>
+                                return <li key={ path }><Link to={ path }>{ title }</Link></li>
                             })
                         }
                     </ul>
@@ -73,48 +70,19 @@ const Header = () => {
     )
 }
 
-export default function App() {
+const RootLayout = () => {
     return (
-        <html lang="zh" className="light">
-            <head>
-                <meta charSet="utf-8"/>
-                <meta name="viewport"
-                      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-                <title>L ! O ! P ! O !</title>
-                <link rel="icon" type="image/svg+xml" href="/lopo.svg"/>
+        <>
+            <dialog id={ 'toast-container' }/>
+            <dialog id={ 'preview-container' }/>
 
-                <Meta/>
-                <Links/>
-            </head>
-            <body>
-                <dialog id={ 'toast-container' }/>
-                <dialog id={ 'preview-container' }/>
+            <PageHeader/>
 
-                <Header/>
-                <Outlet/>
-
-                <ScrollRestoration/>
-                <Scripts/>
-            </body>
-        </html>
-    );
+            <Outlet/>
+        </>
+    )
 }
 
-export function ErrorBoundary() {
-    const error = useRouteError();
-    console.error(error);
-
-    return (
-        <html lang="zh">
-            <head>
-                <title>Oh no!</title>
-                <Meta/>
-                <Links/>
-            </head>
-            <body>
-                {/* add the UI you want your users to see */ }
-                <Scripts/>
-            </body>
-        </html>
-    );
+export {
+    RootLayout,
 }

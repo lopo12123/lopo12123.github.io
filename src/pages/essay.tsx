@@ -1,6 +1,5 @@
-import { useLoaderData } from "@remix-run/react";
-import { EssayMeta } from "~/types";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { Link, LoaderFunctionArgs, useLoaderData } from "react-router";
+import { EssayMeta } from "@/types.ts";
 
 type GroupedEssayItem = { type: 'year', data: string } | { type: 'essay', data: EssayMeta }
 
@@ -17,15 +16,8 @@ function* groupedByYear(essay: EssayMeta[]): Generator<GroupedEssayItem> {
     }
 }
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-    const url = new URL('/archive/essay/manifest.json', request.url)
-    const items = await fetch(url).then(r => r.json()) as EssayMeta[]
-
-    return [ ...groupedByYear(items) ]
-}
-
-export default function EssayGalleryPage() {
-    const manifest = useLoaderData<GroupedEssayItem[]>() ?? []
+const EssayGalleryPage = () => {
+    const manifest = useLoaderData<GroupedEssayItem[]>()
 
     return (
         <main className={ 'gallery content-body' }>
@@ -45,10 +37,10 @@ export default function EssayGalleryPage() {
                         const { id, title, datetime } = data
                         return (
                             <li key={ id }>
-                                <a className={ 'flex items-center' } href={ `/essay/${ id }` }>
+                                <Link className={ 'flex items-center' } to={ `/essay/${ id }` }>
                                     <div className={ 'mr-2 text-[18px]' }>{ title }</div>
                                     <time className={ 'text-[14px]' } dateTime={ datetime }>{ datetime }</time>
-                                </a>
+                                </Link>
                             </li>
                         )
                     })
@@ -56,4 +48,15 @@ export default function EssayGalleryPage() {
             </ul>
         </main>
     )
+}
+
+EssayGalleryPage.loader = async ({ request }: LoaderFunctionArgs) => {
+    const url = new URL('/archive/essay/manifest.json', request.url)
+    const items = await fetch(url).then(r => r.json()) as EssayMeta[]
+
+    return [ ...groupedByYear(items) ]
+}
+
+export {
+    EssayGalleryPage,
 }

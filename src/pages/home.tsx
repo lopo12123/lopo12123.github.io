@@ -1,4 +1,5 @@
-import { navItems } from "~/configs/navigation";
+import { navItems } from "@/config/nav_item";
+import { Link } from "react-router";
 
 export default function HomePage() {
     return (
@@ -10,7 +11,7 @@ export default function HomePage() {
                     navItems.map(({ title, path }) => {
                         return (
                             <li key={ path }>
-                                <a href={ path }>{ title }</a>
+                                <Link to={ path }>{ title }</Link>
                             </li>
                         )
                     })

@@ -13,5 +13,5 @@ const navItems: NavItem[] = [
 ]
 
 export {
-    navItems
+    navItems,
 }
