@@ -30,5 +30,4 @@ __test__
 
 build
 
-.tmp/*
-!.tmp/.gitkeep
+dist
