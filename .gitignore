@@ -10,3 +10,5 @@
 .pnp.*
 .yarn/*
 !.yarn/releases
+
+__test__
