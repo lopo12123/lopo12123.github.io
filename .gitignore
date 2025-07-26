@@ -4,3 +4,9 @@
 # React Router
 /.react-router/
 /build/
+
+.idea
+
+.pnp.*
+.yarn/*
+!.yarn/releases
