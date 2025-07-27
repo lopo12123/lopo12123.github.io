@@ -1,7 +1,14 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { type RouteConfig, index, route, layout } from "@react-router/dev/routes";
 
 export default [
-    index("routes/home.tsx"),
+    layout("layouts/app.tsx", [
+        index("routes/home.tsx"),
+        route("posts", "routes/posts/home.tsx"),
+        route("posts/:postId", "routes/posts/detail.tsx"),
+        route("tags", "routes/tags/home.tsx"),
+        route("tags/:tagName", "routes/tags/detail.tsx"),
+    ]),
+
     route("share", "routes/share.tsx"),
     route("*", "routes/not_found.tsx"),
 ] satisfies RouteConfig;

@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 
 export default function HomePage() {
     return (
-        <div>
+        <div className={'h-[1000px]'}>
             Home page
         </div>
     )
