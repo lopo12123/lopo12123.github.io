@@ -10,5 +10,5 @@ export default [
     ]),
 
     route("share", "routes/share.tsx"),
-    route("*", "routes/not_found.tsx"),
+    route("*", "routes/404.tsx"),
 ] satisfies RouteConfig;
