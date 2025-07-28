@@ -13,7 +13,10 @@ const TOOLS = [
 export default function ToolsHomePage() {
     return (
         <>
-            <h1 className={ 'title' }>Tools 🔧</h1>
+            <h1 className={ 'title' }>
+                <span>Tools</span>
+                <span className={ 'twist-wrench ml-2' }>🔧</span>
+            </h1>
             <ul>
                 {
                     TOOLS.map(({ name, description, url }, index) => {

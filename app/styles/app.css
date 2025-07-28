@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+    /*background-image: url("/tile.png");*/
+    /*background-size: 200px 200px;*/
+}
+
+html {
+    background-color: #f9f9fb;
+    color: #27272a;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.5;
+}
+
+img {
+    -webkit-user-drag: none;
+}
+
+input, textarea {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+h1.title {
+    @apply mb-6 text-3xl font-medium;
+}

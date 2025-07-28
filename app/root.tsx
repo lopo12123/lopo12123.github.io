@@ -9,7 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 
-import "./app.css";
+import './styles/animation.css';
+import "./styles/app.css";
 
 export default function App() {
     return (
