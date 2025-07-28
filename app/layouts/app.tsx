@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router";
-import { IconGithub } from "~/components/icons";
+import { IconEmail, IconGithub } from "~/components/icons";
 
 export default function RootLayout() {
     return (
@@ -10,23 +10,40 @@ export default function RootLayout() {
                         <img className={ 'h-5' } height={ 20 } src="/lopo_animate.svg" alt=""/>
                     </Link>
 
-                    <div className={ 'flex items-center gap-6' }>
+                    <nav className={ 'flex items-center gap-4' }>
                         <Link className={ 'text-sm/6 text-gray-950' } to={ '/posts' }>
                             Posts
                         </Link>
                         <Link className={ 'text-sm/6 text-gray-950' } to={ '/tags' }>
                             Tags
                         </Link>
-                        <Link to={ 'https://github.com/lopo12123' } target={ '_blank' }>
-                            <IconGithub className={ 'size-5' }/>
+                        <Link className={ 'text-sm/6 text-gray-950' } to={ '/tools' }>
+                            Tools
                         </Link>
-                    </div>
+                    </nav>
                 </div>
             </div>
 
-            <div className={ 'pt-14' }>
+            <main className={ 'max-w-[768px] mx-auto pt-24 pb-10 px-4' }>
                 <Outlet/>
-            </div>
+            </main>
+
+            <hr className={ 'max-w-[768px] mx-auto border-[#cdcdcd]' }/>
+
+            <footer className={ 'max-w-[768px] mx-auto px-4 py-6' }>
+                <ul className={ 'flex gap-2' }>
+                    <li>
+                        <Link to={ 'https://github.com/lopo12123' } target={ '_blank' }>
+                            <IconGithub className={ 'size-6 text-[#696969]' }/>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={ 'mailto:lopo@zju.edu.cn' }>
+                            <IconEmail className={ 'size-6 text-[#696969]' }/>
+                        </Link>
+                    </li>
+                </ul>
+            </footer>
         </>
     )
 }
