@@ -24,6 +24,10 @@ button {
     cursor: pointer;
 }
 
+h1.title {
+    @apply mb-6 text-3xl font-medium;
+}
+
 @keyframes wave {
     0% {
         transform: rotate(0);
