@@ -1,3 +1,5 @@
+import { IconChevronRightDouble } from "~/components/icons";
+
 export default function HomePage() {
     return (
         <>
@@ -11,8 +13,13 @@ export default function HomePage() {
                 </p>
             </section>
 
-            <section>
-                {/*  TODO: recent activity  */ }
+            <section className={ 'mt-6' }>
+                <a href="/posts">
+                    <div className={ 'underline underline-offset-2 flex items-center gap-1' }>
+                        <IconChevronRightDouble/>
+                        <span>View Posts</span>
+                    </div>
+                </a>
             </section>
         </>
     )
