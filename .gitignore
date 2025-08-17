@@ -12,3 +12,6 @@
 !.yarn/releases
 
 __test__
+
+public/.posts/*
+!public/.posts/.gitkeep
