@@ -1404,6 +1404,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"confbox@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "confbox@npm:0.2.2"
+  checksum: 335bc40d58f2785d2f8c5d45f0224e160dd634d42984ecf75b06addb6fe5f9584502ac9845d6f08f8ec066c8a796fd8b3c9ae9e8c7735047aa141d0e83469ab4
+  languageName: node
+  linkType: hard
+
 "content-disposition@npm:0.5.4":
   version: 0.5.4
   resolution: "content-disposition@npm:0.5.4"
@@ -2320,6 +2327,7 @@ __metadata:
     "@types/node": ^20
     "@types/react": ^19.1.2
     "@types/react-dom": ^19.1.2
+    confbox: ^0.2.2
     isbot: ^5.1.27
     marked: ^16.1.1
     react: ^19.1.0
