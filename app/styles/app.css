@@ -56,10 +56,6 @@ ol {
     list-style-type: decimal;
 }
 
-li {
-    margin-bottom: 1rem;
-}
-
 .stroke-watermark {
     color: transparent;
     font-family: Merriweather;

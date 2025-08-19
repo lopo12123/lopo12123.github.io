@@ -46,7 +46,7 @@ export default function PostHomePage({ loaderData }: Route.ComponentProps) {
                                 <ol>
                                     {
                                         posts.map(({ id, title, datetime }) => (
-                                            <li key={ id }>
+                                            <li key={ id } className={ 'mb-4' }>
                                                 <Link className={ 'flex items-center' } to={ '' }>
                                                     <div className={ 'mr-2 text-[18px]' }>{ title }</div>
                                                     <time className={ 'text-sm' } dateTime={ datetime }>

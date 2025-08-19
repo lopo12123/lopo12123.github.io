@@ -37,6 +37,12 @@
     display: inline-block;
 }
 
+.rotate-tag {
+    animation: wave 2.5s ease-in-out infinite;
+    transform-origin: 0 30%;
+    display: inline-block;
+}
+
 .twist-wrench {
     animation: wave 2.5s ease-in-out infinite;
     transform-origin: 30% 30%;
