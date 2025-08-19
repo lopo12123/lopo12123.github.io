@@ -1,0 +1,5 @@
+@font-face {
+    font-family: 'Merriweather';
+    src: url('/font/merriweather_700.ttf') format('truetype');
+    font-display: swap;
+}

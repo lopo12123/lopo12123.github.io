@@ -31,6 +31,12 @@
     display: inline-block;
 }
 
+.shake-book {
+    animation: wave 2.5s ease-in-out infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+}
+
 .twist-wrench {
     animation: wave 2.5s ease-in-out infinite;
     transform-origin: 30% 30%;
