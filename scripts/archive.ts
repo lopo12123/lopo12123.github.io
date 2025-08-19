@@ -13,7 +13,7 @@ type PostMeta = {
     tags: string[]
 }
 
-type Manifest = {
+type PostManifest = {
     // archive time of this version, iso8602 string
     archive_at: string
     // list of post
@@ -22,7 +22,7 @@ type Manifest = {
     tags: Record<string, number>
 }
 
-const process_post = (id: string): PostMeta | null => {
+const process_post = (id: string): (PostMeta & { content: string }) | null => {
     const content_path = join(SOURCE_ROOT, id, '.md')
     const content = readFileSync(content_path, 'utf-8')
 
@@ -32,7 +32,6 @@ const process_post = (id: string): PostMeta | null => {
 
     if (!frontmatter) return null
 
-
     const raw = JSON.parse(frontmatter)
 
     return {
@@ -40,6 +39,7 @@ const process_post = (id: string): PostMeta | null => {
         title: raw['title'] ?? 'Unknown Title',
         datetime: new Date(raw['datetime']).toISOString(),
         tags: raw['tags'] ?? [],
+        content: content.slice(matches[0].length),
     }
 }
 
@@ -50,11 +50,13 @@ const MANIFEST_FILE = join(DEST_ROOT, 'manifest.json')
 
 const posts = readdirSync(SOURCE_ROOT)
 
-const manifest: Manifest = {
+const manifest: PostManifest = {
     archive_at: new Date().toISOString(),
     posts: [],
     tags: {},
 }
+
+const pure: Record<string, string> = {}
 
 for (const post of posts) {
     const meta = process_post(post)
@@ -67,6 +69,7 @@ for (const post of posts) {
     meta.tags.forEach(tag => {
         manifest.tags[tag] = (manifest.tags[tag] ?? 0) + 1
     })
+    pure[meta.id] = meta.content
 }
 
 manifest.posts.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime))
@@ -74,5 +77,16 @@ manifest.posts.sort((a, b) => Date.parse(b.datetime) - Date.parse(a.datetime))
 writeFileSync(MANIFEST_FILE, JSON.stringify(manifest), 'utf-8')
 console.log('>> Manifest generated')
 
-cpSync(SOURCE_ROOT, DEST_ROOT, { recursive: true })
-console.log('>> Source files archived')
+cpSync(SOURCE_ROOT, DEST_ROOT, {
+    recursive: true,
+    filter(source: string, destination: string): boolean {
+        return !source.endsWith('.md')
+    }
+})
+console.log('>> Assets files archived')
+
+
+for (const postId in pure) {
+    writeFileSync(join(DEST_ROOT, postId, '.md'), pure[postId], 'utf-8')
+}
+console.log('>> Pure markdown written')
