@@ -25,25 +25,31 @@
     }
 }
 
-.wave-hands {
+.animation-hand {
     animation: wave 2.5s ease-in-out infinite;
     transform-origin: 70% 70%;
     display: inline-block;
 }
 
-.shake-book {
+.animation-book {
     animation: wave 2.5s ease-in-out infinite;
     transform-origin: 50% 50%;
     display: inline-block;
 }
 
-.rotate-tag {
+.animation-tag {
     animation: wave 2.5s ease-in-out infinite;
     transform-origin: 0 30%;
     display: inline-block;
 }
 
-.twist-wrench {
+.animation-magnifier {
+    animation: wave 5s ease-in-out infinite;
+    transform-origin: 70% 70%;
+    display: inline-block;
+}
+
+.animation-wrench {
     animation: wave 2.5s ease-in-out infinite;
     transform-origin: 30% 30%;
     display: inline-block;

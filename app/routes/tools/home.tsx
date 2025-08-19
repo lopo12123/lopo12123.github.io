@@ -15,7 +15,7 @@ export default function ToolsHomePage() {
         <>
             <h1 className={ 'title' }>
                 <span>Tools</span>
-                <span className={ 'twist-wrench ml-2' }>🔧</span>
+                <span className={ 'animation-wrench ml-2' }>🔧</span>
             </h1>
             <ul>
                 {

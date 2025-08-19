@@ -31,7 +31,7 @@ export default function PostHomePage({ loaderData }: Route.ComponentProps) {
         <>
             <h1 className={ 'title' }>
                 <span>Posts</span>
-                <span className={ 'shake-book ml-2' }>📖</span>
+                <span className={ 'animation-book ml-2' }>📖</span>
             </h1>
 
             <ul>
@@ -47,7 +47,7 @@ export default function PostHomePage({ loaderData }: Route.ComponentProps) {
                                     {
                                         posts.map(({ id, title, datetime }) => (
                                             <li key={ id } className={ 'mb-4' }>
-                                                <Link className={ 'flex items-center' } to={ '' }>
+                                                <Link className={ 'flex items-center' } to={ `/posts/${ id }` }>
                                                     <div className={ 'mr-2 text-[18px]' }>{ title }</div>
                                                     <time className={ 'text-sm' } dateTime={ datetime }>
                                                         {

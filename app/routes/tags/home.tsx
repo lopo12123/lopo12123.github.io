@@ -9,7 +9,7 @@ export default function TagHomePage({ loaderData }: Route.ComponentProps) {
         <>
             <h1 className={ 'title' }>
                 <span>Tags</span>
-                <span className={ 'rotate-tag ml-2' }>🏷️</span>
+                <span className={ 'animation-tag ml-2' }>🏷️</span>
             </h1>
 
             <ul className={ 'flex flex-wrap gap-2' }>
