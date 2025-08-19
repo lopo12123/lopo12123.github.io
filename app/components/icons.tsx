@@ -9,7 +9,7 @@ export const IconChevronRight = ({ className, onClick }: IconProps) => {
              className={ className } onClick={ onClick }
              width={ '1em' } height={ '1em' }
              fill={ "none" } stroke={ 'currentColor' }>
-            <path d="M9 18L15 12L9 6" stroke="black" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 18L15 12L9 6" stroke="black" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     )
 }
@@ -20,8 +20,8 @@ export const IconChevronRightDouble = ({ className, onClick }: IconProps) => {
              className={ className } onClick={ onClick }
              width={ '1em' } height={ '1em' }
              fill={ "none" } stroke={ 'currentColor' }>
-            <path d="M6 17L11 12L6 7M13 17L18 12L13 7" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round"/>
+            <path d="M6 17L11 12L6 7M13 17L18 12L13 7" strokeWidth="1.8" strokeLinecap="round"
+                  strokeLinejoin="round"/>
         </svg>
     )
 }
