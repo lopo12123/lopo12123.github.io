@@ -10,6 +10,5 @@ export default [
         route("tools", "routes/tools/home.tsx"),
         route("tools/qr", "routes/tools/qr.tsx"),
     ]),
-    // route("draft", "routes/draft.tsx"),
     route("*", "routes/404.tsx"),
 ] satisfies RouteConfig;
