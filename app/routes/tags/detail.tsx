@@ -3,8 +3,10 @@ import type { PostMeta } from "~/types";
 import { Link } from "react-router";
 
 export const loader = async ({ params }: Route.LoaderArgs): Promise<PostMeta[]> => {
+    const tagName = params['tagName']!;
+
     const { posts } = await import("@public/.posts/manifest.json").then(r => r.default)
-    return posts.filter(post => post.tags.includes(params!['tagName']!))
+    return posts.filter(post => post.tags.includes(tagName))
 }
 
 export default function TagDetailPage({ params, loaderData }: Route.ComponentProps) {
