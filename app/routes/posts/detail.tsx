@@ -58,7 +58,7 @@ export const loader = async ({ params }: Route.LoaderArgs) => {
 export default function PostDetailPage({ loaderData }: Route.ComponentProps) {
     return (
         <>
-            <article dangerouslySetInnerHTML={ { __html: loaderData } }/>
+            <article className={ 'post' } dangerouslySetInnerHTML={ { __html: loaderData } }/>
         </>
     )
 }
