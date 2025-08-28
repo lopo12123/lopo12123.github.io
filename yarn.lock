@@ -1114,6 +1114,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/marked@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@types/marked@npm:6.0.0"
+  dependencies:
+    marked: "*"
+  checksum: ad4cd5a405604b27efb4d3979b05869f3069529d1f5b2a38039de7c96e57270f03e7580efe327ca1c136ec22a355d0a7d8578346bd2af8397fdd6bb76ca1b084
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^20":
   version: 20.19.9
   resolution: "@types/node@npm:20.19.9"
@@ -1994,6 +2003,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlight.js@npm:^11.11.1":
+  version: 11.11.1
+  resolution: "highlight.js@npm:11.11.1"
+  checksum: 841ddd329a92be123a61ef4051698f824c3575deef588fbb810bd638f1575ddc96b7bdd925b97c05a29276bb119dfcb8e5bcb0acb31c86249371bf046e131d72
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^6.0.0, hosted-git-info@npm:^6.1.1":
   version: 6.1.3
   resolution: "hosted-git-info@npm:6.1.3"
@@ -2324,12 +2340,15 @@ __metadata:
     "@react-router/node": ^7.7.1
     "@react-router/serve": ^7.7.1
     "@tailwindcss/vite": ^4.1.4
+    "@types/marked": ^6.0.0
     "@types/node": ^20
     "@types/react": ^19.1.2
     "@types/react-dom": ^19.1.2
     confbox: ^0.2.2
+    highlight.js: ^11.11.1
     isbot: ^5.1.27
     marked: ^16.1.1
+    marked-highlight: ^2.2.2
     react: ^19.1.0
     react-dom: ^19.1.0
     react-router: ^7.7.1
@@ -2388,6 +2407,24 @@ __metadata:
     promise-retry: ^2.0.1
     ssri: ^12.0.0
   checksum: 6fb2fee6da3d98f1953b03d315826b5c5a4ea1f908481afc113782d8027e19f080c85ae998454de4e5f27a681d3ec58d57278f0868d4e0b736f51d396b661691
+  languageName: node
+  linkType: hard
+
+"marked-highlight@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "marked-highlight@npm:2.2.2"
+  peerDependencies:
+    marked: ">=4 <17"
+  checksum: 18548e5220706c1a9effdee3a80421d6b3adad7d8140236accbd01aa648c4c269d788edb2ea1f3be1bfc6cb81d87737b2dc5084cba9589440132bb3bb7573d06
+  languageName: node
+  linkType: hard
+
+"marked@npm:*":
+  version: 16.2.0
+  resolution: "marked@npm:16.2.0"
+  bin:
+    marked: bin/marked.js
+  checksum: a7c6c7d8c21970e06d6157c858a971ded9a36dec5aba1849fc0824fe374f4ebb3cd2e3b8dfce85e1e5f8a26adc13aa785635fc024324bd5af1625d49f4fee6fe
   languageName: node
   linkType: hard
 

@@ -1,9 +1,66 @@
 import { Link, Outlet } from "react-router";
+import { useEffect, useRef } from "react";
 import { IconEmail, IconGithub } from "~/components/icons";
 
+type CustomEventDetail = {
+    action: 'preview'
+    el: HTMLImageElement
+} | {
+    action: 'toggle-code-block',
+    el: HTMLDivElement,
+} | {
+    action: 'copy-code',
+    el: HTMLButtonElement,
+}
+
 export default function RootLayout() {
+    const toastRef = useRef<HTMLDialogElement>(null);
+    const toastAnimation = useRef<Animation | null>(null);
+    const toast = (message: string) => {
+        const toastEl = toastRef.current!
+        toastAnimation.current?.cancel()
+        toastEl.innerText = message
+        toastEl.show()
+        toastAnimation.current = toastEl.animate([
+            { offset: 0, opacity: 1, transform: 'translateY(0)' },
+            { offset: 0.66, opacity: 1, transform: 'translateY(0)' },
+            { offset: 1, opacity: 0, transform: 'translateY(-100%)' },
+        ], { duration: 3000, fill: 'forwards' })
+        toastAnimation.current!.onfinish = () => {
+            toastEl.innerText = ''
+            toastEl.close()
+        }
+    }
+
+    useEffect(() => {
+        const fn = async (ev: Event) => {
+            const { action, el } = (ev as CustomEvent).detail as CustomEventDetail
+
+            switch (action) {
+                case 'preview':
+                    window.open(el.src, '_blank')
+                    break
+                case 'toggle-code-block':
+                    el.parentElement?.toggleAttribute('collapsed')
+                    break
+                case 'copy-code':
+                    const code = (el.parentElement!.nextElementSibling as HTMLPreElement).innerText
+                    await navigator.clipboard.writeText(code)
+                    toast('Copied')
+                    break
+                default:
+                    break
+            }
+        }
+
+        window.addEventListener('@lopo', fn)
+        return () => window.removeEventListener('@lopo', fn)
+    }, [])
+
     return (
         <>
+            <dialog id={ 'toast-dialog' } ref={ toastRef }/>
+
             <div className={ 'fixed top-0 inset-x-0 z-10 border-b border-[#e0e0e0] bg-white' }>
                 <div className={ 'flex h-14 items-center justify-between gap-8 px-4 sm:px-6' }>
                     <Link to={ '/' }>

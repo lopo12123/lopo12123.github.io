@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 
+import "highlight.js/styles/github.css";
 import "./styles/animation.css";
 import "./styles/font.css";
 import "./styles/app.css";

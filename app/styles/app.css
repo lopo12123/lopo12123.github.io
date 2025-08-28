@@ -69,3 +69,34 @@ h1.title {
     display: block;
     overflow: visible;
 }
+
+dialog {
+    margin: auto;
+    outline: none;
+}
+
+#toast-dialog {
+    position: fixed;
+    z-index: 999;
+    top: 3rem;
+    padding: 0.25rem 1rem;
+    border: solid 1px #b7eb8f;
+    border-radius: 0.25rem;
+    background-color: #f6ffed;
+    color: #52c41a;
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+.code-block {
+    &[collapsed] {
+        .code-block-header::before {
+            content: "";
+            transform: rotate(-90deg);
+        }
+
+        .code-block-body {
+            display: none;
+        }
+    }
+}
